@@ -15,7 +15,8 @@
   "scripts": {
     "start": "node node_modules/grunt-cli/bin/grunt",
     "test": "node node_modules/grunt-cli/bin/grunt test",
-    "postinstall": "node node_modules/grunt-cli/bin/grunt install"
+    "postinstall": "node node_modules/grunt-cli/bin/grunt install",
+    "karma:test": "karma start test/karma.conf.js"
   },
   "dependencies": {
     "async": "~0.2.9",
