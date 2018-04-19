@@ -1,0 +1,22 @@
+{
+  "name": "thorin-cfh",
+  "scripts": {
+  },
+  "env": {
+    "MONGOHQ_URL": "mongodb://thorin:thorin@ds147659.mlab.com:47659/thorin-cfh",
+    "KEY": "toyboy"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
