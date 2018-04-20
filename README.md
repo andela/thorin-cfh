@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/andela/thorin-cfh.svg?branch=staging)](https://travis-ci.org/andela/thorin-cfh)
-[![Coverage Status](https://coveralls.io/repos/github/andela/thorin-cfh/badge.svg?branch=staging)](https://coveralls.io/github/andela/thorin-cfh?branch=staging)
+[![Coverage Status](https://coveralls.io/repos/github/andela/thorin-cfh/badge.svg?branch=chore%2F156882154%2Fcoveralls-set-up)](https://coveralls.io/github/andela/thorin-cfh?branch=chore%2F156882154%2Fcoveralls-set-up)
 Cards for Humanity - [http://cfh.io](http://cfh.io)
 ===========
 Cards for Humanity is a fast-paced online version of the popular card game, Cards Against Humanity, that gives you the opportunity to donate to children in need - all while remaining as despicable and awkward as you naturally are.
