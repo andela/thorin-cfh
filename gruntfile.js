@@ -65,12 +65,12 @@ module.exports = function(grunt) {
         logConcurrentOutput: true
       }
     },
-    // mochaTest: {
-    //   options: {
-    //     reporter: "spec"
-    //   },
-    //   src: ["test/**/*.js"]
-    // },
+    mochaTest: {
+      options: {
+        reporter: "spec"
+      },
+      src: ["test/**/*.js"]
+    },
     sass: {
       dist: {
         options: {
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
   //Load NPM tasks
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-jshint");
-  //   grunt.loadNpmTasks("grunt-mocha-test");
+  grunt.loadNpmTasks("grunt-mocha-test");
   grunt.loadNpmTasks("grunt-nodemon");
   grunt.loadNpmTasks("grunt-concurrent");
   grunt.loadNpmTasks("grunt-contrib-sass");
@@ -111,7 +111,7 @@ module.exports = function(grunt) {
   grunt.registerTask("default", ["jshint", "concurrent", "sass"]);
 
   //Test task.
-  grunt.registerTask("test", ["karma"]);
+  grunt.registerTask("test", ["mochaTest"]);
 
   //Bower task.
   grunt.registerTask("install", ["bower"]);
