@@ -7,3 +7,4 @@ c4h_keys.txt
 /.env
 .nyc_output
 coverage
+bower_components
