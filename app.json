@@ -1,10 +1,10 @@
 {
-  "name": "thorin-cfh",
+  "name": "cfh",
   "scripts": {
-  },
-  "env": {
-    "MONGOHQ_URL": "mongodb://thorin:thorin@ds147659.mlab.com:47659/thorin-cfh",
-    "KEY": "toyboy"
+  },"env":{
+    "MONGOHQ_URL":{
+      "required": true
+    }
   },
   "formation": {
     "web": {
@@ -12,7 +12,6 @@
     }
   },
   "addons": [
-
   ],
   "buildpacks": [
     {
