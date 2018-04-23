@@ -4,4 +4,7 @@ public/lib
 .DS_store
 c4h_keys.txt
 bower_components
-.env
+/data
+/.env
+.nyc_output
+coverage
