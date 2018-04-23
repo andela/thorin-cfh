@@ -1,16 +1,14 @@
 /**
  * Module dependencies.
  */
-let mongoose = require('mongoose'),
-  async = require('async'),
+const mongoose = require('mongoose'),
   Answer = mongoose.model('Answer'),
-  _ = require('underscore');
 
 
 /**
  * Find answer by id
  */
-exports.answer = function (req, res, next, id) {
+ exports.answer = function (req, res, next, id) {
   Answer.load(id, (err, answer) => {
     if (err) return next(err);
     if (!answer) return next(new Error('Failed to load answer ' + id));
