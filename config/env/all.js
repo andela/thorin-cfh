@@ -1,6 +1,9 @@
 var path = require('path'),
 rootPath = path.normalize(__dirname + '/../..');
 var keys = rootPath + '/keys.txt';
+require('dotenv').config()
+
+require('dotenv').config({ path: '.env' });
 
 require('dotenv').config({ path: '.env' });
 
