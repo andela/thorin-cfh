@@ -16,7 +16,8 @@ var UserSchema = new Schema({
     email: String,
     username: String,
     provider: String,
-    avatar: String,
+    imageUrl: { type: String, minlength: 5, maxlength: 100 },
+    imageId: String,
     premium: Number, // null or 0 for non-donors, 1 for everyone else (for now)
     donations: [],
     hashed_password: String,
