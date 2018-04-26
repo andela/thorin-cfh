@@ -12,7 +12,7 @@ const userDetails = {
   password: 'password'
 };
 
-describe('/api/auth/login', (done) => { // eslint-disable
+describe('/api/auth/login', (done) => { //eslint-disable-line
   beforeEach((done) => {
     const user = new User({
       name: 'Full name',
@@ -44,8 +44,8 @@ describe('/api/auth/login', (done) => { // eslint-disable
   it('should return 401 on failed login', (done) => {
     request.post('/api/auth/login')
       .send({
-        email:'wrongemail@wrong.com',
-        password:'wrongpassword'
+        email: 'wronggemail@wrong.com',
+        password: 'wrongpassword'
       })
       .end((err, res) => {
         expect(res.status).to.equal(401);
