@@ -44,8 +44,12 @@ UserSchema.virtual('password').set(function (password) {
 });
 
 /**
- * Validations
- */
+   * validations
+   *
+   *
+   */
+
+
 const validatePresenceOf = function (value) {
   return value && value.length;
 };
@@ -80,6 +84,7 @@ UserSchema.path('hashed_password').validate(function
 /**
  * Pre-save hook
  */
+
 UserSchema.pre('save', function (next) {
   if (!this.isNew) return next();
 
@@ -102,6 +107,7 @@ UserSchema.methods = {
      * @return {Boolean}
      * @api public
      */
+
   authenticate(plainText) {
     if (!plainText || !this.hashed_password) {
       return false;
@@ -116,6 +122,7 @@ UserSchema.methods = {
      * @return {String}
      * @api public
      */
+
   encryptPassword(password) {
     if (!password) return '';
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));

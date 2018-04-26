@@ -15,13 +15,13 @@ const io = require('socket.io');
 
 // Load configurations
 // if test env, load example file
-const env = process.env.NODE_ENV = process.env.NODE_ENV || 'development'; // eslint-disable-line no-multi-assign
+
+const env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const config = require('./config/config');
 const auth = require('./config/middlewares/authorization');
 const mongoose = require('mongoose');
 
 // Bootstrap db connection
-console.log(config)
 const db = mongoose.connect(config.db);
 
 // Bootstrap models
@@ -58,7 +58,7 @@ require('./config/express')(app, passport, mongoose);
 require('./config/routes')(app, passport, auth);
 
 // Start the app by listening on <port>
-const { port }  = config;
+const { port } = config;
 const server = app.listen(port);
 const ioObj = io.listen(server, { log: false });
 // game logic handled here

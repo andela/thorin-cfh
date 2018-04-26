@@ -72,7 +72,7 @@ describe('sign up users with token', () => {
       .expect(400)
       .end((err, res) => {
         userData.user = res.body.user;
-        expect(res.body.mes).to.include('Signup Errors');
+        expect(res.body.message).to.include('Signup Errors');
         if (err) return done(err);
         done();
       });
@@ -85,10 +85,9 @@ describe('sign up users with token', () => {
       .send(userData)
       .expect(201)
       .end((err, res) => {
-        userData.user = res.body.payload;
-        expect(userData.user).to.have.property('username');
+        userData.user = res.body.user;
         userToken.token = res.body.token;
-        expect(res.body.payload.username).to.equal(userData.user.username);
+        expect(res.body.user.username).to.include(userData.username);
         if (err) return done(err);
         done();
       });
@@ -118,10 +117,8 @@ describe('sign up users with token', () => {
         .expect(201)
         .end((err, res) => {
           console.log('I AM HERE!!!!!!!', res.body);
-          userData.user = res.body.payload;
-          expect(userData.user).to.have.property('username');
-          userToken.token = res.body.token;
-          expect(res.body.payload.username).to.equal(userData.user.username);
+          userData.user = res.body.message;
+          expect(res.body.message).to.equal('A user with that email already exist');
           if (err) return done(err);
           done();
         });

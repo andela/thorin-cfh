@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 /* eslint-disable global-require */
 import { validateSignIn } from './middlewares/validateSignIn';
-import validator from './middlewares/validator'
+import validator from './middlewares/validator';
 
 module.exports = function (app, passport) {
   // User Routes
