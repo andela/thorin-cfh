@@ -1,11 +1,11 @@
 var mongoose = require('mongoose'),
-    LocalStrategy = require('passport-local').Strategy,
-    TwitterStrategy = require('passport-twitter').Strategy,
-    FacebookStrategy = require('passport-facebook').Strategy,
-    GitHubStrategy = require('passport-github').Strategy,
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
-    User = mongoose.model('User'),
-    config = require('./config')
+  LocalStrategy = require('passport-local').Strategy,
+  TwitterStrategy = require('passport-twitter').Strategy,
+  FacebookStrategy = require('passport-facebook').Strategy,
+  GitHubStrategy = require('passport-github').Strategy,
+  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+  User = mongoose.model('User'),
+  config = require('./config');
 
 module.exports = function (passport) {
   // Serialize sessions
@@ -58,7 +58,7 @@ module.exports = function (passport) {
   passport.use(new TwitterStrategy(
     {
       consumerKey: process.env.TWITTER_CONSUMER_KEY || config.twitter.ID,
-      consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.Secret,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.Secret, // eslint-disable-line
       callbackURL: process.env.TWITTER_CALLBACK
     },
     ((token, tokenSecret, profile, done) => {
@@ -127,7 +127,7 @@ module.exports = function (passport) {
   passport.use(new GitHubStrategy(
     {
       clientID: process.env.GITHUB_CLIENT_ID || config.github.clientID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret, // eslint-disable-line
       callbackURL: process.env.GITHUB_CALLBACK
     },
     ((accessToken, refreshToken, profile, done) => {
@@ -162,7 +162,7 @@ module.exports = function (passport) {
   passport.use(new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID || config.google.ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || config.google.Secret,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || config.google.Secret, // eslint-disable-line
       callbackURL: 'http://localhost:3001/auth/google/callback'
     },
     ((accessToken, refreshToken, profile, done) => {

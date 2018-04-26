@@ -15,9 +15,8 @@
     "max-len": [ 1, { "code": 80 } ],
     "consistent-return": 0,
     "no-param-reassign": 0,
-    "comma-dangle": 0,
+    "comma-dangle": ["error", "never"],
     "curly": ["error", "multi-line"],
-    "import/no-unresolved": [2, { "commonjs": true }],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {
       "requireReturn": true,
@@ -31,6 +30,11 @@
             "MethodDefinition": true,
             "ClassDeclaration": true
         }
-    }]
+    }],
+    "import/no-unresolved": [
+      2, 
+      { "caseSensitive": false },
+      { "commonjs": true }
+   ]
   }    
 }
