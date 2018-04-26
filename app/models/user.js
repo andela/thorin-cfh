@@ -1,6 +1,4 @@
-/**
- * Module dependencies.
- */
+/* eslint-disable */
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
