@@ -44,7 +44,7 @@ describe('/api/auth/login', (done) => { //eslint-disable-line
   it('should return 401 on failed login', (done) => {
     request.post('/api/auth/login')
       .send({
-        email: 'wronggemail@wrong.com',
+        email: 'wrongemail@wrong.com',
         password: 'wrongpassword'
       })
       .end((err, res) => {
