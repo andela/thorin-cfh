@@ -1,8 +1,6 @@
-const path = require('path');
+import path from 'path';
 
 const rootPath = path.normalize(`${__dirname}/../..`);
-
-// let keys = `${rootPath  }/keys.txt`;
 
 require('dotenv').config({ path: '.env' });
 

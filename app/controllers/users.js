@@ -7,6 +7,8 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
+require('dotenv').config({ path: '.env' });
+
 const User = mongoose.model('User');
 require('dotenv').config({ path: '.env' });
 
@@ -110,6 +112,39 @@ exports.create = function (req, res, next) {
   } else {
     return res.redirect('/#!/signup?error=incomplete');
   }
+};
+
+
+exports.createUser = function (req, res) {
+  const {
+    username, password, email, imageUrl, publicId
+  } = req.body;
+  const newUser = new User(req.body);
+  newUser.provider = 'local';
+  newUser.save(function (err) {
+    if (err) {
+      return res.status(409).json({
+        error: 'Error',
+        message: 'A user with that email already exist',
+        err
+      });
+    }
+    const user = {
+      _id: newUser._id, // eslint-disable-line no-underscore-dangle
+      imageUrl: newUser.imageUrl,
+      username: newUser.username
+    };
+    const token = jwt.sign({ user }, process.env.SECRET);
+    res.status(201).json({
+      message: 'Success',
+      user: {
+        _id: newUser._id, // eslint-disable-line no-underscore-dangle
+        username: newUser.username,
+        imageUrl: newUser.imageUrl
+      },
+      token
+    });
+  });
 };
 
 
