@@ -1,14 +1,12 @@
-import mongoose from 'mongoose';
-import { Strategy as LocalStrategy } from 'passport-local';
-import { Strategy as TwitterStrategy } from 'passport-twitter';
-import { Strategy as FacebookStrategy } from 'passport-facebook';
-import { Strategy as GitHubStrategy } from 'passport-github';
-import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
-import config from './config'; //eslint-disable-line
+const mongoose = require('mongoose');
+const LocalStrategy = require('passport-local').Strategy;
+const TwitterStrategy = require('passport-twitter').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+const GitHubStrategy = require('passport-github').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const config = require('./config');
 
 const User = mongoose.model('User');
-
-require('dotenv').config({ path: '.env' });
 
 module.exports = function (passport) {
   // Serialize sessions
@@ -60,8 +58,8 @@ module.exports = function (passport) {
   // Use twitter strategy
   passport.use(new TwitterStrategy(
     {
-      consumerKey: process.env.TWITTER_CONSUMER_KEY,
-      consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+      consumerKey: process.env.TWITTER_CONSUMER_KEY || config.twitter.ID,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.Secret,
       callbackURL: process.env.TWITTER_CALLBACK
     },
     ((token, tokenSecret, profile, done) => {
@@ -93,8 +91,8 @@ module.exports = function (passport) {
   // Use facebook strategy
   passport.use(new FacebookStrategy(
     {
-      clientID: process.env.FB_CLIENT_ID,
-      clientSecret: process.env.FB_CLIENT_SECRET,
+      clientID: process.env.FB_CLIENT_ID || config.facebook.ID,
+      clientSecret: process.env.FB_CLIENT_SECRET || config.facebook.Secret,
       callbackURL: process.env.FACEBOOK_CALLBACK
     },
     ((accessToken, refreshToken, profile, done) => {
@@ -129,8 +127,8 @@ module.exports = function (passport) {
   // Use github strategy
   passport.use(new GitHubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientID: process.env.GITHUB_CLIENT_ID || config.github.clientID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret,
       callbackURL: process.env.GITHUB_CALLBACK
     },
     ((accessToken, refreshToken, profile, done) => {
@@ -164,9 +162,9 @@ module.exports = function (passport) {
   // Use google strategy
   passport.use(new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK
+      clientID: process.env.GOOGLE_CLIENT_ID || config.google.ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || config.google.Secret,
+      callbackURL: 'http://localhost:3001/auth/google/callback'
     },
     ((accessToken, refreshToken, profile, done) => {
       User.findOne({

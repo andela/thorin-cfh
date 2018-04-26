@@ -14,7 +14,7 @@ const avatar = require('./avatars').all();
  * @param  {object} next
  * @returns {void}
  */
-export function authCallback(req, res, next) {
+export function authCallback(req, res, next) { // eslint-disable-line
   res.redirect('/#!');
 }
 
@@ -76,12 +76,12 @@ export function session(req, res) {
  * @returns {void}
  */
 export function checkAvatar(req, res) {
-  if (req.user && req.user._id) {
+  if (req.user && req.user._id) { // eslint-disable-line
     User.findOne({
-      _id: req.user._id
+      _id: req.user._id // eslint-disable-line
     })
-      .exec((err, user) => {
-        if (user.avatar !== undefined) {
+      .exec((err, foundUser) => {
+        if (foundUser.avatar !== undefined) {
           res.redirect('/#!/');
         } else {
           res.redirect('/#!/choose-avatar');
@@ -105,19 +105,19 @@ export function create(req, res) {
       email: req.body.email
     }).exec((err, existingUser) => {
       if (!existingUser) {
-        const user = new User(req.body);
+        const newUser = new User(req.body);
         // Switch the user's avatar index to an actual avatar url
-        user.avatar = avatar[user.avatar];
-        user.provider = 'local';
-        user.save((err) => {
+        newUser.avatar = avatar[newUser.avatar];
+        newUser.provider = 'local';
+        newUser.save((err) => {
           if (err) {
             return res.render('/#!/signup?error=unknown', {
               errors: err.errors,
-              user
+              newUser
             });
           }
-          req.logIn(user, (err) => {
-            if (err) return next(err);
+          req.logIn(newUser, (err) => {
+            if (err) return next(err); // eslint-disable-line
             return res.redirect('/#!/');
           });
         });
@@ -138,14 +138,14 @@ export function create(req, res) {
 */
 export function avatars(req, res) {
   // Update the current user's profile to include the avatar choice they've made
-  if (req.user && req.user._id && req.body.avatar !== undefined &&
+  if (req.user && req.user._id && req.body.avatar !== undefined && // eslint-disable-line
     /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
     User.findOne({
-      _id: req.user._id
+      _id: req.user._id // eslint-disable-line
     })
-      .exec((err, user) => {
-        user.avatar = avatars[req.body.avatar];
-        user.save();
+      .exec((err, userAvatar) => {
+        userAvatar.avatar = avatars[req.body.avatar];
+        userAvatar.save();
       });
   }
   return res.redirect('/#!/app');
@@ -158,25 +158,25 @@ export function avatars(req, res) {
 * @returns {void}
  */
 export function addDonation(req, res) {
-  if (req.body && req.user && req.user._id) {
+  if (req.body && req.user && req.user._id) { // eslint-disable-line
     // Verify that the object contains crowdrise data
     if (req.body.amount && req.body.crowdrise_donation_id && req.body.donor_name) {
       User.findOne({
-        _id: req.user._id
+        _id: req.user._id // eslint-disable-line
       })
-        .exec((err, user) => {
+        .exec((err, player) => {
         // Confirm that this object hasn't already been entered
           let duplicate = false;
-          for (let i = 0; i < user.donations.length; i++) {
-            if (user.donations[i].crowdrise_donation_id === req.body.crowdrise_donation_id) {
+          for (let i = 0; i < player.donations.length; i + 1) {
+            if (player.donations[i].crowdrise_donation_id === req.body.crowdrise_donation_id) { // eslint-disable-line
               duplicate = true;
             }
           }
           if (!duplicate) {
             console.log('Validated donation');
-            user.donations.push(req.body);
-            user.premium = 1;
-            user.save();
+            player.donations.push(req.body);
+            player.premium = 1;
+            player.save();
           }
         });
     }
@@ -191,11 +191,11 @@ export function addDonation(req, res) {
 * @returns {object} user
 */
 export function show(req, res) {
-  const user = req.profile;
+  const userProfile = req.profile;
 
   res.render('users/show', {
-    title: user.name,
-    user
+    title: userProfile.name,
+    userProfile
   });
 }
 
@@ -222,10 +222,10 @@ export function user(req, res, next, id) {
     .findOne({
       _id: id
     })
-    .exec((err, user) => {
+    .exec((err, foundUser) => {
       if (err) return next(err);
-      if (!user) return next(new Error(`Failed to load User ${id}`));
-      req.profile = user;
+      if (!foundUser) return next(new Error(`Failed to load User ${id}`));
+      req.profile = foundUser;
       next();
     });
 }

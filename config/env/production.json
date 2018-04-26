@@ -4,23 +4,23 @@
         "name": "Cards for Humanity"
     },
     "facebook": {
-        "clientID": "APP_ID",
-        "clientSecret": "APP_SECRET",
+        "ID": "APP_ID",
+        "Secret": "APP_SECRET",
         "callbackURL": "http://cardforhumanity.com:3000/auth/facebook/callback"
     },
     "twitter": {
-      "clientID": "APP_ID",
-      "clientSecret": "APP_SECRET",
+      "ID": "APP_ID",
+      "Secret": "APP_SECRET",
       "callbackURL": "http://cardforhumanity.com:3000/auth/twitter/callback"
     },
     "github": {
-      "clientID": "APP_ID",
-      "clientSecret": "APP_SECRET",
+      "ID": "APP_ID",
+      "Secret": "APP_SECRET",
       "callbackURL": "http://cardforhumanity.com:3000/auth/github/callback"
     },
     "google": {
-      "clientID": "APP_ID",
-      "clientSecret": "APP_SECRET",
+      "ID": "APP_ID",
+      "Secret": "APP_SECRET",
       "callbackURL": "http://cardforhumanity.com:3000/auth/google/callback"
     }
   }
