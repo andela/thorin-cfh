@@ -6,11 +6,6 @@ import bower from 'gulp-bower';
 import sass from 'gulp-sass';
 // import {Server} from 'karma';
 
-<<<<<<< HEAD
-var babel = require('babel-register');
-=======
->>>>>>> 36a2e4b4fd36b2df3c41e2da92d01f01d9b6643d
-
 // Lint task
 gulp.task('lint', function() {
     gulp.src(['public/js/**',
@@ -98,29 +93,18 @@ gulp.task('jade', function() {
 gulp.task('mochaTest', function() {
     gulp.src('test/**/*.js')
         .pipe(mocha({
-<<<<<<< HEAD
-            compilers: babel,
-=======
->>>>>>> 36a2e4b4fd36b2df3c41e2da92d01f01d9b6643d
             reporter: 'spec',
             exit: true 
         }))
 })
 
-<<<<<<< HEAD
-gulp.task('karmaTest', function (done) {
-=======
+
 /*gulp.task('karmaTest', function (done) {
->>>>>>> 36a2e4b4fd36b2df3c41e2da92d01f01d9b6643d
     new Server({
       configFile: __dirname + 'test/karma.conf.js',
       singleRun: true
     }, done).start();
-<<<<<<< HEAD
-});
-=======
 });*/
->>>>>>> 36a2e4b4fd36b2df3c41e2da92d01f01d9b6643d
 
 // Watch files for changes
 gulp.task('watch', function() {
