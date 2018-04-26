@@ -76,7 +76,9 @@ UserSchema.path('username').validate(function (username) {
 UserSchema.path('hashed_password').validate(function
 (hashed_password) { // eslint-disable-line camelcase
   // if you are authenticating by any of the oauth strategies, don't validate
-  if (authTypes.indexOf(this.provider) !== -1) return true;
+  if (authTypes.indexOf(this.provider) !== -1) {
+    return true;
+  }
   return hashed_password.length;
 }, 'Password cannot be blank');
 
