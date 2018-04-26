@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'; // eslint-disable-line
 
 const User = mongoose.model('User');
 const avatar = require('./avatars').all();
