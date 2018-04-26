@@ -31,6 +31,14 @@ const userData2 = {
   publicId: 'toyiskind'
 };
 
+const userData3 = {
+  username: 'toyboy',
+  email: 'toysss@dummy.com',
+  password: 'toyiscool',
+  imageUr: 'http://toy.picture.gif',
+  publicId: 'toyiskind'
+};
+
 // The tests
 describe('sign up users with token', () => {
   beforeEach((done) => {
@@ -113,16 +121,15 @@ describe('sign up users with token', () => {
       request(app)
         .post('/api/auth/signup')
         .set('Content-Type', 'application/json')
-        .send(userData)
+        .send(userData3)
         .expect(201)
         .end((err, res) => {
-          console.log('I AM HERE!!!!!!!', res.body);
-          userData.user = res.body.message;
-          expect(res.body.message).to.equal('A user with that email already exist');
+          expect(res.body.message).to.equal('Success');
           if (err) return done(err);
           done();
         });
     }
   );
+
 });
 
