@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Module dependencies.
  */
@@ -41,9 +42,8 @@ module.exports = function(app, passport, mongoose) {
         //bodyParser should be above methodOverride
         app.use(express.bodyParser());
         app.use(express.methodOverride());
-
-        //express/mongo session storage
         
+        //express/mongo session storage
         app.use(express.session({
             secret: 'MEAN',
             store: new mongoStore({
@@ -53,7 +53,6 @@ module.exports = function(app, passport, mongoose) {
             })
         }));
         
-
         //connect flash for flash messages
         app.use(flash());
 
@@ -62,12 +61,14 @@ module.exports = function(app, passport, mongoose) {
 
         //use passport session
         app.use(passport.initialize());
-        //app.use(passport.session());
+        // app.use(passport.session());
 
         //routes should be at the last
         app.use(app.router);
 
-        //Assume "not found" in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
+        //Assume "not found" in the error msgs is a 404. this is somewhat 
+        //silly,but valid, you can do whatever you like, set properties, 
+        //use instanceof etc.
         app.use(function(err, req, res, next) {
             //Treat as 404
             if (~err.message.indexOf('not found')) return next();

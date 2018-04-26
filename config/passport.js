@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     config = require('./config');
 
-    require('dotenv').config({ path: '.env' });
+require('dotenv').config({ path: '.env' });
 
 
 module.exports = function(passport) {
