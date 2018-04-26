@@ -1,3 +1,4 @@
+/* eslint-disable */
 angular.module('mean.system')
 .factory('socket', ['$rootScope', function($rootScope){
   var socket = io.connect();

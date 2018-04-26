@@ -1,3 +1,4 @@
+/* eslint-disable */
 angular.module('mean.system')
   .factory('Global', [function() {
     var _this = this;
@@ -7,18 +8,6 @@ angular.module('mean.system')
     };
 
     return _this._data;
-  }])
-  .factory('AvatarService', ['$http', '$q', function($http, $q) {
-    return {
-      getAvatars: function() {
-        return $q.all([
-          $http.get('/avatars')
-        ])
-        .then(function(results) {
-          return results[0].data;
-        });
-      }
-    };
   }])
   .factory('DonationService', ['$http', '$q', function($http, $q) {
     return {
