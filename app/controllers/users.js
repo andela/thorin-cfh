@@ -48,8 +48,8 @@ exports.loginSuccess = (req, res) => {
   });
 };
 
-exports.loginFailure = (err, req, res) => {
-  return res.status(401).json({
+exports.loginFailure = (err, req, res) =>
+  res.status(401).json({
     status: 'error',
     message: 'Login Failed. Invalid email or password',
     data: {
@@ -58,7 +58,7 @@ exports.loginFailure = (err, req, res) => {
       user: null
     }
   });
-};
+
 
 /**
  * Logout
