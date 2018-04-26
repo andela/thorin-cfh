@@ -6,7 +6,6 @@ import bower from 'gulp-bower';
 import sass from 'gulp-sass';
 // import {Server} from 'karma';
 
-
 // Lint task
 gulp.task('lint', function() {
     gulp.src(['public/js/**',
@@ -98,6 +97,7 @@ gulp.task('mochaTest', function() {
             exit: true 
         }))
 })
+
 
 /*gulp.task('karmaTest', function (done) {
     new Server({
