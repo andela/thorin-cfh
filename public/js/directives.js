@@ -1,3 +1,4 @@
+/* eslint-disable */
 angular.module('mean.directives', [])
   .directive('player', function (){
     return{

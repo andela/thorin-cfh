@@ -1,3 +1,4 @@
+/* eslint-disable */
 angular.module('mean.system')
   .filter('upperFirstLetter', function() {
     return function(input) {
