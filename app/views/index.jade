@@ -3,3 +3,14 @@ block content
   section(data-ng-view, id = "main-container")
   script(type="text/javascript").
     window.user = !{user};
+    window.token = !{token};
+    // set token after social media authentication
+    if(window.token !== ''){
+      localStorage.setItem('card-game-token', window.token);
+    }
+    const logout = () => {
+    localStorage.setItem('card-game-token','');
+    window.user = null;
+    window.token = '';
+    window.location = "/";
+    }
