@@ -1,10 +1,10 @@
-language: 
-    - node_js
-node_js: 
-    - node
+language: node_js
 
-script: 
-      - npm test
+node_js:
+  - "8"
 
-after_success:
-    - npm run coverage
+services:
+  - mongodb
+
+after-script:
+  npm run coverage
