@@ -4,7 +4,7 @@ import { Strategy as TwitterStrategy } from 'passport-twitter';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { Strategy as GitHubStrategy } from 'passport-github';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
-import config from './config';
+import config from './config'; //eslint-disable-line
 
 const User = mongoose.model('User');
 
@@ -60,12 +60,11 @@ module.exports = function (passport) {
   // Use twitter strategy
   passport.use(new TwitterStrategy(
     {
-      consumerKey: process.env.TWITTER_CONSUMER_KEY || config.twitter.clientID,
-      consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.clientSecret,
+      consumerKey: process.env.TWITTER_CONSUMER_KEY,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
       callbackURL: process.env.TWITTER_CALLBACK
     },
     ((token, tokenSecret, profile, done) => {
-      console.log(profile)
       User.findOne({
         'twitter.id_str': profile.id
       }, (err, user) => {
@@ -77,8 +76,8 @@ module.exports = function (passport) {
             name: profile.displayName,
             username: profile.username,
             provider: 'twitter',
-            twitter: profile._json,
-            imageUrl: profile._json.profile_image_url,
+            twitter: profile._json, // eslint-disable-line
+            imageUrl: profile._json.profile_image_url, // eslint-disable-line
           });
           user.save((err) => {
             if (err) console.log(err);
@@ -94,8 +93,8 @@ module.exports = function (passport) {
   // Use facebook strategy
   passport.use(new FacebookStrategy(
     {
-      clientID: process.env.FB_CLIENT_ID || config.facebook.clientID,
-      clientSecret: process.env.FB_CLIENT_SECRET || config.facebook.clientSecret,
+      clientID: process.env.FB_CLIENT_ID,
+      clientSecret: process.env.FB_CLIENT_SECRET,
       callbackURL: process.env.FACEBOOK_CALLBACK
     },
     ((accessToken, refreshToken, profile, done) => {
@@ -111,8 +110,8 @@ module.exports = function (passport) {
             email: (profile.emails && profile.emails[0].value) || '',
             username: profile.username,
             provider: 'facebook',
-            facebook: profile._json,
-            imageUrl: profile._json.picture
+            facebook: profile._json, // eslint-disable-line
+            imageUrl: profile._json.picture // eslint-disable-line
           });
           user.save((err) => {
             if (err) console.log(err);
@@ -130,8 +129,8 @@ module.exports = function (passport) {
   // Use github strategy
   passport.use(new GitHubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID || config.github.clientID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret,
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: process.env.GITHUB_CALLBACK
     },
     ((accessToken, refreshToken, profile, done) => {
@@ -147,10 +146,10 @@ module.exports = function (passport) {
             email: profile.emails[0].value,
             username: profile.username,
             provider: 'github',
-            github: profile._json,
-            imageUrl: profile._json.avatar_url,
+            github: profile._json, // eslint-disable-line
+            imageUrl: profile._json.avatar_url, // eslint-disable-line
           });
- 
+
           user.save((err) => {
             if (err) console.log(err);
             return done(err, user);
@@ -165,9 +164,9 @@ module.exports = function (passport) {
   // Use google strategy
   passport.use(new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID || config.google.clientID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || config.google.clientSecret,
-      callbackURL: "http://localhost:3001/auth/google/callback"
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_CALLBACK
     },
     ((accessToken, refreshToken, profile, done) => {
       User.findOne({
@@ -182,8 +181,8 @@ module.exports = function (passport) {
             email: profile.emails[0].value,
             username: profile.username,
             provider: 'google',
-            google: profile._json,
-            imageUrl: profile._json.picture
+            google: profile._json, // eslint-disable-line
+            imageUrl: profile._json.picture // eslint-disable-line
           });
           user.save((err) => {
             if (err) console.log(err);
