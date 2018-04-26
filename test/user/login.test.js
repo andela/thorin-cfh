@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import supertest from 'supertest';
 import { expect } from 'chai';
 import mongoose from 'mongoose';
@@ -11,7 +12,7 @@ const userDetails = {
   password: 'password'
 };
 
-describe('/api/auth/login', (done) => {
+describe('/api/auth/login', (done) => { // eslint-disable
   beforeEach((done) => {
     const user = new User({
       name: 'Full name',
