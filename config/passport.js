@@ -62,8 +62,10 @@ module.exports = function (passport) {
   // Use twitter strategy
   passport.use(new TwitterStrategy(
     {
-      consumerKey: process.env.TWITTER_CONSUMER_KEY,
-      consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+      consumerKey: process.env.TWITTER_CONSUMER_KEY ||
+      config.twitter.clientID,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET ||
+      config.twitter.clientSecret,
       callbackURL: config.twitter.callbackURL
     },
     ((token, tokenSecret, profile, done) => {
@@ -95,7 +97,8 @@ module.exports = function (passport) {
   passport.use(new FacebookStrategy(
     {
       clientID: process.env.FB_CLIENT_ID || config.facebook.clientID,
-      clientSecret: process.env.FB_CLIENT_SECRET,
+      clientSecret: process.env.FB_CLIENT_SECRET ||
+      config.facebook.clientSecret,
       callbackURL: config.facebook.callbackURL
     },
     ((accessToken, refreshToken, profile, done) => {
@@ -163,8 +166,10 @@ module.exports = function (passport) {
   // Use google strategy
   passport.use(new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: process.env.GOOGLE_CLIENT_ID ||
+      config.github.clientID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ||
+      config.github.clientSecret,
       callbackURL: config.google.callbackURL
     },
     ((accessToken, refreshToken, profile, done) => {
