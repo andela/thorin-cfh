@@ -4,6 +4,9 @@
   },"env":{
     "MONGOHQ_URL":{
       "required": true
+    },
+    "SECRET":{
+      "required": true
     }
   },
   "formation": {

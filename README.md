@@ -1,8 +1,10 @@
 [![Build Status](https://travis-ci.org/andela/thorin-cfh.svg?branch=staging)](https://travis-ci.org/andela/thorin-cfh)
 [![Continuous Integration](https://camo.githubusercontent.com/23ee7a697b291798079e258bbc25434c4fac4f8b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f50726f7465637465645f62792d486f756e642d6138373364312e737667)](https://houndci.com)
 [![Coverage Status](https://coveralls.io/repos/github/andela/thorin-cfh/badge.svg?branch=chore%2F156882154%2Fcoveralls-set-up)](https://coveralls.io/github/andela/thorin-cfh?branch=chore%2F156882154%2Fcoveralls-set-up)
+[![Build Status](https://travis-ci.org/andela/thorin-cfh.svg?branch=staging)](https://travis-ci.org/andela/thorin-cfh)
 
 Cards for Humanity - [http://cfh.io](http://cfh.io)
+Heroku - [https://thorin-cfh-staging.herokuapp.com]
 ===========
 Cards for Humanity is a fast-paced online version of the popular card game, Cards Against Humanity, that gives you the opportunity to donate to children in need - all while remaining as despicable and awkward as you naturally are.
 
