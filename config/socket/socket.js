@@ -1,3 +1,4 @@
+/* eslint-disable */
 import mongoose from 'mongoose';
 import Game from './game';
 import Player from './player';
