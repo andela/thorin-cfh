@@ -1,6 +1,6 @@
 /**
  * Module dependencies.
- */
+
 var should = require('should'),
     app = require('../../server'),
     mongoose = require('mongoose'),
@@ -22,7 +22,7 @@ describe('<Unit Test>', function() {
                 password: 'password'
             });
 
-            user.save(function(err) {                
+            user.save(function(err) {
                 article = new Article({
                     title: 'Article Title',
                     content: 'Article Content',
@@ -56,3 +56,4 @@ describe('<Unit Test>', function() {
         });
     });
 });
+*/

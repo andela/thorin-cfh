@@ -4,7 +4,6 @@ require("console-stamp")(console, "m/dd HH:MM:ss");
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-var avatars = require(__dirname + '/../../app/controllers/avatars.js').all();
 // Valid characters to use to generate random private game IDs
 var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 
@@ -90,18 +89,19 @@ module.exports = function(io) {
         if (!user) {
           // If the user's ID isn't found (rare)
           player.username = 'Guest';
-          player.avatar = avatars[Math.floor(Math.random()*4)+12];
+          //player.avatar = avatars[Math.floor(Math.random()*4)+12];
         } else {
-          player.username = user.name;
+          player.username = user.username;
           player.premium = user.premium || 0;
-          player.avatar = user.avatar || avatars[Math.floor(Math.random()*4)+12];
+          // player.avatar = user.avatar
+          // || avatars[Math.floor(Math.random()*4)+12];
         }
         getGame(player,socket,data.room,data.createPrivate);
       });
     } else {
       // If the user isn't authenticated (guest)
       player.username = 'Guest';
-      player.avatar = avatars[Math.floor(Math.random()*4)+12];
+      // player.avatar = avatars[Math.floor(Math.random()*4)+12];
       getGame(player,socket,data.room,data.createPrivate);
     }
   };
