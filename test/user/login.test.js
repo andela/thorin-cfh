@@ -12,22 +12,22 @@ const userDetails = {
   password: 'password'
 };
 
-describe('/api/auth/login', (done) => { //eslint-disable-line
-  beforeEach((done) => {
-    const user = new User({
-      name: 'Full name',
-      email: userDetails.email,
-      password: userDetails.password
-    });
-
-    user.save((err) => {
-      if (err) {
-        throw err;
-      }
-      done();
-    });
+(() => {
+  const user = new User({
+    name: 'Full name',
+    email: userDetails.email,
+    password: userDetails.password
   });
 
+  user.save((err) => {
+    if (err) {
+      throw err;
+    }
+  });
+})();
+
+describe('/api/auth/login', (done) => { //eslint-disable-line
+    
   it('Should return 200 on successful login', (done) => {
     request.post('/api/auth/login')
       .send(userDetails)
