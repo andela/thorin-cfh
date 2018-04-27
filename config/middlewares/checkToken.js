@@ -23,7 +23,7 @@ class Auth {
       jwt.verify(token, secret, (err, data) => {
         if (err) {
           return res.status(401).json({
-            message: 'Authentication failed',
+            message: 'Authentication failed'
           });
         }
         req.user = data;
@@ -32,7 +32,7 @@ class Auth {
     } else {
       // return 403 if tokem is not present
       return res.status(403).json({
-        message: 'You need to sign up or login',
+        message: 'You need to sign up or login'
       });
     }
   }

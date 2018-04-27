@@ -1,11 +1,12 @@
-let mongoose = require('mongoose'),
-  LocalStrategy = require('passport-local').Strategy,
-  TwitterStrategy = require('passport-twitter').Strategy,
-  FacebookStrategy = require('passport-facebook').Strategy,
-  GitHubStrategy = require('passport-github').Strategy,
-  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
-  User = mongoose.model('User'),
-  config = require('./config');
+const mongoose = require('mongoose');
+const LocalStrategy = require('passport-local').Strategy;
+const TwitterStrategy = require('passport-twitter').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+const GitHubStrategy = require('passport-github').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+const User = mongoose.model('User');
+const config = require('./config'); // eslint-disable-line
 
 module.exports = function (passport) {
   // Serialize sessions
