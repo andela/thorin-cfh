@@ -133,8 +133,10 @@ module.exports = function (passport) {
   // Use github strategy
   passport.use(new GitHubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientID: process.env.GITHUB_CLIENT_ID ||
+      config.github.clientID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET ||
+      config.github.clientSecret,
       callbackURL: config.github.callbackURL
     },
     ((accessToken, refreshToken, profile, done) => {
