@@ -4,3 +4,5 @@
 gulpfile.js
 gruntfile.js
 /node_modules/
+/test/
+/app.json/

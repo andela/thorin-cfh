@@ -2,11 +2,12 @@
 /**
  * Module dependencies.
  */
-var express = require('express'),
-    mongoStore = require('connect-mongo')(express),
-    flash = require('connect-flash'),
-    helpers = require('view-helpers'),
-    config = require('./config');
+import express from 'express';
+import flash from 'connect-flash';
+import helpers from 'view-helpers';
+import config  from './config';
+
+const  mongoStore = require('connect-mongo')(express);
 
 module.exports = function(app, passport, mongoose) {
     app.set('showStackError', true);
