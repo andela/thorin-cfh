@@ -65,7 +65,7 @@ module.exports = function (passport) {
       consumerKey: process.env.TWITTER_CONSUMER_KEY || config.twitter.ID,
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.Secret, // eslint-disable-line
       callbackURL: process.env.TWITTER_CALLBACK,
-      userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
+      userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true' // eslint-disable-line
     },
     ((token, tokenSecret, profile, done) => {
       User.findOne({
