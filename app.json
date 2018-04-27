@@ -4,9 +4,48 @@
   },"env":{
     "MONGOHQ_URL":{
       "required": true
+    },
+    "SECRET":{
+      "required": true
+    },
+    "FB_CLIENT_SECRET":{
+      "required": true
+    },
+    "FB_CIENT_ID":{
+      "required": true
+    },
+    "FB_CALLBACK":{
+      "required": true
+    },
+    "TWITTER_CONSUMER_KEY":{
+      "required": true
+    },
+    "TWITTER_CONSUMER_SECRET":{
+      "required": true
+    },
+    "TWITTER_CALLBACK": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_ID":{
+      "required": true
+    },
+    "GOOGLE_CLIENT_SECRET":{
+      "required": true
+    },
+    "GOOGLE_CALLBACK":{
+      "required": true
+    },
+    "GITHUB_CLIENT_ID":{
+      "required": true
+    },
+    "GITHUB_CLIENT_SECRET":{
+      "required": true
+    },
+    "GITHUB_CALLBACK":{
+      "required": true
     }
   },
-  "formation": {
+"formation": {
     "web": {
       "quantity": 1
     }
