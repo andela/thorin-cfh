@@ -1,24 +1,30 @@
-/**
- * Module dependencies.
- */
-var mongoose = require('mongoose'), //eslint-disable-line
-  Schema = mongoose.Schema, // eslint-disable-line
-  bcrypt = require('bcryptjs'),
-  _ = require('underscore'), // eslint-disable-line
-  authTypes = ['github', 'twitter', 'facebook', 'google'];
+/* eslint-disable */
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
+const bcrypt = require('bcryptjs');
+
+const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 
 /**
  * User Schema
  */
-var UserSchema = new Schema({ //eslint-disable-line
+const UserSchema = new Schema({
   name: String,
-  email: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
   username: String,
+  imageUrl: String,
+  publicId: String,
   provider: String,
+  avatar: String,
   premium: Number, // null or 0 for non-donors, 1 for everyone else (for now)
   donations: [],
-  hashed_password: String, // eslint-disable-line
+  hashed_password: String,
   facebook: {},
   twitter: {},
   github: {},
@@ -29,39 +35,54 @@ var UserSchema = new Schema({ //eslint-disable-line
  * Virtuals
  */
 UserSchema.virtual('password').set(function (password) {
-  this._password = password; //eslint-disable-line
+  this._password = password; // eslint-disable-line no-underscore-dangle
   this.hashed_password = this.encryptPassword(password);
 }).get(function () {
-  return this._password; //eslint-disable-line
+  return this._password; // eslint-disable-line no-underscore-dangle
 });
 
+/**
+   * validations
+   *
+   *
+   */
 
-var validatePresenceOf = function(value) { //eslint-disable-line
+
+const validatePresenceOf = function (value) {
   return value && value.length;
 };
 
 // the below 4 validations only apply if you are signing up traditionally
 UserSchema.path('name').validate(function (name) {
   // if you are authenticating by any of the oauth strategies, don't validate
-  if (authTypes.indexOf(this.provider) !== -1) return true;
+  if (authTypes.indexOf(this.provider) !== -1) {
+    return true;
+  }
   return name.length;
 }, 'Name cannot be blank');
 
 UserSchema.path('email').validate(function (email) {
   // if you are authenticating by any of the oauth strategies, don't validate
-  if (authTypes.indexOf(this.provider) !== -1) return true;
+  if (authTypes.indexOf(this.provider) !== -1) {
+    return true;
+  }
   return email.length;
 }, 'Email cannot be blank');
 
 UserSchema.path('username').validate(function (username) {
   // if you are authenticating by any of the oauth strategies, don't validate
-  if (authTypes.indexOf(this.provider) !== -1) return true;
+  if (authTypes.indexOf(this.provider) !== -1) {
+    return true;
+  }
   return username.length;
 }, 'Username cannot be blank');
 
-UserSchema.path('hashed_password').validate(function (hashed_password) { //eslint-disable-line
+UserSchema.path('hashed_password').validate(function
+(hashed_password) { // eslint-disable-line camelcase
   // if you are authenticating by any of the oauth strategies, don't validate
-  if (authTypes.indexOf(this.provider) !== -1) return true;
+  if (authTypes.indexOf(this.provider) !== -1) {
+    return true;
+  }
   return hashed_password.length;
 }, 'Password cannot be blank');
 
@@ -69,12 +90,14 @@ UserSchema.path('hashed_password').validate(function (hashed_password) { //eslin
 /**
  * Pre-save hook
  */
+
 UserSchema.pre('save', function (next) {
   if (!this.isNew) return next();
 
-  if (!validatePresenceOf(this.password) && authTypes.indexOf(this.provider) === -1) // eslint-disable-line
+  if (!validatePresenceOf(this.password)
+  && authTypes.indexOf(this.provider) === -1) {
     next(new Error('Invalid password'));
-  else {
+  } else {
     next();
   }
 });
@@ -83,14 +106,30 @@ UserSchema.pre('save', function (next) {
  * Methods
  */
 UserSchema.methods = {
-  authenticate: function(plainText) { // eslint-disable-line
+  /**
+     * Authenticate - check if the passwords are the same
+     *
+     * @param {String} plainText
+     * @return {Boolean}
+     * @api public
+     */
+
+  authenticate(plainText) {
     if (!plainText || !this.hashed_password) {
       return false;
     }
     return bcrypt.compareSync(plainText, this.hashed_password);
   },
 
-  encryptPassword: function(password) { // eslint-disable-line
+  /**
+     * Encrypt password
+     *
+     * @param {String} password
+     * @return {String}
+     * @api public
+     */
+
+  encryptPassword(password) {
     if (!password) return '';
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   }
