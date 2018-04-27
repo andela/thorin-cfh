@@ -1,6 +1,7 @@
 /* eslint-disable func-names */
 /* eslint-disable global-require */
 import { validateSignIn } from './middlewares/validateSignIn';
+import validator from './middlewares/validator';
 
 module.exports = function (app, passport) {
   // User Routes
@@ -13,6 +14,9 @@ module.exports = function (app, passport) {
 
   // Setting up the users api
   app.post('/users', users.create);
+
+  //
+  app.post('/api/auth/signup', validator.Signup, users.createUser);
 
   // Donation Routes
   app.post('/donations', users.addDonation);
