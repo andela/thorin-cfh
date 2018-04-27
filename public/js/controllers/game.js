@@ -1,11 +1,13 @@
+/* eslint-disable */
 angular.module('mean.system')
-.controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+.controller('GameController', ['$scope', 'game', '$timeout', '$http', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, game, $timeout, $http, $location, MakeAWishFactsService, $dialog) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
     $scope.modalShown = false;
     $scope.game = game;
     $scope.pickedCards = [];
+    $scope.showAppModal = true;
     var makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
 
@@ -120,6 +122,11 @@ angular.module('mean.system')
       return game.winningCard !== -1;
     };
 
+    // Function hides the modal on the app.html page
+    $scope.hideAppModal = () => {
+      $scope.showAppModal = false;
+    };
+
     $scope.startGame = function() {
       game.startGame();
     };
@@ -146,6 +153,35 @@ angular.module('mean.system')
     $scope.$watch('game.state', function() {
       if (game.state === 'waiting for czar to decide' && $scope.showTable === false) {
         $scope.showTable = true;
+      }
+
+      // Check if game has ended and save the game data
+      if (game.state === 'game ended' && game.playerIndex === 0) {
+        const { players, gameID, gameWinner, round } = game;
+        const gameStarter = players[0].username;
+        const winner = players[gameWinner].username;
+        const token = localStorage.getItem('cards-game-token');
+
+        $http({
+          method: 'POST',
+          url: `/api/games/${gameID}/start`,
+          data: {
+            players,
+            winner,
+            gameStarter,
+            roundsPlayed: round,
+          },
+          headers: {
+            'Content-Type': 'application/json',
+            'cards-game-token': `${token}`,
+          }
+        })
+        .then(successResponse => {
+          console.log(`Game saved ${successResponse}`);
+        },
+        failureResponse => {
+          console.log(`Game not saved ${failureResponse}`);
+        });
       }
     });
 

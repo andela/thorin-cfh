@@ -1,4 +1,7 @@
-var async = require('async');
+/* eslint-disable */
+import async from 'async';
+import saveGame from '../app/controllers/games';
+import gameValidation from './middlewares/gameValidation';
 
 module.exports = function(app, passport, auth) {
     //User Routes
@@ -89,5 +92,8 @@ module.exports = function(app, passport, auth) {
     var index = require('../app/controllers/index');
     app.get('/play', index.play);
     app.get('/', index.render);
+
+    //Start game endpoint
+    app.post('/api/games/:id/start', gameValidation, saveGame);
 
 };

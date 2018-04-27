@@ -1,6 +1,7 @@
 /**
  * Module dependencies.
  */
+import expressValidator from 'express-validator';
 var express = require('express'),
     fs = require('fs'),
     passport = require('passport'),
@@ -43,6 +44,9 @@ walk(models_path);
 require('./config/passport')(passport);
 
 var app = express();
+
+//Use express-validator middleware
+app.use(expressValidator());
 
 app.use(function(req, res, next){
     next();
