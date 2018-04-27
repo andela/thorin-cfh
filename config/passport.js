@@ -5,8 +5,8 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const GitHubStrategy = require('passport-github').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-const User = mongoose.model('User');
-const config = require('./config');
+require('dotenv').config({ path: '.env' });
+
 
 module.exports = function (passport) {
   // Serialize sessions
