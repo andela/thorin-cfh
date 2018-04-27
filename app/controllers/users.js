@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken';
 require('dotenv').config({ path: '.env' });
 
 const User = mongoose.model('User');
-require('dotenv').config({ path: '.env' });
+
 
 /**
  * Show login form
@@ -35,7 +35,6 @@ exports.signup = function (req, res) {
 };
 
 exports.loginSuccess = (req, res) => {
-  console.log('Right details');
   const token = jwt.sign(
     { user: req.user }, process.env.SECRET,
     { expiresIn: 86400 }
@@ -51,9 +50,8 @@ exports.loginSuccess = (req, res) => {
   });
 };
 
-exports.loginFailure = (err, req, res) => {
-  console.log('Wrong Details');
-  return res.status(401).json({
+exports.loginFailure = (err, req, res) =>
+  res.status(401).json({
     status: 'error',
     message: 'Login Failed. Invalid email or password',
     data: {
@@ -62,7 +60,6 @@ exports.loginFailure = (err, req, res) => {
       user: null
     }
   });
-};
 
 /**
  * Logout
@@ -166,7 +163,6 @@ exports.addDonation = function (req, res) {
             }
           }
           if (!duplicate) {
-            console.log('Validated donation');
             user.donations.push(req.body);
             user.premium = 1;
             user.save();

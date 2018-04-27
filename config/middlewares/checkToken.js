@@ -17,7 +17,7 @@ class Auth {
   static verifyToken(req, res, next) {
     //  to amethod to get token anf validate it
     const token = req.body.token ||
-    req.query.token || req.headers.authorization;
+    req.query.token || req.headers['card-game-token'];
     if (token) {
       const secret = process.env.SECRET;
       jwt.verify(token, secret, (err, data) => {
