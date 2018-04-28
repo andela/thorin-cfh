@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 import { validateSignIn } from './middlewares/validateSignIn';
 import validator from './middlewares/validator';
+import auth from './middlewares/checkToken';
+import saveGame from '../app/controllers/games';
 
 module.exports = function (app, passport) {
   // User Routes
@@ -97,4 +99,7 @@ module.exports = function (app, passport) {
   // Home route
   app.get('/play', index.play);
   app.get('/', index.render);
+
+  // Start game API endpoint
+  app.post('/api/games/:id/start', auth.verifyToken, validator.gameValidation, saveGame);
 };
