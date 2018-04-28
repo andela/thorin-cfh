@@ -1,6 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 import '../../config/config';
 
+/**
+ * Game Schema
+ */
 const GameSchema = new Schema(
   {
     players: {

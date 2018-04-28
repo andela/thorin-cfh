@@ -14,9 +14,9 @@
   "scripts": {
     "bower": "node node_modules/gulp/bin/gulp bower",
     "start:dev": "babel-node node_modules/gulp/bin/gulp",
-    "start": "node node_modules/grunt-cli/bin/grunt",
-    "test": "mocha --compilers js:babel-core/register ./test/**/*.js --timeout 60000 --exit",
-    "test:server": "babel-node node_modules/gulp/bin/gulp test ",
+    "start": "babel-node node_modules/gulp/bin/gulp",
+    "test": "nyc --reporter=html  --reporter=text   mocha --require babel-core/register ./test/**/*.js --timeout 80000 --exit",
+    "test:server": "babel-node node_modules/.bin/gulp test ",
     "test:client": "babel-node node_modules/gulp/bin/gulp test:client ",
     "postinstall": "node node_modules/grunt-cli/bin/grunt install",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -31,6 +31,8 @@
     "babel-register": "^6.26.0",
     "bcryptjs": "~1.0.4",
     "bower": "~1.3.8",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "connect-flash": "~0.1.1",
     "connect-mongo": "^2.0.1",
     "console-stamp": "~0.1.1",
@@ -46,7 +48,6 @@
     "istanbul": "^0.4.5",
     "istanbul-coveralls": "^1.0.3",
     "jade": "~0.35.0",
-    "joi": "^13.2.0",
     "jsonwebtoken": "^8.2.1",
     "mean-logger": "~0.0.1",
     "mongoose": "^5.0.15",
@@ -66,9 +67,6 @@
     "view-helpers": "~0.1.3"
   },
   "devDependencies": {
-    "@angular/cli": "^1.7.4",
-    "chai": "^4.1.2",
-    "coveralls": "^3.0.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
     "grunt": "~0.4.1",
@@ -90,8 +88,7 @@
     "gulp-nodemon": "^2.2.1",
     "gulp-sass": "^4.0.1",
     "jshint": "^2.9.5",
-    "nyc": "^11.7.1",
     "should": "~1.3.0",
-    "supertest": "^0.8.3"
+    "supertest": "^3.0.0"
   }
 }

@@ -1,5 +1,12 @@
+
 import gameModel from '../models/game';
 
+/**
+ *
+ * @param {object} req - The HTTP request
+ * @param {object} res - The HTTP response
+ * @returns {void}
+ */
 const saveGame = (req, res) => {
   const {
     players, winner, gameStarter, roundsPlayed,

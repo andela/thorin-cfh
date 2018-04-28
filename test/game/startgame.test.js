@@ -7,15 +7,15 @@ let userToken;
 
 describe('Start Game Endpoint', () => {
   const user = {
-    name: 'testUser',
-    email: 'user@gmail.com',
+    email: `user${Math.random()}@gmail.com`,
     username: 'my_user',
     password: 'Mypassword1',
+    imageUr: 'https://www.mmm.png',
   };
 
   before((done) => {
     request(app)
-      .post('api/users/signup')
+      .post('/api/auth/signup')
       .send(user)
       .end((err, res) => {
         userToken = res.body.token;
@@ -23,10 +23,10 @@ describe('Start Game Endpoint', () => {
       });
   });
 
-  it('should save a game if the user is authenticated with a token', (done) => {
+  it('should not save a game if the user is not authenticated', (done) => {
     request(app)
       .post('/api/games/v5gty/start')
-      .set('Authorization', `Bearer ${userToken}`)
+      .set('card-game-token', '')
       .send({
         players: [{
           username: 'Amarachi',
@@ -36,7 +36,30 @@ describe('Start Game Endpoint', () => {
           username: 'Amarachi',
           points: 4,
         }],
-        gameID: 'v5gty',
+        winner: 'Amarachi',
+        gameStarter: 'Luke',
+        roundsPlayed: 11,
+      })
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        expect(res.body.message).to.deep.equal('You need to sign up or login');
+        done();
+      });
+  });
+
+  it('should save a game if the user is authenticated with a token', (done) => {
+    request(app)
+      .post('/api/games/v5gty/start')
+      .set('card-game-token', `${userToken}`)
+      .send({
+        players: [{
+          username: 'Amarachi',
+          points: 4,
+        },
+        {
+          username: 'Amarachi',
+          points: 4,
+        }],
         winner: 'Amarachi',
         gameStarter: 'Luke',
         roundsPlayed: 11,
@@ -49,49 +72,19 @@ describe('Start Game Endpoint', () => {
       });
   });
 
-  it('should not save a game if the user is not authenticated', (done) => {
-    request(app)
-      .post('/api/games/v5gty/start')
-      .send({
-        players: [{
-          username: 'Amarachi',
-          points: 4,
-        },
-        {
-          username: 'Amarachi',
-          points: 4,
-        }],
-        winner: 'Amarachi',
-        gameStarter: 'Luke',
-      })
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        expect(res.body).to.have.property('msg');
-        expect(res.body.msg).to.deep.equal('Failure, Game not saved');
-        // confirm
-        expect(res.body.error).to.equal({
-          errors: [
-            'roundsPlayed must be an integer',
-          ]
-        });
-        done();
-      });
-  });
-
   it('should not save a game if some of the fields are missing', (done) => {
     request(app)
       .post('/api/games/v5gty/start')
-      .set('Authorization', `Bearer ${userToken}`)
+      .set('card-game-token', `${userToken}`)
       .send({
         gameStarter: 'Luke',
         roundsPlayed: 11,
       })
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
-        expect(res.body).to.have.property('msg');
-        expect(res.body.msg).to.deep.equal('Failure, Game not saved');
-        expect(res.body.error).to.deep.include('players must be an array');
-        expect(res.body.error).to.deep.include('winner must be a string');
+        expect(res.body.message).to.deep.equal('Failure, Game not saved');
+        expect(res.body.errors).to.deep.include('players must be an array');
+        expect(res.body.errors).to.deep.include('winner must be a string');
         done();
       });
   });

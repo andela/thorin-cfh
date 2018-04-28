@@ -1,3 +1,5 @@
+import { fail } from 'assert';
+
 /* eslint-disable */
 angular.module('mean.system')
 .controller('GameController', ['$scope', 'game', '$timeout', '$http', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, game, $timeout, $http, $location, MakeAWishFactsService, $dialog) {
@@ -122,11 +124,6 @@ angular.module('mean.system')
       return game.winningCard !== -1;
     };
 
-    // Function hides the modal on the app.html page
-    $scope.hideAppModal = () => {
-      $scope.showAppModal = false;
-    };
-
     $scope.startGame = function() {
       game.startGame();
     };
@@ -160,7 +157,7 @@ angular.module('mean.system')
         const { players, gameID, gameWinner, round } = game;
         const gameStarter = players[0].username;
         const winner = players[gameWinner].username;
-        const token = localStorage.getItem('cards-game-token');
+        const token = localStorage.getItem('card-game-token');
 
         $http({
           method: 'POST',
@@ -173,14 +170,14 @@ angular.module('mean.system')
           },
           headers: {
             'Content-Type': 'application/json',
-            'cards-game-token': `${token}`,
+            'card-game-token': `${token}`,
           }
         })
         .then(successResponse => {
-          console.log(`Game saved ${successResponse}`);
+          console.log(`Game saved ${successResponse.data.game}`);
         },
         failureResponse => {
-          console.log(`Game not saved ${failureResponse}`);
+          console.log(`Game not saved ${failureResponse.data.error}`);
         });
       }
     });
@@ -208,13 +205,24 @@ angular.module('mean.system')
       }
     });
 
-    if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-      console.log('joining custom game');
+    // Function hides modal on app.html page
+    $scope.hideAppModal = () => {
+      $scope.showAppModal = false;
+
+      if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
+        console.log('joining custom game');
+        game.joinGame('joinGame',$location.search().game);
+      } else if ($location.search().custom) {
+        game.joinGame('joinGame',null,true);
+      } else {
+        game.joinGame();
+      }
+    };
+    
+    if ($location.search().game && !(/^\d+$/).test($location.search().game) !== undefined) {
+      $scope.showAppModal = false;
       game.joinGame('joinGame',$location.search().game);
-    } else if ($location.search().custom) {
-      game.joinGame('joinGame',null,true);
-    } else {
-      game.joinGame();
     }
+    
 
 }]);

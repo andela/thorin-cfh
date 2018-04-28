@@ -47,11 +47,8 @@ require('./config/passport')(passport);
 const app = express();
 app.use(expressValidator());
 
-//Use express-validator middleware
-app.use(expressValidator());
-
-app.use(function(req, res, next){
-    next();
+app.use((req, res, next) => {
+  next();
 });
 
 // express settings
