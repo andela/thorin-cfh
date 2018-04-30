@@ -7,6 +7,8 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
+const avatars = require('./avatars').all();
+
 require('dotenv').config({ path: '.env' });
 
 const User = mongoose.model('User');
@@ -23,6 +25,28 @@ exports.signin = function (req, res) {
   }
 };
 
+/**
+ * Check avatar - Confirm if the user who logged in via passport
+ * already has an avatar. If they don't have one, redirect them
+ * to our Choose an Avatar page.
+ */
+exports.checkAvatar = (req, res) => {
+  if (req.user && req.user._id) {
+    User.findOne({
+      _id: req.user._id
+    })
+      .exec(function (err, user) {
+        if (user.avatar !== undefined) {
+          res.redirect('/#!/');
+        } else {
+          res.redirect('/#!/choose-avatar');
+        }
+      });
+  } else {
+    // If user doesn't even exist, redirect to /
+    res.redirect('/');
+  }
+};
 /**
  * Show sign up form
  */
@@ -142,6 +166,24 @@ exports.createUser = function (req, res) {
       token
     });
   });
+};
+
+/**
+ * Assign avatar to user
+ */
+exports.avatars = function (req, res) {
+  // Update the current user's profile to include the avatar choice they've made
+  if (req.user && req.user._id && req.body.avatar !== undefined &&
+    /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
+    User.findOne({
+      _id: req.user._id
+    })
+      .exec((err, user) => {
+        user.avatar = avatars[req.body.avatar];
+        user.save();
+      });
+  }
+  return res.redirect('/#!/app');
 };
 
 
