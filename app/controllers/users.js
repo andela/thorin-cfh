@@ -7,10 +7,20 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
+const avatars = require('./avatars').all();
+
 require('dotenv').config({ path: '.env' });
 
 const User = mongoose.model('User');
 
+const nodemailer = require('nodemailer');
+
+/**
+ * Auth callback
+ */
+exports.authCallback = function (req, res, next) {
+  res.redirect('/chooseavatars');
+};
 
 /**
  * Show login form
@@ -23,6 +33,28 @@ exports.signin = function (req, res) {
   }
 };
 
+/**
+ * Check avatar - Confirm if the user who logged in via passport
+ * already has an avatar. If they don't have one, redirect them
+ * to our Choose an Avatar page.
+ */
+exports.checkAvatar = (req, res) => {
+  if (req.user && req.user._id) {
+    User.findOne({
+      _id: req.user._id
+    })
+      .exec(function (err, user) {
+        if (user.avatar !== undefined) {
+          res.redirect('/#!/');
+        } else {
+          res.redirect('/#!/choose-avatar');
+        }
+      });
+  } else {
+    // If user doesn't even exist, redirect to /
+    res.redirect('/');
+  }
+};
 /**
  * Show sign up form
  */
@@ -144,6 +176,24 @@ exports.createUser = function (req, res) {
   });
 };
 
+/**
+ * Assign avatar to user
+ */
+exports.avatars = function (req, res) {
+  // Update the current user's profile to include the avatar choice they've made
+  if (req.user && req.user._id && req.body.avatar !== undefined &&
+    /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
+    User.findOne({
+      _id: req.user._id
+    })
+      .exec((err, user) => {
+        user.avatar = avatars[req.body.avatar];
+        user.save();
+      });
+  }
+  return res.redirect('/#!/app');
+};
+
 
 exports.addDonation = function (req, res) {
   if (req.body && req.user && req.user._id) { //eslint-disable-line
@@ -206,4 +256,56 @@ exports.user = function (req, res, next, id) {
       req.profile = user;
       next();
     });
+};
+
+/**
+ * find userby email
+ */
+
+exports.searchUser = function (req, res, next) {
+  const regexp = /^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/;
+  if (regexp.test(req.body.email)) {
+    User
+      .findOne({
+        email: req.body.email
+      })
+      .exec((err, user) => {
+        if (err) return next(err);
+        if (!user) return res.json({ message: 'Email not found' });
+        return res.json({ message: 'User successfully found', user });
+      });
+  } else {
+    return res.json({ message: 'Invalid email' });
+  }
+};
+
+/**
+ * Send mail to invite user
+ */
+
+exports.invitePlayersByMail = function (req, res) {
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: process.env.USER_MAIL,
+      pass: process.env.USER_PSWD
+    }
+  });
+  const mailOptions = {
+    from: process.env.USER_MAIL,
+    to: req.body.email,
+    subject: 'Please join the game',
+    text: `Hello, please I would like to invite you to join this game, 
+      please click the link below to join \n ${req.body.link}`
+  };
+  // Send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).send(error);
+    }
+    return res.status(200).json({
+      message: 'Invite Successfully Sent',
+      id: info.messageId
+    });
+  });
 };
