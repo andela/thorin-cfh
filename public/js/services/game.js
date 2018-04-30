@@ -12,7 +12,7 @@ angular.module('mean.system')
     table: [],
     czar: null,
     playerMinLimit: 3,
-    playerMaxLimit: 6,
+    playerMaxLimit: 12,
     pointLimit: null,
     state: null,
     round: 0,
@@ -20,7 +20,11 @@ angular.module('mean.system')
     curQuestion: null,
     notification: null,
     timeLimits: {},
-    joinOverride: false
+    joinOverride: false,
+    errorMsg: '',
+    errorMsgMin: '',
+    message:'',
+    inviteMessage: ''
   };
 
   var notificationQueue = [];
@@ -176,6 +180,10 @@ angular.module('mean.system')
   socket.on('notification', function(data) {
     addToNotificationQueue(data.notification);
   });
+  // Listen to message sent from the server that game already started
+  socket.on('complete', function () {
+    maxPlayersReached();
+  })
 
   game.joinGame = function(mode,room,createPrivate) {
     mode = mode || 'joinGame';
@@ -185,7 +193,22 @@ angular.module('mean.system')
     socket.emit(mode,{userID: userID, room: room, createPrivate: createPrivate});
   };
 
-  game.startGame = function() {
+  // Populate minimum error variable and depopulate it after 3 seconds 
+  game.errorMinGamePlayer = function () {
+    game.errorMsgMin = 'You need a minimum of 3 players to play the game';
+    $timeout(() => { game.errorMsgMin = ''; }, 3000);
+  }
+
+  // Populate maximum error variable
+  maxPlayersReached = function () {
+    game.errorMsg = 'Maximum player for this game as been reached'
+    console.log(game.errorMsg);
+  }
+  // Check if Player is less than 3
+  game.startGame = function (players) {
+    if (players < 3) {
+      game.errorMinGamePlayer();
+    }
     socket.emit('startGame');
   };
 
