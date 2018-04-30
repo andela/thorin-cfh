@@ -17,6 +17,8 @@ module.exports = function (app, passport) {
 
   // Setting up the users api
   app.post('/users', users.create);
+  app.post('/api/search/users', users.searchUser);
+  app.post('/api/mailer', users.invitePlayersByMail);
 
   //
   app.post('/api/auth/signup', validator.Signup, users.createUser);
