@@ -12,6 +12,7 @@
     "no-multi-assign": ["off"],
     "global-require":["off"],
     "one-var-declaration-per-line": 0,
+    "no-underscore-dangle":["off"],
     "new-cap": 0,
     "no-console": 0,
     "func-names": 0,

@@ -74,4 +74,17 @@ angular.module('mean.system')
           alert('Unable to upload. Check your internet', err);
         });
     };
+
+    $scope.disableSubmit = () => {
+        document.getElementById("submit").disabled = true;
+        function activateButton(element) {
+            if(element.checked) {
+              document.getElementById("submit").disabled = false;
+             }
+             else  {
+              document.getElementById("submit").disabled = true;
+            }
+      
+        }
+    }
   }]);

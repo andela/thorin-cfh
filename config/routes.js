@@ -11,6 +11,9 @@ module.exports = function (app, passport) {
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/signout', users.signout);
+  app.get('/chooseavatars', users.checkAvatar);
+
+  app.post('/users/avatars', users.avatars);
 
   // Setting up the users api
   app.post('/users', users.create);
@@ -86,6 +89,10 @@ module.exports = function (app, passport) {
   app.get('/answers/:answerId', answers.show);
   // Finish with setting up the answerId param
   app.param('answerId', answers.answer);
+
+  // Avatar Routes
+  const avatars = require('../app/controllers/avatars');
+  app.get('/avatars', avatars.allJSON);
 
   // Question Routes
   const questions = require('../app/controllers/questions');
