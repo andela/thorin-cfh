@@ -62,7 +62,7 @@ gulp.task('sass', function() {
 
 gulp.task('start', function () {
     nodemon({
-      script: 'build/server.js', 
+      script: 'server.js', 
       ext: 'js, jade',
       ignore: ['README.md', 'node_modules/**', '.DS_Store'],
       watch: ['app', 'config'],
@@ -141,7 +141,7 @@ gulp.task('buildBowerComponent', ['angular',
 gulp.task('generate', ['build', 'public-not-js', 'buildBowerComponent', 'root-env', 'babel'])
 
 //Default task(s).
-gulp.task('default', ['start', 'watch'])
+gulp.task('default', ['start'])
 
 // Build task
 gulp.task('build', ['buildBowerComponent',
