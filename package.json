@@ -15,7 +15,7 @@
     "bower": "node node_modules/gulp/bin/gulp bower",
     "start:dev": "babel-node node_modules/gulp/bin/gulp",
     "start": "babel-node node_modules/gulp/bin/gulp",
-    "test": "nyc --reportrer=html  --reporter=text   mocha --require babel-core/register ./test/**/*.js --timeout 60000 --exit",
+    "test": "nyc mocha --require babel-core/register ./test/**/*.js --timeout 60000 --exit",
     "test:server": "babel-node node_modules/.bin/gulp test ",
     "test:client": "babel-node node_modules/gulp/bin/gulp test:client ",
     "postinstall": "node node_modules/grunt-cli/bin/grunt install",
