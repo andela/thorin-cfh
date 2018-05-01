@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 import { validateSignIn } from './middlewares/validateSignIn';
 import validator from './middlewares/validator';
+import auth from './middlewares/checkToken';
+import saveGame from '../app/controllers/games';
 
 module.exports = function (app, passport) {
   // User Routes
@@ -11,12 +13,11 @@ module.exports = function (app, passport) {
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/signout', users.signout);
-  app.get('/chooseavatars', users.checkAvatar);
-
-  app.post('/users/avatars', users.avatars);
 
   // Setting up the users api
   app.post('/users', users.create);
+  app.post('/api/search/users', users.searchUser);
+  app.post('/api/mailer', users.invitePlayersByMail);
 
   //
   app.post('/api/auth/signup', validator.Signup, users.createUser);
@@ -90,10 +91,6 @@ module.exports = function (app, passport) {
   // Finish with setting up the answerId param
   app.param('answerId', answers.answer);
 
-  // Avatar Routes
-  const avatars = require('../app/controllers/avatars');
-  app.get('/avatars', avatars.allJSON);
-
   // Question Routes
   const questions = require('../app/controllers/questions');
   app.get('/questions', questions.all);
@@ -104,4 +101,12 @@ module.exports = function (app, passport) {
   // Home route
   app.get('/play', index.play);
   app.get('/', index.render);
+
+  // Start game API endpoint
+  app.post(
+    '/api/games/:id/start',
+    auth.verifyToken,
+    validator.gameValidation,
+    saveGame
+  );
 };
