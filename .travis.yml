@@ -7,4 +7,4 @@ services:
   - mongodb
 
 after-script:
-  npm run coverage
+  - npm run coverage
