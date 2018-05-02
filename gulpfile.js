@@ -1,12 +1,14 @@
 import gulp from 'gulp';
 import mocha from 'gulp-mocha';
+import babel from 'gulp-babel';
 import eslint from 'gulp-eslint';
 import nodemon from 'gulp-nodemon';
 import bower from 'gulp-bower';
 import sass from 'gulp-sass';
-// import {Server} from 'karma';
-
+import browserSync from 'browser-sync';
+import {Server} from 'karma';
 require('dotenv').config({ path: '.env' });
+
 
 // Lint task
 gulp.task('lint', function() {
@@ -76,12 +78,18 @@ gulp.task('start', function () {
     },
 
     })
-})
+});
 
 // create build for js folder in public
 gulp.task('js', function() {
     gulp.src('public/js/**')
         .pipe(gulp.dest('./build/public/js'))
+})
+
+// copy root env file to build
+gulp.task('root-env', function() {
+    gulp.src('.env')
+    .pipe(gulp.dest('./build'))
 })
 
 // create build for env folder
@@ -96,6 +104,12 @@ gulp.task('jade', function() {
         .pipe(gulp.dest('./build/app/views'))
 })
 
+// create build for json files in public
+gulp.task('json', function() {
+    gulp.src('config/env/*.json')
+        .pipe(gulp.dest('./build/config/env'))
+})
+
 // run test files for backend
 gulp.task('mochaTest', function() {
     gulp.src('test/**/*.js')
@@ -105,20 +119,19 @@ gulp.task('mochaTest', function() {
         }))
 })
 
-
-/*gulp.task('karmaTest', function (done) {
+gulp.task('karmaTest', function (done) {
     new Server({
       configFile: __dirname + 'test/karma.conf.js',
       singleRun: true
     }, done).start();
-});*/
+});
 
 // Watch files for changes
 gulp.task('watch', function() {
-    gulp.watch('app/views/**', []);
-    gulp.watch('public/js/**', 'app/**/*.js');
-    gulp.watch('public/views/**');
-    gulp.watch('public/css/common.scss, public/css/views/articles.scss', ['sass:dist']);
+    gulp.watch('app/views/**', browserSync.reload() );
+    gulp.watch(['public/js/**', 'app/**/*.js'], browserSync.reload());
+    gulp.watch('public/views/**', browserSync.reload());
+    gulp.watch(['public/css/common.scss, public/css/views/articles.scss'], ['sass:dist']);
     gulp.watch('public/css/**', ['sass']);
 })
 // Build bower_component
@@ -130,13 +143,16 @@ gulp.task('buildBowerComponent', ['angular',
     'underscore',
 ])
 
- //Default task(s).
+gulp.task('generate', ['build', 'public-not-js', 'buildBowerComponent', 'root-env', 'babel'])
+
+//Default task(s).
 gulp.task('default', ['start'])
 
 // Build task
 gulp.task('build', ['buildBowerComponent',
     'jade',
     'env',
+    'json',
     'js',
     'sass'
 ])
@@ -146,3 +162,23 @@ gulp.task('test', ['mochaTest'])
 
 //Front test task.
 gulp.task('test:client', ['karmaTest'])
+
+gulp.task('babel', function() {
+    gulp.src(['./**/*.js',
+    '!build/**',
+    '!public/js/**',
+    '!public/lib/**',
+    '!gulpfile.babel.js',
+    '!node_modules/**',
+    '!bower_components/**/*',
+    ])
+    .pipe(babel())
+    .pipe(gulp.dest('./build'));
+})
+  
+
+// transfer public non-js file to build/public
+gulp.task('public-not-js', () => {
+  gulp.src(['public/**/*', '!public/js/**'])
+    .pipe(gulp.dest('build/public'));
+})
