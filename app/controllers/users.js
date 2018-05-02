@@ -7,8 +7,6 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-const avatars = require('./avatars').all();
-
 require('dotenv').config({ path: '.env' });
 
 const User = mongoose.model('User');
@@ -166,24 +164,6 @@ exports.createUser = function (req, res) {
       token
     });
   });
-};
-
-/**
- * Assign avatar to user
- */
-exports.avatars = function (req, res) {
-  // Update the current user's profile to include the avatar choice they've made
-  if (req.user && req.user._id && req.body.avatar !== undefined &&
-    /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
-    User.findOne({
-      _id: req.user._id
-    })
-      .exec((err, user) => {
-        user.avatar = avatars[req.body.avatar];
-        user.save();
-      });
-  }
-  return res.redirect('/#!/app');
 };
 
 
