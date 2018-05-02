@@ -6,6 +6,7 @@ import bower from 'gulp-bower';
 import sass from 'gulp-sass';
 // import {Server} from 'karma';
 
+require('dotenv').config({ path: '.env' });
 
 // Lint task
 gulp.task('lint', function() {
@@ -71,7 +72,7 @@ gulp.task('start', function () {
       ignore: ['README.md', 'node_modules/**', '.DS_Store'],
       watch: ['app', 'config'],
       env: {
-        PORT: 3000
+        PORT: process.env.PORT
     },
 
     })
@@ -103,6 +104,7 @@ gulp.task('mochaTest', function() {
             exit: true 
         }))
 })
+
 
 /*gulp.task('karmaTest', function (done) {
     new Server({

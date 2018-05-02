@@ -1,4 +1,8 @@
+
 /test/karma.conf.js
-/gruntfile.js
-gulpfile.js
 /node_modules/
+gulpfile.js
+gruntfile.js
+/node_modules/
+/test/
+/app.json/

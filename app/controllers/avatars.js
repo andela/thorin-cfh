@@ -24,4 +24,6 @@ exports.allJSON = (req, res) => {
   res.jsonp(avatars.slice(0, 12));
 };
 
-exports.all = () => avatars;
+exports.all = function () {
+  return avatars;
+};
