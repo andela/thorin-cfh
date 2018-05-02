@@ -83,7 +83,55 @@
 #wish {
    max-width: 25%;
 }
+#startanewgame {
+  color: white;
+}
 
+/**** Pop-up Modal ****/
+#modal {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  z-index: 1000;
+  position: fixed;
+  padding: 20px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+}
+#modal-content {
+  background: #fff;
+  padding-bottom: 10px;
+  max-height: 50%;
+  max-width: 80%;
+  border-radius: 10px;
+}
+.modal-header {
+  background-color: green;
+  height: 20%;
+  color: #fff;
+  text-align: center;
+}
+.modal-body {
+  margin: 10px;
+  font-weight: lighter;
+}
+.button-div {
+  text-align: center;
+  margin-top: 180px; 
+}
+.user-button {
+  background-color: #367A73;
+  font-size: 2rem;
+  color: #fff;
+  padding: 10px;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  border: none;
+}
 
 @media(min-width: 400px) and (max-width: 950px) {
    .some-text {
@@ -1254,4 +1302,4 @@
    .row {
       margin: 0 0 0 4px;
    }
- }
+}
