@@ -105,7 +105,7 @@ module.exports = function (passport) {
       clientID: process.env.FB_CLIENT_ID || config.facebook.clientID,
       clientSecret: process.env.FB_CLIENT_SECRET ||
       config.facebook.clientSecret,
-      callbackURL: config.facebook.callbackURL
+      callbackURL: process.env.FB_CALLBACK
     },
     ((accessToken, refreshToken, profile, res) => {
       User.findOne({
@@ -184,7 +184,7 @@ module.exports = function (passport) {
       config.github.clientID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ||
       config.github.clientSecret,
-      callbackURL: 'http://localhost:3000/auth/google/callback'
+      callbackURL: process.env.GOOGLE_CALLBACK,
     },
     ((accessToken, refreshToken, profile, res) => {
       User.findOne({
