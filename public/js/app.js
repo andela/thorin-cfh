@@ -47,7 +47,7 @@ angular
     '$rootScope',
     function ($rootScope) {
       $rootScope.safeApply = function (fn) {
-        let phase = this.$root.$$phase;
+        const phase = this.$root.$$phase;
         if (phase == '$apply' || phase == '$digest') {
           if (fn && typeof fn === 'function') {
             fn();

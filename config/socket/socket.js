@@ -147,8 +147,8 @@ module.exports = function (io) {
           game.prepareGame();
         }
       } else {
-        // TODO: Send an error message back to
-        // this user saying the game has already started
+        //Send an error message back to this user saying the game has already started
+        socket.to(socket.id).emit('complete');
       }
     } else {
       // Put players into the general queue
