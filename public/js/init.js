@@ -5,11 +5,14 @@
 // window.init = function() {
 //     window.bootstrap();
 // };
-if (window.location.hash == "#_=_") window.location.hash = "#!";
+// if (window.location.hash == "#_=_") window.location.hash = "#!";
 // $(document).ready(function() {
-//     //Fixing facebook bug with redirect
-    
+//   (function($) {
+//     $(function() {
+//       $('.sidenav').sidenav();
+//     }); // end of document ready
+//   })(jQuery);
 
-//     //Then init the app
-//     window.init();
+//   window.init();
 // });
+

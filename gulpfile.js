@@ -51,6 +51,11 @@ gulp.task('underscore', function() {
     gulp.src('bower_components/underscore/**/*')
         .pipe(gulp.dest('./build/public/lib/underscore'));
 });
+// gulp.task('materialize', function() {
+//   gulp
+//     .src('bower_components/materialize/**/*')
+//     .pipe(gulp.dest('./build/public/lib/materialize'));
+// });
 // Build sass
 gulp.task('sass', function() {
     gulp.src('public/css/**/*.scss')
@@ -120,7 +125,7 @@ gulp.task('buildBowerComponent', ['angular',
     'angular-ui-utils',
     'bootstrap',
     'jquery',
-    'underscore'
+    'underscore',
 ])
 
  //Default task(s).
