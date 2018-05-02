@@ -62,11 +62,10 @@ module.exports = function (passport) {
   // Use twitter strategy
   passport.use(new TwitterStrategy(
     {
-      consumerKey: process.env.TWITTER_CONSUMER_KEY ||
-      config.twitter.clientID,
-      consumerSecret: process.env.TWITTER_CONSUMER_SECRET ||
-      config.twitter.clientSecret,
-      callbackURL: config.twitter.callbackURL
+      consumerKey: process.env.TWITTER_CONSUMER_KEY || config.twitter.ID,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.Secret, // eslint-disable-line
+      callbackURL: process.env.TWITTER_CALLBACK,
+      userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true' // eslint-disable-line
     },
     ((token, tokenSecret, profile, done) => {
       User.findOne({
@@ -80,7 +79,9 @@ module.exports = function (passport) {
             name: profile.displayName,
             username: profile.username,
             provider: 'twitter',
-            twitter: profile._json // eslint-disable-line no-underscore-dangle
+            twitter: profile._json, // eslint-disable-line
+            imageUrl: profile._json.profile_image_url, // eslint-disable-line
+            email: profile.username,
           });
           user.save((err) => {
             if (err) console.log(err);
@@ -111,11 +112,11 @@ module.exports = function (passport) {
         if (!user) {
           console.log(profile);
           user = new User({
-            name: profile.displayName,
             email: (profile.emails && profile.emails[0].value) || '',
             username: profile.username,
             provider: 'facebook',
-            facebook: profile._json // eslint-disable-line no-underscore-dangle
+            facebook: profile._json, // eslint-disable-line
+            imageUrl: profile._json.picture // eslint-disable-line
           });
           user.save((err) => {
             if (err) console.log(err);
@@ -133,11 +134,9 @@ module.exports = function (passport) {
   // Use github strategy
   passport.use(new GitHubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID ||
-      config.github.clientID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET ||
-      config.github.clientSecret,
-      callbackURL: config.github.callbackURL
+      clientID: process.env.GITHUB_CLIENT_ID || config.github.clientID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret, // eslint-disable-line
+      callbackURL: process.env.GITHUB_CALLBACK,
     },
     ((accessToken, refreshToken, profile, done) => {
       User.findOne({
@@ -152,7 +151,8 @@ module.exports = function (passport) {
             email: profile.emails[0].value,
             username: profile.username,
             provider: 'github',
-            github: profile._json // eslint-disable-line no-underscore-dangle
+            github: profile._json, // eslint-disable-line
+            imageUrl: profile._json.avatar_url, // eslint-disable-line
           });
           user.save((err) => {
             if (err) console.log(err);
@@ -172,7 +172,7 @@ module.exports = function (passport) {
       config.github.clientID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ||
       config.github.clientSecret,
-      callbackURL: config.google.callbackURL
+      callbackURL: 'http://localhost:3000/auth/google/callback'
     },
     ((accessToken, refreshToken, profile, done) => {
       User.findOne({
@@ -187,7 +187,8 @@ module.exports = function (passport) {
             email: profile.emails[0].value,
             username: profile.username,
             provider: 'google',
-            google: profile._json // eslint-disable-line no-underscore-dangle
+            google: profile._json, // eslint-disable-line
+            imageUrl: profile._json.picture // eslint-disable-line
           });
           user.save((err) => {
             if (err) console.log(err);
