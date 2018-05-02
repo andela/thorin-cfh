@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 // import should from 'should';
 import request from 'supertest';
 import chai from 'chai';
+import nock from 'nock';
 import app from '../../server';
 
 require('dotenv').config({ path: '.env' });
@@ -116,7 +117,23 @@ describe('sign up users with token', () => {
   });
 
   it(
-    'trow error if email is already in dababse when new user signs up',
+    'throw error if email is already in dababse when new user signs up',
+    (done) => {
+      request(app)
+        .post('/api/auth/signup')
+        .set('Content-Type', 'application/json')
+        .send(userData3)
+        .expect(201)
+        .end((err, res) => {
+          expect(res.body.message).to.equal('Success');
+          if (err) return done(err);
+          done();
+        });
+    }
+  );
+
+  it(
+    'throw already in dababse when new user signs up',
     (done) => {
       request(app)
         .post('/api/auth/signup')

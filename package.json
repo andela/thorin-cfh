@@ -51,6 +51,7 @@
     "jsonwebtoken": "^8.2.1",
     "mean-logger": "~0.0.1",
     "mongoose": "^5.0.15",
+    "nock": "^9.2.5",
     "npm": "^5.8.0",
     "nyc": "^11.7.1",
     "passport": "^0.4.0",
