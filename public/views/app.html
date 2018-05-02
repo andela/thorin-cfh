@@ -1,11 +1,18 @@
 </script>
+<style>input.ng-pristine.ng-valid, {background-color: red}</style>
 <div id="app-container" ng-controller="GameController">
   <div id="menu-container">
     <div id="logo">
       <span id="first-word">Cards</span>
       <span id="second-word"> for</span>
       <span id="third-word">Humanity</span>
+      <!-- Search form for email-->
+      <form name="searchForm">
+        <input class="" type="text" placeholder="Search for players..." ng-model="user.email"/>
+        <button type="submit" ng-click="getUserInfo(user, searchForm)" class="btn btn-success">Submit</button>
+      </form>
     </div>
+
     <div id = 'abandon-game-button' ng-click="abandonGame()">
         Abandon Game
     </div>
@@ -30,4 +37,32 @@
     </div>
     <answers></answers>
   </div>
+  <!-- Maximum Player Reached Notification Modal-->
+  <div id="modal" ng-show="game.errorMsg">
+    <div id="modal-content">
+      <div class="modal-body" ng-if="game.errorMsg">
+          <h6>{{game.errorMsg}}</h6>
+      </div>
+      <div class="button-div">
+        <span><button class= "user-button" ><a href="/play?custom" id="startanewgame">New game</a></button></span>
+        <span><button class= "user-button" ng-click="abandonGame()">Go back</button></span>
+      </div>
+    </div>
+  </div>
+  <!-- User Found Modal-->
+  <div id="modal" ng-show="game.message">
+      <div id="modal-content">
+        <button type="button" ng-click="closeModal()">&times;</button>
+        <div class="modal-body" ng-if="game.message">
+          <h6>{{game.message}}</h6>
+        </div>
+        <div class="button-div">
+          <span><button class= "user-button" ng-click="sendGameInvite()">Invite</button></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div>
+
+

@@ -6,3 +6,4 @@ gruntfile.js
 /node_modules/
 /test/
 /app.json/
+/public/js/services/game.js
