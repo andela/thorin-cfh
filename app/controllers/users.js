@@ -225,6 +225,7 @@ exports.checkUsername = (req, res, next) => {
  * Assign avatar to user
  */
 exports.avatars = function (req, res) {
+  /** eslint no-undef: "off" */
   // Update the current user's profile to include the avatar choice they've made
   if (req.user && req.user._id && req.body.avatar !== undefined &&
     /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
