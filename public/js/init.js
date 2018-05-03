@@ -1,5 +1,5 @@
 /* eslint-disable */
-if (window.location.hash == '#') window.location.hash = '#!';
+if (window.location.hash == '#_=_') window.location.hash = '#!';
 
 // Decode token to determine if user is logged in and token hasn't expired
 const token = localStorage.getItem('card-game-token');
