@@ -21,6 +21,6 @@
     "google": {
         "clientID": "APP_ID",
         "clientSecret": "APP_SECRET",
-        "callbackURL": "http://localhost:3000/auth/google/callback"
+        "callbackURL": "https://thorin-cfh-staging.herokuapp.com/auth/google/callback"
     }
 }

@@ -102,8 +102,9 @@ module.exports = function (passport) {
   // Use facebook strategy
   passport.use(new FacebookStrategy(
     {
-      clientID: process.env.FB_CLIENT_ID,
-      clientSecret: process.env.FB_CLIENT_SECRET,
+      clientID: process.env.FB_CLIENT_ID || config.facebook.clientID,
+      clientSecret: process.env.FB_CLIENT_SECRET ||
+      config.facebook.clientSecret,
       callbackURL: process.env.FB_CALLBACK
     },
     ((accessToken, refreshToken, profile, res) => {
