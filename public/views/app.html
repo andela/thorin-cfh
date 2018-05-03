@@ -57,7 +57,7 @@
           <h6>{{game.message}}</h6>
         </div>
         <div class="button-div">
-          <span><button class= "user-button" ng-click="sendGameInvite()">Invite</button></span>
+          <span><button class= "user-button" ng-click="sendGameInvite()" ng-if="userInfo.user.email">Invite</button></span>
         </div>
       </div>
     </div>
