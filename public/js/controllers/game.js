@@ -10,6 +10,7 @@ angular.module('mean.system') //eslint-disable-line
       $scope.hasPickedCards = false;
       $scope.winningCardPicked = false;
       $scope.showTable = false;
+      $scope.showGameModal = true;
       $scope.modalShown = false;
       $scope.game = game;
       // Get email address from search box
@@ -99,7 +100,6 @@ angular.module('mean.system') //eslint-disable-line
         }
         return {};
       };
-
       $scope.showAppModal = true;
 
       $scope.sendPickedCards = function () {
@@ -208,9 +208,42 @@ angular.module('mean.system') //eslint-disable-line
 
       // In case player doesn't pick a card in time, show the table
       $scope.$watch('game.state', () => {
-        if (game.state === 'waiting for czar to decide' &&
-          $scope.showTable === false) {
+        if (game.state === 'waiting for czar to decide'
+        && $scope.showTable === false) {
           $scope.showTable = true;
+        }
+
+        // Check if game has ended and save the game data
+        if (game.state === 'game ended' && game.playerIndex === 0) {
+          const {
+            players, gameID, gameWinner, round
+          } = game;
+          const gameStarter = players[0].username;
+          const winner = players[gameWinner].username;
+          const token = localStorage.getItem('card-game-token'); //eslint-disable-line
+
+          $http({
+            method: 'POST',
+            url: `/api/games/${gameID}/start`,
+            data: {
+              players,
+              winner,
+              gameStarter,
+              roundsPlayed: round,
+            },
+            headers: {
+              'Content-Type': 'application/json',
+              'card-game-token': `${token}`,
+            }
+          })
+            .then(
+              (successResponse) => {
+                $scope.gameMessage = successResponse.data.msg;
+              },
+              (failureResponse) => {
+                $scope.gameMessage = 'Game not saved';
+              }
+            );
         }
       });
 
@@ -245,14 +278,25 @@ angular.module('mean.system') //eslint-disable-line
           }
         }
       });
-      if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-        console.log('joining custom game');
+      // Function hides modal on app.html page
+      $scope.hideAppModal = () => {
+        $scope.showGameModal = false;
+
+        if ($location.search().game &&
+        !(/^\d+$/).test($location.search().game)) {
+          console.log('joining custom game');
+          game.joinGame('joinGame', $location.search().game);
+        } else if ($location.search().custom) {
+          game.joinGame('joinGame', null, true);
+        } else {
+          game.joinGame();
+        }
+      };
+
+      if ($location.search().game &&
+      !(/^\d+$/).test($location.search().game) !== undefined) {
+        $scope.showGameModal = false;
         game.joinGame('joinGame', $location.search().game);
-        console.log(game);
-      } else if ($location.search().custom) {
-        game.joinGame('joinGame', null, true);
-      } else {
-        game.joinGame();
       }
-    }
-  ]);
+    }]);
+

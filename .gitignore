@@ -3,9 +3,9 @@ public/lib
 .sass-cache/
 .DS_store
 c4h_keys.txt
-bower_components
-/data
-/.env
 .nyc_output
 coverage
+/data
+/.env
 /build
+
