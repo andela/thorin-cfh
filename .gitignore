@@ -9,3 +9,5 @@ bower_components
 .nyc_output
 coverage
 /build
+privacy.html
+meet-the-team.html
