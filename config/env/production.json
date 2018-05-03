@@ -1,11 +1,12 @@
+
 {
     "app": {
         "name": "Cards for Humanity"
     },
     "facebook": {
-        "clientID": "APP_ID",
-        "clientSecret": "APP_SECRET",
-        "callbackURL": "http://cfh.io/auth/facebook/callback"
+        "clientID": "180680672583006",
+        "clientSecret": "3cfd8dd9cb1116aedc701bd2138b66d2",
+        "callbackURL": "https://thorin-cfh-staging.herokuapp.com/auth/facebook/callback"
     },
     "twitter": {
         "clientID": "CONSUMER_KEY",
