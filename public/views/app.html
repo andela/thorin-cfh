@@ -37,6 +37,22 @@
     </div>
     <answers></answers>
   </div>
+  <!-- Start Game Modal-->
+  <div id="app-modal" ng-if="showGameModal">
+    <div id="app-modal-content">
+      <div class="modal-header">
+        <h3>Play Game</h3>
+      </div>
+      <div class="modal-body">
+        <h5> You are about to {{game.userMessage | lowercase}}. Click button to start.</h5>
+        <div id="button-div">
+          <button class= "start-button" ng-click="hideAppModal()">{{game.userMessage}}</button>
+          <button class= "start-button" ng-click="abandonGame()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Maximum Player Reached Notification Modal-->
   <div id="modal" ng-show="game.errorMsg">
     <div id="modal-content">

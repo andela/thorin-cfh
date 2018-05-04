@@ -17,11 +17,19 @@ module.exports = function (io) {
   const allGames = {};
   const allPlayers = {};
   const gamesNeedingPlayers = [];
+  let userMessage = '';
   let gameID = 0;
 
   io.sockets.on('connection', (socket) => {
     console.log(`${socket.id} Connected`);
-    socket.emit('id', { id: socket.id });
+    const gameWithoutPlayers = gamesNeedingPlayers.findIndex(game => game.players.length === 0);
+    // Check if a user is to start a game or join a game
+    if (gamesNeedingPlayers.length === 0 || gameWithoutPlayers >= 0) {
+      userMessage = 'Start Game';
+    } else {
+      userMessage = 'Join Game';
+    };
+    socket.emit('id', { id: socket.id, message: userMessage });
 
     socket.on('pickCards', (data) => {
       console.log(socket.id, 'picked', data);
@@ -105,7 +113,7 @@ module.exports = function (io) {
         } else {
           player.username = user.username;
           player.premium = user.premium || 0;
-          player.avatar = user.avatar ||
+          player.avatar = user.imageUrl ||
           avatars[Math.floor(Math.random() * 4) + 12];
         }
         getGame(player, socket, data.room, data.createPrivate);
