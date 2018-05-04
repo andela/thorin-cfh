@@ -7,8 +7,6 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-const avatars = require('./avatars').all();
-
 require('dotenv').config({ path: '.env' });
 
 const User = mongoose.model('User');
@@ -238,7 +236,6 @@ exports.avatars = function (req, res) {
   }
   return res.redirect('/#!/app');
 };
-
 
 exports.addDonation = function (req, res) {
   if (req.body && req.user && req.user._id) { //eslint-disable-line

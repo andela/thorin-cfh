@@ -17,9 +17,6 @@ angular.module('mean.system')
     };
 
 
-
-
-
     $scope.login = () => {
       return $q.all([
         $http.post('/api/auth/login', $scope.user)
@@ -102,7 +99,16 @@ angular.module('mean.system')
           });
       }
 
-
-
-
+    $scope.disableSubmit = () => {
+        document.getElementById("submit").disabled = true;
+        function activateButton(element) {
+            if(element.checked) {
+              document.getElementById("submit").disabled = false;
+             }
+             else  {
+              document.getElementById("submit").disabled = true;
+            }
+      
+        }
+    }
   }]);
