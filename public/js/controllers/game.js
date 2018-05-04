@@ -28,7 +28,6 @@ angular.module('mean.system') //eslint-disable-line
       $scope.getUserInfo = (user, searchForm) => {
         if (searchForm.$dirty) {
           $scope.resetForm();
-          console.log(searchForm);
           $http({
             method: 'POST',
             url: '/api/search/users',
@@ -248,7 +247,6 @@ angular.module('mean.system') //eslint-disable-line
       if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
         console.log('joining custom game');
         game.joinGame('joinGame', $location.search().game);
-        console.log(game);
       } else if ($location.search().custom) {
         game.joinGame('joinGame', null, true);
       } else {
