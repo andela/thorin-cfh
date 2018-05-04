@@ -225,12 +225,12 @@ exports.checkUsername = (req, res, next) => {
 exports.avatars = function (req, res) {
   // Update the current user's profile to include the avatar choice they've made
   if (req.user && req.user._id && req.body.avatar !== undefined &&
-    /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
+    /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {  // eslint-disable-line
     User.findOne({
       _id: req.user._id
     })
       .exec((err, user) => {
-        user.avatar = avatars[req.body.avatar];
+        user.avatar = avatars[req.body.avatar];  // eslint-disable-line
         user.save();
       });
   }
