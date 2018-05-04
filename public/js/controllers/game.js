@@ -29,7 +29,6 @@ angular.module('mean.system') //eslint-disable-line
       $scope.getUserInfo = (user, searchForm) => {
         if (searchForm.$dirty) {
           $scope.resetForm();
-          console.log(searchForm);
           $http({
             method: 'POST',
             url: '/api/search/users',
