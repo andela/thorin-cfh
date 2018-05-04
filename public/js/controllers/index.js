@@ -16,8 +16,11 @@ angular.module('mean.system')
       return false;
     };
 
+
+
+
+
     $scope.login = () => {
-      //console.log("SCOPE USER",$scope.user);
       return $q.all([
         $http.post('/api/auth/login', $scope.user)
       ])
@@ -42,7 +45,6 @@ angular.module('mean.system')
       fd.append('upload_preset', 'cghgame');
       $http.post('/api/auth/checkuser', $scope.user)
       .then((res) => { 
-        //console.log(res.status)
         if (res.status === 200) {
             axios
             .post(
@@ -52,7 +54,6 @@ angular.module('mean.system')
             .then((res) => {
               $scope.user.imageUrl = res.data.secure_url;
               $scope.user.publicId = res.data.public_id;
-              //console.log($scope.user);
               $http.post('/api/auth/signup', $scope.user)
                 .then(
                   (res) => {
@@ -85,22 +86,21 @@ angular.module('mean.system')
     };    
 
 
-
-    $scope.imageUpload = function (event) {
-      var files = event.target.files;
-      for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          var reader = new FileReader();
-          reader.onload = $scope.imageIsLoaded;
-          reader.readAsDataURL(file);
+      $scope.imageUpload = (event) => {
+          let files = event.target.files;
+          for (let i = 0; i < files.length; i++) {
+              let file = files[i];
+              const reader = new FileReader();
+              reader.onload = $scope.imageIsLoaded;
+              reader.readAsDataURL(file);
+          }
       }
-  }
 
-  $scope.imageIsLoaded = function (e) {
-      $scope.$apply(function () {
-          $scope.img = e.target.result;            
-      });
-  }
+      $scope.imageIsLoaded = (e) => {
+          $scope.$apply(() => {
+              $scope.img = e.target.result;            
+          });
+      }
 
 
 

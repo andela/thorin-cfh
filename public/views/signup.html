@@ -41,7 +41,15 @@
       <br/>
       <div class="sign-body" ng-controller="IndexController" >
 
-      
+      <div class="upload-btn-wrapper circlediv">
+        <h6 class="addimage">Add Image</h6>
+          <img class="circle" ng-src="{{img}}">
+          <input type="file"id="file" name="imageUr"
+          ng-model-instant 
+          onchange="angular.element(this).scope().imageUpload(event)" 
+          />
+      </div>
+       
         <h1 style="color: red">{{error}}</h1>
         <div class="more-sign">
           <form class="signup form-horizontal" ng-submit="submit()" >
@@ -64,16 +72,12 @@
               </div>
             </div>
             <br/>
-            <div class="circle"><img class="circle" ng-src="{{img}}" /></div>
+          
 
-            <div class="control-group">
-              <div class="controls">
-                <br>
-                <input id="imageUr" class="centerme" type="file" name="imageUr" ng-model="user.imageUr" ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" required  novalidate />
-              </div>
-            </div>
+
             
-            <div ng-submit="disableSubmit()">
+            
+            <div>
               <input type="checkbox"  name="terms" id="terms" required >  I Agree To The Privacy Policy 
              <br><br>
             </div>
@@ -88,6 +92,17 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function(){
+    $('#file').change(function(){
+      const fileName = $(this).val()
+      if(fileName){
+        $('.addimage').hide();
+      }
+      console.log(fileName)
+    })
+  })
+</script>
 
 
 
