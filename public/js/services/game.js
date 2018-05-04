@@ -61,6 +61,7 @@ angular.module('mean.system')
 
   socket.on('id', function(data) {
     game.id = data.id;
+    game.userMessage = data.message;
   });
 
   socket.on('prepareGame', function(data) {
