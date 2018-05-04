@@ -176,6 +176,51 @@ exports.createUser = function (req, res) {
   });
 };
 
+
+exports.checkEmail = (req, res, next) => {
+  const { email } = req.body;
+  User.findOne({
+    email: req.body.email,
+  }).then((existingEmail) => {
+    if (existingEmail) {
+      res.status(409).json({
+        error: 'A user with that email already exist',
+        existingEmail
+      });
+      return;
+    }
+    next();
+  }).catch(error => res.status(400).json({
+    message: 'An error occoured',
+    error
+  }));
+};
+
+
+exports.checkUsername = (req, res, next) => {
+  const {
+    username,
+  } = req.body;
+  User.findOne({
+    username: req.body.username,
+  }).then((existingUsername) => {
+    if (existingUsername) {
+      res.status(409).json({
+        error: 'A user with that Username already exist',
+        existingUsername
+      });
+    } else {
+      res.status(200).json({
+        message: 'You are Good to Go!!!'
+      });
+    }
+  }).catch(error => res.status(400).json({
+    message: 'An error occoured',
+    error
+  }));
+};
+
+
 /**
  * Assign avatar to user
  */

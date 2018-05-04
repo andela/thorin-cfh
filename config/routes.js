@@ -21,6 +21,9 @@ module.exports = function (app, passport) {
   app.post('/api/mailer', users.invitePlayersByMail);
 
   //
+
+  app.post('/api/auth/checkuser', users.checkEmail, users.checkUsername);
+
   app.post('/api/auth/signup', validator.Signup, users.createUser);
 
   // Donation Routes
