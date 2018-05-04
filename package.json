@@ -17,7 +17,7 @@
     "start:grunt": "babel-node node_modules/grunt-cli/bin/grunt",
     "start:build": "node ./app/build/server.js",
     "start": "babel-node node_modules/gulp/bin/gulp && node ./build/server.js",
-    "test": "nyc --reportrer=html  --reporter=text   mocha --require babel-core/register ./test/**/*.js --timeout 60000 --exit",
+    "test": "nyc mocha --require babel-core/register ./test/**/*.js --timeout 60000 --exit",
     "test:server": "babel-node node_modules/.bin/gulp test ",
     "test:client": "babel-node node_modules/gulp/bin/gulp test:client ",
     "postinstall": "node node_modules/grunt-cli/bin/grunt install",

@@ -51,6 +51,35 @@ class Validate {
     }
     next(); // there were no errors!
   }
+
+  /**
+   * verify the game data
+   *
+   * @param {Object} req HTTP request object
+   * @param {Object} res HTTP response object
+   *  @param {Object} next HTTP response object
+   *
+   * @returns {void}
+   */
+  static gameValidation(req, res, next) {
+    // Check if all fields are present in the game data
+    req.checkBody('players', 'players must be an array').isArray().notEmpty();
+    req.checkBody('winner', 'winner must be a string').isString();
+    req.checkBody('roundsPlayed', 'roundsPlayed must be an integer').isInt();
+    req.checkBody('gameStarter', 'gameStarter must be a string').isString();
+
+    const results = req.validationErrors();
+
+    if (results) {
+      const errors = [];
+      results.map(result => errors.push(result.msg));
+      return res.status(400).json({
+        message: 'Failure, Game not saved',
+        errors
+      });
+    }
+    next();
+  }
 }
 
 
