@@ -3,13 +3,12 @@ import mongoose from 'mongoose';
 const LocalStrategy = require('passport-local').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-const GitHubStrategy = require('passport-github').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const User = mongoose.model('User');
 const config = require('./config');
 
-require('dotenv').config({ path: '.env' });
+require('dotenv').config();
 
 
 module.exports = function (passport) {
@@ -62,20 +61,17 @@ module.exports = function (passport) {
   // Use twitter strategy
   passport.use(new TwitterStrategy(
     {
-      consumerKey: process.env.TWITTER_CONSUMER_KEY || config.twitter.ID,
-      consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.Secret, // eslint-disable-line
+      consumerKey: process.env.TWITTER_CONSUMER_KEY,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET, // eslint-disable-line
       callbackURL: process.env.TWITTER_CALLBACK,
       userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true' // eslint-disable-line
     },
-    ((token, tokenSecret, profile, res) => {
+    ((token, tokenSecret, profile, done) => {
       User.findOne({
         'twitter.id_str': profile.id
       }, (err, user) => {
         if (err) {
-          return res.status(500).json({
-            message: 'Your information cannot be saved at this time',
-            err
-          });
+          return done(err);
         }
         if (!user) {
           user = new User({
@@ -86,14 +82,12 @@ module.exports = function (passport) {
             imageUrl: profile._json.profile_image_url, // eslint-disable-line
             email: profile.email,
           });
-          user.save(err => res.status(500).json({
-            message: 'Your information cannot be saved at this time',
-            err
-          }));
-        } else {
-          return res.status(409).json({
-            message: 'You are signed up already',
+          user.save((err) => {
+            if (err) console.log(err);
+            return done(err, user);
           });
+        } else {
+          return done(err, user);
         }
       });
     })
@@ -102,20 +96,16 @@ module.exports = function (passport) {
   // Use facebook strategy
   passport.use(new FacebookStrategy(
     {
-      clientID: process.env.FB_CLIENT_ID || config.facebook.clientID,
-      clientSecret: process.env.FB_CLIENT_SECRET ||
-      config.facebook.clientSecret,
+      clientID: process.env.FB_CLIENT_ID,
+      clientSecret: process.env.FB_CLIENT_SECRET,
       callbackURL: process.env.FB_CALLBACK
     },
-    ((accessToken, refreshToken, profile, res) => {
+    ((accessToken, refreshToken, profile, done) => {
       User.findOne({
         'facebook.id': profile.id
       }, (err, user) => {
         if (err) {
-          return res.status(500).json({
-            message: 'Your information cannot be saved at this time',
-            err
-          });
+          return done(err);
         }
         if (!user) {
           user = new User({
@@ -123,55 +113,14 @@ module.exports = function (passport) {
             username: profile.username,
             provider: 'facebook',
             facebook: profile._json, // eslint-disable-line
-            imageUrl: profile._json.picture // eslint-disable-line
+            imageUrl: profile._json.picture || profile.json.picture.data.url || profile.photos[0].value // eslint-disable-line
           });
-          user.save(err => res.status(500).json({
-            message: 'Your information cannot be saved at this time',
-            err
-          }));
+          user.save((err) => {
+            if (err) console.log(err);
+            return done(err, user);
+          });
         } else {
-          return res.status(409).json({
-            message: 'You are signed up already',
-          });
-        }
-      });
-    })
-  ));
-
-  // Use github strategy
-  passport.use(new GitHubStrategy(
-    {
-      clientID: process.env.GITHUB_CLIENT_ID || config.github.clientID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || config.github.clientSecret, // eslint-disable-line
-      callbackURL: process.env.GITHUB_CALLBACK,
-    },
-    ((accessToken, refreshToken, profile, res) => {
-      User.findOne({
-        'github.id': profile.id
-      }, (err, user) => {
-        if (err) {
-          return res.status(500).json({
-            message: 'Your information cannot be saved at this time',
-            err
-          });
-        }
-        if (!user) {
-          user = new User({
-            name: profile.displayName,
-            email: profile.emails[0].value,
-            username: profile.username,
-            provider: 'github',
-            github: profile._json, // eslint-disable-line
-            imageUrl: profile._json.avatar_url, // eslint-disable-line
-          });
-          user.save(err => res.status(500).json({
-            message: 'Your information cannot be saved at this time',
-            err
-          }));
-        } else {
-          return res.status(409).json({
-            message: 'You are signed up already',
-          });
+          return done(err, user);
         }
       });
     })
@@ -180,21 +129,16 @@ module.exports = function (passport) {
   // Use google strategy
   passport.use(new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID ||
-      config.github.clientID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ||
-      config.github.clientSecret,
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: process.env.GOOGLE_CALLBACK,
     },
-    ((accessToken, refreshToken, profile, res) => {
+    ((accessToken, refreshToken, profile, done) => {
       User.findOne({
         'google.id': profile.id
       }, (err, user) => {
         if (err) {
-          return res.status(500).json({
-            message: 'Your information cannot be saved at this time',
-            err
-          });
+          return done(err);
         }
         if (!user) {
           user = new User({
@@ -205,14 +149,12 @@ module.exports = function (passport) {
             google: profile._json, // eslint-disable-line
             imageUrl: profile._json.picture // eslint-disable-line
           });
-          user.save(err => res.status(500).json({
-            message: 'Your information cannot be saved at this time',
-            err
-          }));
-        } else {
-          return res.status(409).json({
-            message: 'You are signed up already',
+          user.save((err) => {
+            if (err) console.log(err);
+            return done(err, user);
           });
+        } else {
+          return done(err, user);
         }
       });
     })

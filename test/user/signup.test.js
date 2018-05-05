@@ -7,7 +7,7 @@ import request from 'supertest';
 import chai from 'chai';
 import nock from 'nock';
 import app from '../../server';
-import { githubContent, twitterContent, googleContent } from './mockResponse';
+import { twitterContent, googleContent } from './mockResponse';
 
 require('dotenv').config({ path: '.env' });
 
@@ -122,24 +122,6 @@ describe('sign up users with token', () => {
       .end((err, res) => {
         expect(res.body.message).to.equal('Success');
         if (err) return done(err);
-        done();
-      });
-  });
-
-  it('returns success when user is authenticated through github', (done) => {
-    
-    nock('https://api.github.com')
-      .get('/users/Orlayhemmy?client_id=f77890a5908bfd148937&client_secret=5b577ca4b7ca3fbc3ca5feea1264eb9caf826674/')
-      .reply(200, githubContent);
-
-    request('https://api.github.com')
-      .get('/users/Orlayhemmy?client_id=f77890a5908bfd148937&client_secret=5b577ca4b7ca3fbc3ca5feea1264eb9caf826674/')
-      .end((err, res) => {
-        const response = res.body;
-        expect(response.login).to.equal('Orlayhemmy');
-        expect(response).to.have.property('email');
-        expect(response).to.have.property('avatar_url');
-        expect(res.status).to.equal(200);
         done();
       });
   });
