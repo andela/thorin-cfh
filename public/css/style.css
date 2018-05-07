@@ -1158,10 +1158,10 @@ li {
 
 
 /*Override Bootstrap Row Class*/
-.row {
+/* .row {
   margin-left: 0;
   margin-right: 9px;
-}
+} */
 
 #donations {
   margin-top: 160px;
@@ -1169,7 +1169,7 @@ li {
 
 /*MORE MEDIA QUERIESS WHOOOOOAAAA*/
 
-@media (min-width: 1430px) {
+/* @media (min-width: 1430px) {
   .row {
      margin: 0 0 -9px 0;
   }
@@ -1177,7 +1177,7 @@ li {
   .wpb-logo-container {
      margin-right: 0;
   }
-}
+} */
 
 @media(max-width: 680px) {
   .wpb-menu-container {
@@ -1606,28 +1606,3 @@ li {
 }
 
 
-
-
-.upload-btn-wrapper {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-}
-
-.btn {
-  border: 2px solid gray;
-  color: gray;
-  background-color: white;
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.upload-btn-wrapper input[type=file] {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}

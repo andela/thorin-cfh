@@ -30,23 +30,50 @@ angular.module('mean.system')
         }, (errorResponse) => { 
           $scope.global.authenticated = false;
           $scope.global.user = null;
-          window.location = '/#!/signin?error=invalid';
+          $scope.error = "Invaild Email or Password"
         });
     };
 
+  const progressBar = (data) => {
+      let elem = document.getElementById("myBar"); 
+      let  width = 1;
+      const id = setInterval(frame, 10);
+      function frame() {
+          if (width >= data) {
+              clearInterval(id);
+              console.log(clearInterval(id))
+          } else {
+              if(width <= 100 ){
+                width++; 
+                elem.style.width = width + '%';
+                elem.innerHTML = width * 1  + '%';
+              }
+        }
+    }
+  }
+   
 
     $scope.submit = () => {
-      const file = document.getElementById('imageUr').files[0];
+      const file = document.getElementById('file').files[0];
       const fd = new FormData();
       fd.append('file', file);
       fd.append('upload_preset', 'cghgame');
       $http.post('/api/auth/checkuser', $scope.user)
       .then((res) => { 
+
         if (res.status === 200) {
             axios
             .post(
               'https://api.cloudinary.com/v1_1/skybound/image/upload',
-              fd
+              fd, {
+                onUploadProgress: (progressEvent) => {
+                  const level = `${Math.round(progressEvent.loaded /
+                   progressEvent.total * 100)}%`;
+                   $scope.progress = level;
+                   progressBar($scope.progress)
+                  console.log(level)
+                }
+              }
             )
             .then((res) => {
               $scope.user.imageUrl = res.data.secure_url;
@@ -66,18 +93,16 @@ angular.module('mean.system')
                     $scope.global.authenticated = false;
                     $scope.global.user = null;
                     window.user = null;
-                    window.location = '/#!/signup?error=invalid';
-                    alert(error.data.message)
+                    $scope.error = error.data.message
                   }
                 );
             })
             .catch((err) => {
-              alert('Unable to upload. Check your internet', err);
+              $scope.error = 'Unable to upload. Check your internet'
             });
           }
       },(error) =>  { 
-        $scope.error = error.data.error
-
+        $scope.error = error.data.error.toString();
       })
 
     };    
