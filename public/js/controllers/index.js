@@ -35,21 +35,7 @@ angular.module('mean.system')
     };
 
   const progressBar = (data) => {
-      let elem = document.getElementById("myBar"); 
-      let  width = 1;
-      const id = setInterval(frame, 10);
-      function frame() {
-          if (width >= data) {
-              clearInterval(id);
-              console.log(clearInterval(id))
-          } else {
-              if(width <= 100 ){
-                width++; 
-                elem.style.width = width + '%';
-                elem.innerHTML = width * 1  + '%';
-              }
-        }
-    }
+      let elem = document.getElementById("move").style.width = data; 
   }
    
 
@@ -71,7 +57,6 @@ angular.module('mean.system')
                    progressEvent.total * 100)}%`;
                    $scope.progress = level;
                    progressBar($scope.progress)
-                  console.log(level)
                 }
               }
             )
