@@ -175,6 +175,68 @@ exports.createUser = function (req, res) {
 };
 
 
+exports.checkEmail = (req, res, next) => {
+  const { email } = req.body;
+  User.findOne({
+    email: req.body.email,
+  }).then((existingEmail) => {
+    if (existingEmail) {
+      res.status(409).json({
+        error: 'A user with that email already exist',
+        existingEmail
+      });
+      return;
+    }
+    next();
+  }).catch(error => res.status(400).json({
+    message: 'An error occoured',
+    error
+  }));
+};
+
+
+exports.checkUsername = (req, res, next) => {
+  const {
+    username,
+  } = req.body;
+  User.findOne({
+    username: req.body.username,
+  }).then((existingUsername) => {
+    if (existingUsername) {
+      res.status(409).json({
+        error: 'A user with that Username already exist',
+        existingUsername
+      });
+    } else {
+      res.status(200).json({
+        message: 'You are Good to Go!!!'
+      });
+    }
+  }).catch(error => res.status(400).json({
+    message: 'An error occoured',
+    error
+  }));
+};
+
+
+/**
+ * Assign avatar to user
+ */
+exports.avatars = function (req, res) {
+  // Update the current user's profile to include the avatar choice they've made
+  if (req.user && req.user._id && req.body.avatar !== undefined &&
+    /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {  // eslint-disable-line
+    User.findOne({
+      _id: req.user._id
+    })
+      .exec((err, user) => {
+        user.avatar = avatars[req.body.avatar];  // eslint-disable-line
+        user.save();
+      });
+  }
+  return res.redirect('/#!/app');
+};
+
 exports.addDonation = function (req, res) {
   if (req.body && req.user && req.user._id) { //eslint-disable-line
     // Verify that the object contains crowdrise data

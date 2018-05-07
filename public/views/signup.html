@@ -37,8 +37,19 @@
         <a href="/auth/google"><img class="login-item" src="/img/icons/google.png"></a>
       </div>
       <p id="create">Or create a username/password and upload an image</p>
-
+      <br/>
       <div class="sign-body" ng-controller="IndexController" >
+
+      <div class="upload-btn-wrapper circlediv">
+        <h6 class="addimage">Add Image</h6>
+          <img class="circle" ng-src="{{img}}">
+          <input type="file"id="file" name="imageUr"
+          ng-model-instant 
+          onchange="angular.element(this).scope().imageUpload(event)" 
+          />
+      </div>
+       
+        <h1 style="color: red">{{error}}</h1>
         <div class="more-sign">
           <form class="signup form-horizontal" ng-submit="submit()" >
             <div class="control-group">
@@ -59,13 +70,14 @@
                 <input class="input-info" id="password" type="password" name="password" placeholder="Password" ng-model="user.password" required   novalidate />
               </div>
             </div>
-            <div class="control-group">
-              <div class="controls">
-                <input class="input-info" id="imageUr" type="file" name="imageUr" placeholder="imageUr" ng-model="user.imageUr" required  novalidate />
-              </div>
-            </div>
-            <div ng-submit="disableSubmit()">
-              <input type="checkbox" name="terms" id="terms" required >  I Agree To Privacy Policy & Coditions
+            <br/>
+          
+
+
+            
+            
+            <div>
+              <input type="checkbox"  name="terms" id="terms" required >  I Agree To The Privacy Policy 
              <br><br>
             </div>
             <div class="form-actions">
@@ -79,6 +91,17 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function(){
+    $('#file').change(function(){
+      const fileName = $(this).val()
+      if(fileName){
+        $('.addimage').hide();
+      }
+      console.log(fileName)
+    })
+  })
+</script>
 
 
 

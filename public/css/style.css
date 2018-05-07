@@ -447,6 +447,68 @@ p a:hover {
 }
 
 #navver {
+   height: 60px;
+}
+
+
+ /**** Section Title ****/
+ .wpb-section-title {
+   background-color: #24272a;
+   height: 100px;
+ }
+
+ .wpb-section-title .wpb-title {
+   color: #fff;
+   font-size: 32px;
+   text-transform: uppercase;
+   font-weight: bold;
+   line-height: 100px;
+ }
+
+ .wpb-section-title .wpb-title-description {
+   color: #515e65;
+   font-size: 14px;
+   text-transform: none;
+   padding-left: 5px;
+   line-height: 100px;
+   display: inline-block;
+   vertical-align: top;
+ }
+
+ #create {
+    text-align: center;
+    color: white;
+    font-family: arial;
+    margin-bottom: -13px;
+ }
+
+ #sign-up-btn-landing {
+  display: inline-block;
+  border-radius: 8px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  font-size: 20px;
+  font-size: 2em;
+  font-weight: 400;
+  text-align: center;
+  color: white;
+  background: #C54141;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-right: 10px;
+  padding: 0.65em 35px;
+  cursor: pointer;
+}
+
+  #sign-up-btn-other {
+   display: inline-block;
+   border-radius: 8px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   font-size: 20px;
+   font-size: 1.35em;
+   font-weight: 400;
+=======
   height: 60px;
 }
 
@@ -1541,4 +1603,31 @@ li {
    .row {
       margin: 0 0 0 4px;
    }
+}
+
+
+
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }

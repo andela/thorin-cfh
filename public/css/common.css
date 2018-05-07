@@ -1102,3 +1102,73 @@
     border-top: 0px solid black !important;
   }
   
+
+
+
+
+  .alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+}
+
+
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  align-items: center;
+  margin: auto;
+  background: url(885984.png);
+  background-size: 100px 100px;
+  background-repeat: no-repeat; 
+  background-position: center; 
+}
+
+.circlediv {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: auto;
+  border: 1px solid white;
+}
+
+.centerme {
+  margin: auto;
+  width: 30%;
+  padding: 10px;
+}
+
+
+.circlebtn {
+  background: transparent;
+  height: 150px;
+  border-radius: 50%;
+  width: auto;
+  color: white ;
+}
+
+.addimage{
+  position: absolute;
+  top: 20px;
+  left: 70px;
+  color: white;
+}
