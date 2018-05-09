@@ -113,7 +113,7 @@ module.exports = function (passport) {
             username: profile.username,
             provider: 'facebook',
             facebook: profile._json, // eslint-disable-line
-            imageUrl: profile._json.picture || profile.json.picture.data.url || profile.photos[0].value // eslint-disable-line
+            imageUrl: profile._json.picture || profile.photos[0].value // eslint-disable-line
           });
           user.save((err) => {
             if (err) console.log(err);

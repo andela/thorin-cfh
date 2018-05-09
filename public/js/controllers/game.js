@@ -2,10 +2,10 @@ angular.module('mean.system') //eslint-disable-line
   .controller('GameController', [
     '$scope', 'game', '$timeout', '$location',
     'MakeAWishFactsService', '$dialog',
-    '$http',
+    '$http', 'socket',
     function (
       $scope, game, $timeout, $location,
-      MakeAWishFactsService, $dialog, $http
+      MakeAWishFactsService, $dialog, $http, socket
     ) {
       $scope.hasPickedCards = false;
       $scope.winningCardPicked = false;
@@ -13,6 +13,7 @@ angular.module('mean.system') //eslint-disable-line
       $scope.showGameModal = true;
       $scope.modalShown = false;
       $scope.game = game;
+      const messageArray = [];
 
       // Get email address from search box
       $scope.getUserEmail = function (user) {
@@ -278,8 +279,15 @@ angular.module('mean.system') //eslint-disable-line
           }
         }
       });
+      
+      socket.on('invitation', (message) => {
+        messageArray.push(message);
+        $scope.notifications = messageArray;
+      });
+
       // Function hides modal on app.html page
       $scope.hideAppModal = () => {
+        game.usersOnline();
         $scope.showGameModal = false;
         if ($location.search().game &&
         !(/^\d+$/).test($location.search().game)) {
@@ -294,6 +302,7 @@ angular.module('mean.system') //eslint-disable-line
 
       if ($location.search().game &&
       !(/^\d+$/).test($location.search().game) !== undefined) {
+        game.usersOnline();
         $scope.showGameModal = false;
         game.joinGame('joinGame', $location.search().game);
       }

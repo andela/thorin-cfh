@@ -2,6 +2,10 @@
 angular.module('mean.system')
 .factory('socket', ['$rootScope', function($rootScope){
   var socket = io.connect();
+  if (window.user) {
+    const user = window.user.username;
+    socket.emit('connectedUser',{user});
+  }
   return {
     on: function(eventName, callback){
       socket.on(eventName, function(){
