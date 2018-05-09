@@ -306,11 +306,6 @@ angular //eslint-disable-line
         }
       });
 
-      socket.on('invitation', (message) => {
-        messageArray.push(message);
-        $scope.notifications = messageArray;
-      });
-
       // Function hides modal on app.html page
       $scope.hideAppModal = () => {
         game.usersOnline();

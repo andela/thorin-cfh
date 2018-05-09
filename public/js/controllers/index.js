@@ -132,7 +132,7 @@ angular.module('mean.system')
 
     $scope.addInvitee = () => {
       if ($scope.selected != undefined) {
-        const gameLink= `http://localhost:3000/#!/app?game=${game.getGameID()}`;
+        const gameLink= $location.$$absUrl
         const messageData = {
           gameLink,
           user: $scope.selected,
