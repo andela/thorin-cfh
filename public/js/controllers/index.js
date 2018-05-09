@@ -3,6 +3,7 @@ angular.module('mean.system')
   .controller('IndexController', ['$scope', 'Global', '$http', '$q', '$location', 'socket', 'game', 
  ($scope, Global, $http, $q, $location, socket, game ) => {
     $scope.global = Global;
+    let messageArray = [];
 
     $scope.playAsGuest = function () {
       game.joinGame();
@@ -121,4 +122,27 @@ angular.module('mean.system')
       
         }
     }
+
+    $scope.selected = undefined;
+
+    socket.on('people', (clients) => {
+      const result = clients.map(value => value.username);
+      $scope.users = result;
+    })
+
+    $scope.addInvitee = () => {
+      if ($scope.selected != undefined) {
+        const gameLink= $location.$$absUrl
+        const messageData = {
+          gameLink,
+          user: $scope.selected,
+        }
+        socket.emit('invitePlayer', messageData);
+      }
+    }
+
+    socket.on('invitation', (message) => {
+      messageArray.push(message);
+      $scope.notifications = messageArray;
+    })
   }]);

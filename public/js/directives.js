@@ -8,6 +8,13 @@ angular.module('mean.directives', [])
         scope.colors = ['#7CE4E8', '#FFFFa5', '#FC575E', '#F2ADFF', '#398EC4', '#8CFF95'];
       }
     };
+  })
+  .directive('invite', function(){
+    return{
+      restrict: 'EA',
+      templateUrl: '/views/invite.html',
+      link: function(scope, elem, attr){}
+    };
   }).directive('answers', function() {
     return {
       restrict: 'EA',

@@ -1,11 +1,23 @@
-angular.module('mean.system') //eslint-disable-line
+angular //eslint-disable-line
+  .module('mean.system') //eslint-disable-line
   .controller('GameController', [
-    '$scope', 'game', '$timeout', '$location',
-    'MakeAWishFactsService', '$dialog',
+    '$scope',
+    'game',
+    '$timeout',
+    '$location',
+    'MakeAWishFactsService',
+    '$dialog',
     '$http',
+    'socket',
     function (
-      $scope, game, $timeout, $location,
-      MakeAWishFactsService, $dialog, $http
+      $scope,
+      game,
+      $timeout,
+      $location,
+      MakeAWishFactsService,
+      $dialog,
+      $http,
+      socket
     ) {
       $scope.hasPickedCards = false;
       $scope.winningCardPicked = false;
@@ -13,6 +25,7 @@ angular.module('mean.system') //eslint-disable-line
       $scope.showGameModal = true;
       $scope.modalShown = false;
       $scope.game = game;
+      const messageArray = [];
 
       // Get email address from search box
       $scope.getUserEmail = function (user) {
@@ -57,7 +70,9 @@ angular.module('mean.system') //eslint-disable-line
             game.message = '';
             $scope.messageInvite = response.data.message;
             game.inviteMessage = $scope.messageInvite;
-            $timeout(() => { game.inviteMessage = ''; }, 3000);
+            $timeout(() => {
+              game.inviteMessage = '';
+            }, 3000);
           }, error => error);
         } else {
           game.message = '';
@@ -80,9 +95,11 @@ angular.module('mean.system') //eslint-disable-line
             if (game.curQuestion.numAnswers === 1) {
               $scope.sendPickedCards();
               $scope.hasPickedCards = true;
-            } else if (game.curQuestion.numAnswers === 2 &&
-            $scope.pickedCards.length === 2) {
-            // delay and send
+            } else if (
+              game.curQuestion.numAnswers === 2 &&
+              $scope.pickedCards.length === 2
+            ) {
+              // delay and send
               $scope.hasPickedCards = true;
               $timeout($scope.sendPickedCards, 300);
             }
@@ -93,8 +110,10 @@ angular.module('mean.system') //eslint-disable-line
       };
 
       $scope.pointerCursorStyle = function () {
-        if ($scope.isCzar() &&
-        $scope.game.state === 'waiting for czar to decide') {
+        if (
+          $scope.isCzar() &&
+          $scope.game.state === 'waiting for czar to decide'
+        ) {
           return { cursor: 'pointer' };
         }
         return {};
@@ -136,13 +155,15 @@ angular.module('mean.system') //eslint-disable-line
       };
 
       $scope.showFirst = function (card) {
-        return game.curQuestion.numAnswers > 1 &&
-        $scope.pickedCards[0] === card.id;
+        return (
+          game.curQuestion.numAnswers > 1 && $scope.pickedCards[0] === card.id
+        );
       };
 
       $scope.showSecond = function (card) {
-        return game.curQuestion.numAnswers > 1 &&
-        $scope.pickedCards[1] === card.id;
+        return (
+          game.curQuestion.numAnswers > 1 && $scope.pickedCards[1] === card.id
+        );
       };
 
       $scope.isCzar = function () {
@@ -154,8 +175,7 @@ angular.module('mean.system') //eslint-disable-line
       };
 
       $scope.isCustomGame = function () {
-        return !(/^\d+$/).test(game.gameID) &&
-        game.state === 'awaiting players';
+        return !/^\d+$/.test(game.gameID) && game.state === 'awaiting players';
       };
 
       $scope.isPremium = function ($index) {
@@ -208,8 +228,10 @@ angular.module('mean.system') //eslint-disable-line
 
       // In case player doesn't pick a card in time, show the table
       $scope.$watch('game.state', () => {
-        if (game.state === 'waiting for czar to decide'
-        && $scope.showTable === false) {
+        if (
+          game.state === 'waiting for czar to decide' &&
+          $scope.showTable === false
+        ) {
           $scope.showTable = true;
         }
 
@@ -229,60 +251,66 @@ angular.module('mean.system') //eslint-disable-line
               players,
               winner,
               gameStarter,
-              roundsPlayed: round,
+              roundsPlayed: round
             },
             headers: {
               'Content-Type': 'application/json',
-              'card-game-token': `${token}`,
+              'card-game-token': `${token}`
             }
-          })
-            .then(
-              (successResponse) => {
-                $scope.gameMessage = successResponse.data.msg;
-              },
-              (failureResponse) => {
-                $scope.gameMessage = 'Game not saved';
-              }
-            );
+          }).then(
+            (successResponse) => {
+              $scope.gameMessage = successResponse.data.msg;
+            },
+            (failureResponse) => {
+              $scope.gameMessage = 'Game not saved';
+            }
+          );
         }
       });
 
-      $scope.$watch('game.gameID', function() { //eslint-disable-line
+      $scope.$watch('game.gameID', () => {
+        //eslint-disable-line
         if (game.gameID && game.state === 'awaiting players') {
           if (!$scope.isCustomGame() && $location.search().game) {
-          // If the player didn't successfully enter the request room,
-          // reset the URL so they don't think they're in the requested room.
+            // If the player didn't successfully enter the request room,
+            // reset the URL so they don't think they're in the requested room.
             $location.search({});
           } else if ($scope.isCustomGame() && !$location.search().game) {
-          /*
+            /*
           Once the game ID is set, update the URL
           if this is a game with friends,
           */
-          // where the link is meant to be shared.
+            // where the link is meant to be shared.
             $location.search({ game: game.gameID });
             if (!$scope.modalShown) {
-              setTimeout(function() { //eslint-disable-line
+              setTimeout(() => {
+                //eslint-disable-line
                 const link = document.URL; //eslint-disable-line
-                const txt = 'Give the following link to your' +
-                'friends so they can join your game: ';
+                const txt =
+                  'Give the following link to your' +
+                  'friends so they can join your game: ';
                 $('#lobby-how-to-play').text(txt); //eslint-disable-line
-                $('#oh-el').css({ //eslint-disable-line
-                  'text-align': 'center',
-                  'font-size': '22px',
-                  'background': 'white', //eslint-disable-line
-                  'color': 'black' //eslint-disable-line
-                }).text(link);
+                $('#oh-el') //eslint-disable-line
+                  .css({
+                    //eslint-disable-line
+                    'text-align': 'center',
+                    'font-size': '22px',
+                    background: 'white', //eslint-disable-line
+                    color: 'black' //eslint-disable-line
+                  })
+                  .text(link);
               }, 200);
               $scope.modalShown = true;
             }
           }
         }
       });
+
       // Function hides modal on app.html page
       $scope.hideAppModal = () => {
+        game.usersOnline();
         $scope.showGameModal = false;
-        if ($location.search().game &&
-        !(/^\d+$/).test($location.search().game)) {
+        if ($location.search().game && !/^\d+$/.test($location.search().game)) {
           console.log('joining custom game');
           game.joinGame('joinGame', $location.search().game);
         } else if ($location.search().custom) {
@@ -292,10 +320,13 @@ angular.module('mean.system') //eslint-disable-line
         }
       };
 
-      if ($location.search().game &&
-      !(/^\d+$/).test($location.search().game) !== undefined) {
+      if (
+        $location.search().game &&
+        !/^\d+$/.test($location.search().game) !== undefined
+      ) {
+        game.usersOnline();
         $scope.showGameModal = false;
         game.joinGame('joinGame', $location.search().game);
       }
-    }]);
-
+    }
+  ]);

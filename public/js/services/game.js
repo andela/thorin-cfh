@@ -186,6 +186,10 @@ angular.module('mean.system')
     maxPlayersReached();
   })
 
+  game.usersOnline = function() {
+    socket.emit('showOnlineUsers');
+  }
+  
   game.joinGame = function(mode,room,createPrivate) {
     mode = mode || 'joinGame';
     room = room || '';
@@ -226,7 +230,7 @@ angular.module('mean.system')
   game.pickWinning = function(card) {
     socket.emit('pickWinning',{card: card.id});
   };
-
+  
   decrementTime();
 
   return game;

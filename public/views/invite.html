@@ -1,0 +1,12 @@
+<div id="invite" ng-controller="IndexController">
+  <div class="invite">
+    <div class="form-group" class="search">
+      <div class="searchtext">
+        <input type="text" class="form-control" placeholder="Search for online users" ng-model="selected" typeahead="user for user in users | filter:$viewValue">
+      </div>
+      <div class="invitebutton">
+        <button class="btn btn-large" ng-click="addInvitee()">Invite</button>
+      </div>
+    </div>
+  </div>
+</div>
