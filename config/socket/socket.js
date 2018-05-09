@@ -54,8 +54,8 @@ module.exports = function (io) {
     // send invite to player
     socket.on('invitePlayer', (data) => {
       if (onlineUsers.find(user => user.username === data.user)) {
-        const socketId = onlineUsers.findIndex(value => value.username === data.user);    
-        io.sockets.connected[socketId].emit('invitation', `You have been Invited to play a game. Click on the link to play ${data.gameLink}`);
+        const socketId = onlineUsers.find(user => user.username === data.user).userId;
+        io.sockets.connected[socketId].emit('invitation', {html:`You have been Invited to play a game.<br/> Click on this <a href=${data.gameLink}>link to join</a>`});
       }
     });
 

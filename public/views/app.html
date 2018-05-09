@@ -18,6 +18,9 @@
         <button type="submit" ng-click="getUserInfo(user, searchForm)" class="btn btn-success">Submit</button>
       </form>
     </div>
+    <div class="notification">
+      <p ng-repeat="info in notifications" ng-bind-html-unsafe="info.html">{{info}}</p>
+    </div>
     <div id='abandon-game-button' ng-click="abandonGame()">
       Abandon Game
     </div>
@@ -42,6 +45,7 @@
       </div>
     </div>
     <answers></answers>
+    <invite></invite>
   </div>
   <!-- Start Game Modal-->
   <div id="app-modal" ng-if="showGameModal">

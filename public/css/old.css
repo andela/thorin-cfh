@@ -9,7 +9,10 @@
   body {
     margin: 0;
   }
- 
+  .notification {
+    color: yellow;
+    display: inline-block;
+  }
   #landing-charity {
     width: 300px !important;
     margin-left: 15px !important;
