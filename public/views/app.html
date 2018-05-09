@@ -1,5 +1,11 @@
 </script>
-<style>input.ng-pristine.ng-valid, {background-color: red}</style>
+<style>
+  input.ng-pristine.ng-valid,
+    {
+    background-color: red
+  }
+</style>
+<link rel='stylesheet' href='././css/old.css'>
 <div id="app-container" ng-controller="GameController">
   <div id="menu-container">
     <div id="logo">
@@ -8,16 +14,17 @@
       <span id="third-word">Humanity</span>
       <!-- Search form for email-->
       <form name="searchForm">
-        <input class="" type="text" placeholder="Search for players..." ng-model="user.email"/>
+        <input class="" type="text" placeholder="Search for players..." ng-model="user.email" />
         <button type="submit" ng-click="getUserInfo(user, searchForm)" class="btn btn-success">Submit</button>
       </form>
     </div>
-    <div id = 'abandon-game-button' ng-click="abandonGame()">
-        Abandon Game
+    <div id='abandon-game-button' ng-click="abandonGame()">
+      Abandon Game
     </div>
-        <span id="tweet-container">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <span id="tweet-container">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good"
+        data-related="CFH_App">Tweet</a>
+      <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
     </span>
   </div>
   <div id="gameplay-container">
@@ -45,8 +52,8 @@
       <div class="modal-body">
         <h5> You are about to {{game.userMessage | lowercase}}. Click button to start.</h5>
         <div id="button-div">
-          <button class= "start-button" ng-click="hideAppModal()">{{game.userMessage}}</button>
-          <button class= "start-button" ng-click="abandonGame()">Cancel</button>
+          <button class="start-button" ng-click="hideAppModal()">{{game.userMessage}}</button>
+          <button class="start-button" ng-click="abandonGame()">Cancel</button>
         </div>
       </div>
     </div>
@@ -56,28 +63,34 @@
   <div id="modal" ng-show="game.errorMsg">
     <div id="modal-content">
       <div class="modal-body" ng-if="game.errorMsg">
-          <h6>{{game.errorMsg}}</h6>
+        <h6>{{game.errorMsg}}</h6>
       </div>
       <div class="button-div">
-        <span><button class= "user-button" ><a href="/play?custom" id="startanewgame">New game</a></button></span>
-        <span><button class= "user-button" ng-click="abandonGame()">Go back</button></span>
+        <span>
+          <button class="user-button">
+            <a href="/play?custom" id="startanewgame">New game</a>
+          </button>
+        </span>
+        <span>
+          <button class="user-button" ng-click="abandonGame()">Go back</button>
+        </span>
       </div>
     </div>
   </div>
   <!-- User Found Modal-->
   <div id="modal" ng-show="game.message">
-      <div id="modal-content">
-        <button type="button" ng-click="closeModal()">&times;</button>
-        <div class="modal-body" ng-if="game.message">
-          <h6>{{game.message}}</h6>
-        </div>
-        <div class="button-div">
-          <span><button class= "user-button" ng-click="sendGameInvite()" ng-if="userInfo.user.email">Invite</button></span>
-        </div>
+    <div id="modal-content">
+      <button type="button" ng-click="closeModal()">&times;</button>
+      <div class="modal-body" ng-if="game.message">
+        <h6>{{game.message}}</h6>
+      </div>
+      <div class="button-div">
+        <span>
+          <button class="user-button" ng-click="sendGameInvite()" ng-if="userInfo.user.email">Invite</button>
+        </span>
       </div>
     </div>
   </div>
-  
 </div>
 
-
+</div>
