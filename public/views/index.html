@@ -1,9 +1,7 @@
 <div landing>
-  <header class="main-header">
+  <header class="main-header" ng-controller="IndexController">
     <div class="h-container">
-
-
-      <div class="logo" ng-controller="IndexController">
+      <div class="logo">
         <img src="/img/playing-cards.png" alt="">
         <h5>Cards for Humanity</h5>
       </div>
@@ -32,6 +30,15 @@
           <span ng-hide="showOptions">
             <li>
               <a onclick="logout()">Sign Out</a>
+            </li>
+          </span>
+          <span ng-hide="showOptions">
+            <li>
+              <a id="arrow">{{global.user.username}}
+                <span>
+                  <i class="ion-arrow-down-b"></i>
+                </span>
+              </a>
             </li>
           </span>
         </ul>
@@ -191,6 +198,8 @@
         $(".humburger.solid").removeClass("solid")
       }
     })
+
+    //$(".dropbtn").html(window.user.username)
   })
   $('.menu-toggle').click(function () {
     $('.site-nav').toggleClass('site-nav--open', 500);
