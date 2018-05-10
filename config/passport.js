@@ -142,9 +142,9 @@ module.exports = function (passport) {
         }
         if (!user) {
           user = new User({
-            name: profile.displayName,
-            email: profile.emails[0].value,
-            username: profile.displayName,
+            name: profile._json.name,
+            email: profile._json.name.email,
+            username: profile._json.name,
             provider: 'google',
             google: profile._json, // eslint-disable-line
             imageUrl: profile._json.picture // eslint-disable-line
