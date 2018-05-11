@@ -110,11 +110,11 @@ module.exports = function (passport) {
         if (!user) {
           console.log(profile);
           user = new User({
-            email: (profile.emails && profile.emails[0].value) || '',
+            email: (profile.emails && profile.emails[0].value) || profile.username || '',
             username: profile.username,
             provider: 'facebook',
             facebook: profile._json, // eslint-disable-line
-            imageUrl: profile._json.picture || profile.photos[0].value // eslint-disable-line
+            imageUrl: profile._json.picture || profile.photos[0].value || '' // eslint-disable-line
           });
           user.save((err) => {
             if (err) console.log(err);
