@@ -108,6 +108,7 @@ module.exports = function (passport) {
           return done(err);
         }
         if (!user) {
+          console.log(profile);
           user = new User({
             email: (profile.emails && profile.emails[0].value) || '',
             username: profile.username,
