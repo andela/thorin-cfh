@@ -1,5 +1,5 @@
-angular
-  .module('mean.system') //eslint-disable-line
+angular //eslint-disable-line
+  .module('mean.system')
   .controller('GameController', [
     '$scope',
     'game',
@@ -289,7 +289,7 @@ angular
                   'Give the following link to your' +
                   'friends so they can join your game: ';
                 $('#lobby-how-to-play').text(txt); //eslint-disable-line
-                $('#oh-el')
+                $('#oh-el') //eslint-disable-line
                   .css({
                     //eslint-disable-line
                     'text-align': 'center',
