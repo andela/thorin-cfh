@@ -1,11 +1,23 @@
 body {
-  background: #F4F4F4;
+  background: #f4f4f4;
   font-family: 'Quicksand', sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
 }
-
+.notifymodal {
+  overflow-y: scroll;
+  min-width: 200px;
+  height: 200px;
+  overflow: scroll;
+  padding: 20px;
+  color: gray;
+}
+.redfont {
+  background: #fff;
+  border-radius: 50%;
+  color: red;
+}
 * {
   box-sizing: border-box;
 }
@@ -135,6 +147,11 @@ header::after {
   right: 0.5em;
   cursor: pointer;
   margin-top: 10px;
+}
+
+.mt-2 {
+  background: transparent;
+  font-size: 1rem;
 }
 
 .hamburger,
@@ -509,7 +526,7 @@ footer {
   color: #ed8b56;
 }
 
-#about{
+#about {
   color: #999;
   transition: 0.3s ease-in-out;
 }
@@ -524,7 +541,7 @@ footer {
 .footer-icon {
   transition: 0.4s linear;
   display: flex;
-  align-items:  center;
+  align-items: center;
   justify-content: center;
   background: #bdbdbd;
   border-radius: 50%;
@@ -538,7 +555,7 @@ footer {
   font-size: 16px;
 }
 
-.footer-icon:hover{
+.footer-icon:hover {
   background: #e0e0e0;
   cursor: pointer;
 }
@@ -548,22 +565,22 @@ footer {
   font-size: 12px;
 }
 
-.footer-icons{
+.footer-icons {
   display: flex;
   justify-content: space-between;
   padding: 5px;
 }
 
-.footer-icons a{
+.footer-icons a {
   color: #f2f2f2;
 }
 
-.footer-col a{
+.footer-col a {
   color: #f2f2f2;
   font-weight: 300;
 }
 
-#about:hover{
+#about:hover {
   color: #e0e0e0;
   cursor: pointer;
 }
@@ -614,5 +631,3 @@ footer {
   padding: 0;
   margin: 0;
 }
-
-

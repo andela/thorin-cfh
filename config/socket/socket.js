@@ -19,6 +19,7 @@ module.exports = function (io) {
   const gamesNeedingPlayers = [];
   let userMessage = '';
   let gameID = 0;
+  let onlineUsers = [];
 
   io.sockets.on('connection', (socket) => {
     console.log(`${socket.id} Connected`);
@@ -54,6 +55,35 @@ module.exports = function (io) {
       }
     });
 
+     // store online users
+     socket.on('connectedUser', (data) => {
+      if (onlineUsers.find(user => user.username === data)) {
+        const index = onlineUsers.findIndex(value => value.username === data);
+        if (index < 0) {
+          onlineUsers.splice(0,1);
+        }
+        onlineUsers.splice(index, 1);
+      }
+      const user = {
+        userId: socket.id,
+        username: data
+      };
+      return onlineUsers.push(user);
+    });
+
+    socket.on('showOnlineUsers', () => {
+      console.log(onlineUsers)
+      io.sockets.emit('people', onlineUsers)
+    });
+
+    // send invite to player
+    socket.on('invitePlayer', (data) => {
+      if (onlineUsers.find(user => user.username === data.user)) {
+        const socketId = onlineUsers.find(user => user.username === data.user).userId;
+        io.sockets.connected[socketId].emit('invitation', {html:`You have been Invited to play a game.<br/> Click on this <a href=${data.gameLink} target="_blank">link to join</a>`});
+      }
+    });
+
     socket.on('joinGame', (data) => {
       if (!allPlayers[socket.id]) {
         joinGame(socket, data);
@@ -85,11 +115,11 @@ module.exports = function (io) {
     });
 
     socket.on('leaveGame', () => {
+
       exitGame(socket);
     });
 
     socket.on('disconnect', () => {
-      console.log('Rooms on Disconnect ', io.sockets.manager.rooms);
       exitGame(socket);
     });
   });
