@@ -115,7 +115,6 @@ module.exports = function (io) {
     });
 
     socket.on('leaveGame', () => {
-
       exitGame(socket);
     });
 
