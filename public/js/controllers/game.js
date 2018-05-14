@@ -249,7 +249,6 @@ angular.module('mean.system') //eslint-disable-line
       const startChatService = () => {
         const ref = firebase.database().ref().child('chats') //eslint-disable-line
           .child(`${game.gameID}`);
-        ref.remove();
         $scope.chats = $firebaseArray(ref);
       };
 
