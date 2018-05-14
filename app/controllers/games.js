@@ -1,4 +1,3 @@
-
 import gameModel from '../models/game';
 
 /**
@@ -9,19 +8,20 @@ import gameModel from '../models/game';
  */
 const saveGame = (req, res) => {
   const {
-    players, winner, gameStarter, roundsPlayed,
+    players, winner, gameStarter, roundsPlayed, _id
   } = req.body;
   const gameID = req.params.id;
-
   const gameEntry = new gameModel({
     players,
     gameID,
     winner,
     gameStarter,
     roundsPlayed,
+    _id
   });
 
-  gameEntry.save()
+  gameEntry
+    .save()
     .then((game) => {
       res.status('201').json({
         msg: 'Success, Game saved',

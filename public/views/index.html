@@ -12,7 +12,7 @@
             <a href="" id="top">Home</a>
           </li>
           <li>
-            <a href="" id="team">
+            <a href="#!/team">
               Meet the Team
             </a>
           </li>
@@ -28,13 +28,8 @@
             </li>
           </span>
           <span ng-hide="showOptions">
-            <li>
-              <a onclick="logout()">Sign Out</a>
-            </li>
-          </span>
-          <span ng-hide="showOptions">
-            <li>
-              <a id="arrow">{{global.user.username}}
+            <li class="dropdown">
+              <a id="arrow" href="#" class="dropdown-trigger" data-target="dropdown1">{{global.user.username}}
                 <span>
                   <i class="ion-arrow-down-b"></i>
                 </span>
@@ -43,6 +38,16 @@
           </span>
         </ul>
       </nav>
+      <ul id="dropdown1" class="dropdown-content">
+        <li>
+          <a href="#!/profile" ng-click="userGames()">Profile</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a onclick="logout()">Log Out</a>
+        </li>
+      </ul>
+
 
 
       <div class="menu-toggle">
@@ -59,7 +64,8 @@
     <div class="header-overlay"></div>
     <div class="h-content">
       <div class="header-content">
-        <h1>A game for horrible people desperately trying to do good</h1>
+        <h1>
+          game for horrible people desperately trying to do good</h1>
         <p>Cards for Humanity is a fast-paced online version of the popular card game, Cards Against Humanity, that gives you
           the opportunity to donate to children in need - all while remaining as despicable and awkward as you naturally
           are.
@@ -129,39 +135,54 @@
 </div>
 
 <footer class="footer">
-  <div class="footer-content">
-    <div class=footer-right>
-      <p>
-        Legal stuff: This game is based on the Cards Against Humanity card game, which is CC licensed (BY-NC-SA). Cards for Humanity
-        is not affiliated with Cards Against Humanity. In complying with the Creative Commons license of the Cards Against
-        Humanity card game, all proceeds from donations go directly to charity, as managed by crowdrise.
-      </p>
-      <p>©2018 CFH Software. Thorin Team. All Rights Reserved</p>
-
-
+  <div class="footer-content container">
+    <div class="footer-col">
+      <div class="footer-logo">
+        <img src="/img/playing-cards.png" />
+        <p id="footer-logo">CARDS FOR HUMANITY</p>
+      </div>
+      <p class="copyright">© 2018 CFH Software</p>
     </div>
-    <div class="footer-left">
+    <div class="footer-col">
+      <p>ABOUT CARDS FOR HUMANITY</p>
       <p>
-        Cards for humanity
+        <a id="about">About Us</a>
       </p>
-      <p>powered by thorin team</p>
-      <a href="/#!/meet-the-team">Meet the team</a>
+      <p>
+        <a id="about">Meet the Team</a>
+      </p>
     </div>
-  </div>
-  <div>
-    <div class="group-icons">
-      <i class="ion-social-facebook"></i>
-      <i class="ion-social-youtube"></i>
-      <i class="ion-social-instagram"></i>
-      <i class="ion-social-twitter"></i>
+    <div class="footer-col">
+      <p>JOIN THE CONVERSATION</p>
+      <div class="footer-icons">
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-facebook"></i>
+          </a>
+        </div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-twitter"></i>
+          </a>
+        </div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-instagram"></i>
+          </a>
+        </div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-youtube"></i>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
-
-
 <script>
   $(document).ready(function () {
 
+    $(".dropdown-trigger").dropdown();
     $.fn.scrollView = function () {
       return this.each(function () {
         $('html, body').animate({
@@ -198,8 +219,6 @@
         $(".humburger.solid").removeClass("solid")
       }
     })
-
-    //$(".dropbtn").html(window.user.username)
   })
   $('.menu-toggle').click(function () {
     $('.site-nav').toggleClass('site-nav--open', 500);

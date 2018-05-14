@@ -1,92 +1,108 @@
 <div class="center-signup">
-    <div class="logosignup" style="margin-top: 50px">
-        <a href="/"><img src="/img/playing-cards.png" alt="Home"></a> 
-         <h5>CARDS FOR HUMANITY</h5>
-       </div>
+  <div class="logosignup" style="margin-top: 50px">
+    <a href="/">
+      <img src="/img/playing-cards.png" alt="Home">
+    </a>
+    <h5>CARDS FOR HUMANITY</h5>
+  </div>
 </div>
 
+<br/>
+
+<div class=" row centersoutside">
+  <div>
+    <h5 class="centerme" style="font-weight: bold;">Sign up</h5>
+  </div>
   <br/>
-  
-<div class=" row centersoutside" >
-  <div><h5 class="centerme" style="font-weight: bold;">Sign up</h5></div>
-    <br/>
-<div class="centers" ng-controller="IndexController" >
-    
-  <form class="col s12" ng-submit="submit()">
+  <div class="centers" ng-controller="IndexController">
+
+    <form class="col s12" ng-submit="submit()">
       <div class="row">
-       
+
 
         <div class="upload-btn-wrapper circlediv ">
-            <h6 class="addimage">Add Image</h6>
-              <img class="circle" ng-src="{{img}}">
-              <input type="file" id="file" name="imageUr"
-              ng-model-instant 
-              onchange="angular.element(this).scope().imageUpload(event)" 
-              required
-              />
+          <h6 class="addimage">Add Image</h6>
+          <img class="circle" ng-src="{{img}}">
+          <input type="file" id="file" name="imageUr" ng-model-instant onchange="angular.element(this).scope().imageUpload(event)"
+            required />
         </div>
         <br/>
         <div class="alert" ng-show="error">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-        <h6 class="centerme" style="font-weight: bold;">{{error}}</h6>
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <h6 class="centerme" style="font-weight: bold;">{{error}}</h6>
+        </div>
+
+        <div class="input-field col s12">
+          <i class="material-icons prefix">account_box</i>
+          <input id="username" type="text" ng-model="user.username" required>
+          <label for="username">Username</label>
+        </div>
+
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input id="email" type="email" ng-model="user.email" required>
+          <label for="email">Email</label>
+        </div>
+
+        <div class="input-field col s12">
+          <i class="material-icons prefix">https</i>
+          <input id="password" type="password" ng-model="user.password" class="validate" required>
+          <label for="password">Password</label>
+        </div>
+
+        <p class="center">
+          <label>
+            <input type="checkbox" / required>
+            <span>I agree to the
+              <a href="/#!/privacy" target="_blank" class="policy">policy</a>
+            </span>
+          </label>
+        </p>
+        <div class="center">
+          <button class="mybutton" type="submit" name="action">Sign Up</button>
+          <h6 class="authp">or signup with</h6>
+        </div>
+
+
+        <div class="progress" ng-show="progress">
+          <div class="determinate" id="move"></div>
+        </div>
+
+
+
+        <div class="left">
+          <a href='/auth/facebook' class="facebook">
+            <h4>
+              <i class="fab fa-facebook-f"></i>
+            </h4>
+          </a>
+          <a href='/auth/twitter' class="twitter">
+            <h4>
+              <i class="fab fa-twitter"></i>
+            </h4>
+          </a>
+          <a href='/auth/goolge'>
+            <h4>
+              <i class="fab fa-google"></i>
+            </h4>
+          </a>
+        </div>
+        <h6 class="center">Have an account?
+          <a href='#!/signin' class="tologin">Signin</a>
+        </h6>
       </div>
-
-         <div class="input-field col s12">
-            <i class="material-icons prefix">account_box</i>
-            <input id="username" type="text" ng-model="user.username" required>
-            <label for="username">Username</label>
-          </div>
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">email</i>
-            <input id="email" type="email" ng-model="user.email" required>
-            <label for="email" >Email</label>
-          </div>
-
-          <div class="input-field col s12">
-            <i class="material-icons prefix">https</i>
-            <input id="password" type="password" ng-model="user.password" class="validate" required>
-            <label for="password" >Password</label>
-          </div>
-
-          <p class="center">
-              <label>
-                  <input type="checkbox"/ required>
-                  <span>I agree to the <a href="/#!/privacy" target="_blank" class="policy">policy</a></span>
-              </label>
-          </p>
-          <div class="center">
-              <button class="mybutton" type="submit" name="action">Sign Up</button>
-              <h6 class="authp">or signup with</h6>
-           </div>
-
-           
-           <div class="progress" ng-show="progress">
-              <div class="determinate" id="move"></div>
-           </div>
-           
- 
-
-           <div class="left">
-             <a href='/auth/facebook' class="facebook"><h4><i class="fab fa-facebook-f"></i></h4></a>
-             <a href='/auth/twitter' class="twitter"><h4><i class="fab fa-twitter"></i></h4></a>
-             <a href='/auth/goolge'><h4><i class="fab fa-google"></i></h4></a>
-          </div>
-          <h6 class="center">Have an account? <a href='#!/signin' class="tologin">Signin</a></h6>
-      </div>
-      </form>
+    </form>
   </div>
-</div >
+</div>
 <div style="padding-bottom: 100px"></div>
-  <script>
-      $(document).ready(function(){
-        $('#file').change(function(){
-          const fileName = $(this).val()
-          if(fileName){
-            $('.addimage').hide();
-          }
-        })
+<script>
+  $(document).ready(function () {
+    $('#file').change(function () {
+      const fileName = $(this).val()
+      if (fileName) {
+        $('.addimage').hide();
+      }
     })
-  </script>
-  <script src='./../js/controllers/materialize.min.js' type="script"></script>
-  
+  })
+</script>
+<script src='./../js/controllers/materialize.min.js' type="script"></script>

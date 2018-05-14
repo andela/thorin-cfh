@@ -7,9 +7,9 @@ angular.module('mean.system').controller('IndexController', [
   '$location',
   'socket',
   'game',
+
   ($scope, Global, $http, $q, $location, socket, game) => {
     $scope.global = Global;
-    $scope.username = null;
 
     $scope.playAsGuest = function() {
       game.joinGame();
@@ -99,6 +99,50 @@ angular.module('mean.system').controller('IndexController', [
           $scope.error = error.data.error.toString();
         }
       );
+    };
+
+    window.onload = () => {
+      useGames();
+    };
+
+    $scope.userGames = () => {
+      useGames();
+    };
+
+    const useGames = () => {
+      let userGameDetails = [];
+      if (window.user !== null) {
+        $http.get('/api/usergames').then(res => {
+          if (res.data.code === 200) {
+            userGameDetails = res.data.data
+              .map(value => {
+                return {
+                  gameId: value.gameID,
+                  playedAt: value.playedAt,
+                  userGame: value.players
+                    .map(value => {
+                      return { username: value.username, points: value.points };
+                    })
+                    .filter(
+                      user => user.username === $scope.global.user.username
+                    )
+                };
+              })
+              .filter(user => user.userGame.length > 0);
+
+            pointsWon = userGameDetails
+              .reduce((list, point) => {
+                return list.concat(point.userGame[0]);
+              }, [])
+              .reduce((points, point) => {
+                return points + point.points;
+              }, 0);
+
+            $scope.global.userGameInfo = userGameDetails;
+            $scope.global.pointsWon = pointsWon;
+          }
+        });
+      } 
     };
 
     $scope.imageUpload = event => {

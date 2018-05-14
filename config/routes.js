@@ -4,6 +4,7 @@ import { validateSignIn } from './middlewares/validateSignIn';
 import validator from './middlewares/validator';
 import auth from './middlewares/checkToken';
 import saveGame from '../app/controllers/games';
+import user from '../app/controllers/users';
 
 module.exports = function (app, passport) {
   // User Routes
@@ -134,4 +135,6 @@ module.exports = function (app, passport) {
     validator.gameValidation,
     saveGame
   );
+
+  app.get('/api/usergames', users.game);
 };

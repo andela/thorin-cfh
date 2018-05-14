@@ -12,7 +12,8 @@ body {
 
 .h-container {
   width: 95%;
-  max-width: 1000px;
+  max-width: 1200px;
+  display: flex;
   margin: 0 auto;
 }
 
@@ -41,11 +42,8 @@ header::after {
 }
 
 .logo {
-  float: left;
-  font-size: 1rem;
-  margin: 0;
+  margin-right: auto;
   text-transform: uppercase;
-  font-weight: 700;
   display: flex;
   align-items: center;
 }
@@ -467,6 +465,16 @@ footer {
   background: #222222;
 }
 
+.footer-logo {
+  display: flex;
+}
+
+.footer-logo img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
 .footer {
   padding: 40px;
   display: flex;
@@ -475,51 +483,87 @@ footer {
 
 .footer-content {
   display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.footer-right p {
-  font-size: 10px;
-  color: #e0e0e0;
+.footer-col {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 10px 0;
 }
 
-.footer-right p:last-child {
-  font-size: 14px;
+.footer-col p {
+  margin: 0;
+  padding: 0;
+  color: #999;
 }
 
-.footer-right {
-  width: 70%;
-  margin-right: 30px;
-}
-
-.footer-left {
-  width: 30%;
-  text-align: right;
-}
-
-.footer-left p {
-  font-size: 20px;
-  color: #e0e0e0;
+.footer-col p:first-child {
   margin-bottom: 10px;
-}
-
-.footer-left p:last-child {
-  margin-top: 0;
-  font-size: 10px;
-  font-style: italic;
-}
-
-.footer div:last-child {
-  text-align: right;
-  color: #e0e0e0;
-}
-
-.group-icons i {
-  margin: 0 10px;
+  font-weight: bold;
   color: #ed8b56;
 }
 
-.group-icons i:last-child {
-  margin-right: 0;
+#about {
+  color: #999;
+  transition: 0.3s ease-in-out;
+}
+
+#footer-logo {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.footer-icon {
+  transition: 0.4s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #bdbdbd;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+}
+
+.footer-icon i {
+  color: #464655;
+  font-size: 16px;
+}
+
+.footer-icon:hover {
+  background: #e0e0e0;
+  cursor: pointer;
+}
+
+.copyright {
+  font-style: italic;
+  font-size: 12px;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.footer-icons a {
+  color: #f2f2f2;
+}
+
+.footer-col a {
+  color: #f2f2f2;
+  font-weight: 300;
+}
+
+#about:hover {
+  color: #e0e0e0;
+  cursor: pointer;
 }
 
 .charity-side {
@@ -574,4 +618,207 @@ footer {
 }
 #arrow span {
   margin-left: 5px;
+}
+#dropdown1 {
+  width: 400px;
+  position: absolute;
+  top: -50px;
+}
+#dropdown1 a {
+  display: block;
+  padding: 5px 10px;
+  margin: 0;
+  font-weight: 300;
+  font-size: 14px;
+}
+.profile {
+  margin-top: 150px;
+  padding: 30px 30px;
+  background: #e0e0e0;
+}
+.circular-portrait {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 0 50px;
+}
+.profile-info img {
+  width: 100%;
+  height: auto;
+  transform: scale(1);
+  transition: transform 0.5s ease;
+}
+.profile-info img:hover {
+  transform: scale(1.1);
+}
+.profile-info span {
+  display: flex;
+  align-items: center;
+}
+.profile-info i {
+  padding-right: 10px;
+  font-size: 24px;
+  margin: 0;
+}
+.profile-info p {
+  padding: 0;
+  margin: 0;
+}
+.profile-info h5 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.rule {
+  border-right: 1px solid #999;
+}
+.personal-game-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.personal-game-header h3 {
+  text-transform: uppercase;
+  color: #464655;
+}
+.game-log {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+.game-log h6 {
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 30px;
+}
+.points {
+  color: #34b3a0;
+}
+
+.pointsWon {
+  margin-top: 70px;
+}
+.main-cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25%;
+  background: #383838;
+  height: 60vh;
+  color: #e0e0e0;
+  margin-top: 64px;
+}
+.team-lead {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.team-lead {
+  margin: 20px 50px;
+}
+
+.team-lead img {
+  width: 168px;
+  height: 168px;
+  border-radius: 100%;
+  margin-bottom: 10px;
+}
+.team-lead h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+.team-section {
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  padding-bottom: 50px;
+}
+.team-section h3 {
+  text-align: center;
+}
+
+.member img {
+  width: 250px;
+  height: 250px;
+}
+.member h6 {
+  font-weight: bold;
+}
+.member-row {
+  margin: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.member-bio {
+  height: 100px;
+  border-bottom: 1px solid #bdbdbd;
+}
+.member-social {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.member-social-icon {
+  padding: 5px;
+  background: #333;
+  border-radius: 100%;
+}
+.member-icon {
+  transition: 0.4s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+}
+
+.member-icon i {
+  color: #999;
+  font-size: 18px;
+}
+.member-icon p {
+  margin: 0;
+  padding: 0;
+}
+
+.member-icon i:hover {
+  color: #222222;
+  cursor: pointer;
+}
+.team-lead-icons {
+  display: flex;
+}
+.team-lead-icons a {
+  margin: 5px;
+  font-size: 18px;
+  color: #999;
+  transition: color 0.3s ease;
+}
+.member-icon a:first-child {
+  margin-right: 10px;
+}
+.team-lead-icons a:hover {
+  color: #f2f2f2;
+}
+.managers {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.team-background {
+  background: #f2f2f2;
 }

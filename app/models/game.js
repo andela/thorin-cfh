@@ -8,22 +8,22 @@ const GameSchema = new Schema(
   {
     players: {
       type: Array,
-      required: true,
+      required: true
     },
     gameID: {
       type: String,
-      required: true,
+      required: true
     },
     winner: {
       type: String,
-      required: true,
+      required: true
     },
     gameStarter: {
       type: String,
-      required: true,
+      required: true
     },
     roundsPlayed: {
-      type: Number,
+      type: Number
     }
   },
   { timestamps: { createdAt: 'playedAt' } }

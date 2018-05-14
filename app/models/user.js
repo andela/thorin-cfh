@@ -6,7 +6,6 @@ const bcrypt = require('bcryptjs');
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
-
 /**
  * User Schema
  */
@@ -26,32 +25,33 @@ const UserSchema = new Schema({
   hashed_password: String,
   facebook: {},
   twitter: {},
-  google: {}
+  google: {},
 });
 
 /**
  * Virtuals
  */
-UserSchema.virtual('password').set(function (password) {
-  this._password = password; // eslint-disable-line no-underscore-dangle
-  this.hashed_password = this.encryptPassword(password);
-}).get(function () {
-  return this._password; // eslint-disable-line no-underscore-dangle
-});
+UserSchema.virtual('password')
+  .set(function(password) {
+    this._password = password; // eslint-disable-line no-underscore-dangle
+    this.hashed_password = this.encryptPassword(password);
+  })
+  .get(function() {
+    return this._password; // eslint-disable-line no-underscore-dangle
+  });
 
 /**
-   * validations
-   *
-   *
-   */
+ * validations
+ *
+ *
+ */
 
-
-const validatePresenceOf = function (value) {
+const validatePresenceOf = function(value) {
   return value && value.length;
 };
 
 // the below 4 validations only apply if you are signing up traditionally
-UserSchema.path('name').validate(function (name) {
+UserSchema.path('name').validate(function(name) {
   // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) {
     return true;
@@ -59,7 +59,7 @@ UserSchema.path('name').validate(function (name) {
   return name.length;
 }, 'Name cannot be blank');
 
-UserSchema.path('email').validate(function (email) {
+UserSchema.path('email').validate(function(email) {
   // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) {
     return true;
@@ -67,7 +67,7 @@ UserSchema.path('email').validate(function (email) {
   return email.length;
 }, 'Email cannot be blank');
 
-UserSchema.path('username').validate(function (username) {
+UserSchema.path('username').validate(function(username) {
   // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) {
     return true;
@@ -75,8 +75,8 @@ UserSchema.path('username').validate(function (username) {
   return username.length;
 }, 'Username cannot be blank');
 
-UserSchema.path('hashed_password').validate(function
-(hashed_password) { // eslint-disable-line camelcase
+UserSchema.path('hashed_password').validate(function(hashed_password) {
+  // eslint-disable-line camelcase
   // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) {
     return true;
@@ -84,16 +84,17 @@ UserSchema.path('hashed_password').validate(function
   return hashed_password.length;
 }, 'Password cannot be blank');
 
-
 /**
  * Pre-save hook
  */
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
   if (!this.isNew) return next();
 
-  if (!validatePresenceOf(this.password)
-  && authTypes.indexOf(this.provider) === -1) {
+  if (
+    !validatePresenceOf(this.password) &&
+    authTypes.indexOf(this.provider) === -1
+  ) {
     next(new Error('Invalid password'));
   } else {
     next();
@@ -105,12 +106,12 @@ UserSchema.pre('save', function (next) {
  */
 UserSchema.methods = {
   /**
-     * Authenticate - check if the passwords are the same
-     *
-     * @param {String} plainText
-     * @return {Boolean}
-     * @api public
-     */
+   * Authenticate - check if the passwords are the same
+   *
+   * @param {String} plainText
+   * @return {Boolean}
+   * @api public
+   */
 
   authenticate(plainText) {
     if (!plainText || !this.hashed_password) {
@@ -120,12 +121,12 @@ UserSchema.methods = {
   },
 
   /**
-     * Encrypt password
-     *
-     * @param {String} password
-     * @return {String}
-     * @api public
-     */
+   * Encrypt password
+   *
+   * @param {String} password
+   * @return {String}
+   * @api public
+   */
 
   encryptPassword(password) {
     if (!password) return '';
