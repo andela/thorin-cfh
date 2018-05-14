@@ -86,9 +86,9 @@ module.exports = function (passport) {
               name: profile.displayName,
               username: profile.username,
               provider: 'twitter',
-                twitter: profile._json, // eslint-disable-line
-                imageUrl: profile._json.profile_image_url, // eslint-disable-line
-              email: profile.email
+              twitter: profile._json, // eslint-disable-line
+              imageUrl: profile._json.profile_image_url, // eslint-disable-line
+              email: profile.email || profile.username
             });
             user.save((err) => {
               if (err) console.log(err);
@@ -123,11 +123,8 @@ module.exports = function (passport) {
               email: (profile.emails && profile.emails[0].value) || '',
               username: profile.username,
               provider: 'facebook',
-                facebook: profile._json, // eslint-disable-line
-              imageUrl:
-                  profile._json.picture ||
-                  profile.json.picture.data.url ||
-                  profile.photos[0].value // eslint-disable-line
+              facebook: profile._json, // eslint-disable-line
+              imageUrl: profile._json.picture || ''
             });
             user.save((err) => {
               if (err) console.log(err);
@@ -159,12 +156,12 @@ module.exports = function (passport) {
           }
           if (!user) {
             user = new User({
-              name: profile.displayName,
-              email: profile.emails[0].value,
-              username: profile.username,
+              name: profile._json.name,
+              email: profile._json.name.email,
+              username: profile._json.name,
               provider: 'google',
-                google: profile._json, // eslint-disable-line
-                imageUrl: profile._json.picture // eslint-disable-line
+              google: profile._json, // eslint-disable-line
+              imageUrl: profile._json.picture // eslint-disable-line
             });
             user.save((err) => {
               if (err) console.log(err);
