@@ -63,7 +63,7 @@ angular
       };
     }
   ])
-  .run([
+  .run([ /* eslint no-undef: "off" */
     'DonationService',
     function (DonationService) {
       window.userDonationCb = function (donationObject) {
