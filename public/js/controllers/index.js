@@ -25,6 +25,9 @@ angular.module('mean.system').controller('IndexController', [
       socket.emit('connectedUser', $scope.global.user.username);
     };
 
+    $scope.removeUserOnline = () => {
+      socket.emit('removeUser', $scope.global.user.username);
+    }
     $scope.showError = function() {
       if ($location.search().error) {
         return $location.search().error;
@@ -147,7 +150,7 @@ angular.module('mean.system').controller('IndexController', [
     });
 
     $scope.addInvitee = () => {
-      if ($scope.selected != undefined) {
+      if ($scope.selected != undefined && $scope.selected !== $scope.global.user.username) {
         const gameLink = $location.$$absUrl;
         const messageData = {
           gameLink,

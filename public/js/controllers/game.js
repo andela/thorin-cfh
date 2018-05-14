@@ -3,6 +3,7 @@ angular //eslint-disable-line
   .controller('GameController', [
     '$scope',
     'game',
+    'Global',
     '$timeout',
     '$location',
     'MakeAWishFactsService',
@@ -12,6 +13,7 @@ angular //eslint-disable-line
     function (
       $scope,
       game,
+      Global,
       $timeout,
       $location,
       MakeAWishFactsService,
@@ -19,6 +21,7 @@ angular //eslint-disable-line
       $http,
       socket
     ) {
+      $scope.global = Global;
       $scope.hasPickedCards = false;
       $scope.winningCardPicked = false;
       $scope.showTable = false;
@@ -208,7 +211,7 @@ angular //eslint-disable-line
       };
 
       $scope.abandonGame = function () {
-        game.leaveGame();
+        socket.emit('connectedUser', $scope.global.user.username);
         $location.path('/');
       };
 

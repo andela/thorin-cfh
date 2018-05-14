@@ -68,13 +68,23 @@ module.exports = function (io) {
         userId: socket.id,
         username: data
       };
-      return onlineUsers.push(user);
+      onlineUsers.push(user);
+      io.sockets.emit('people', onlineUsers)
+
     });
 
     socket.on('showOnlineUsers', () => {
-      console.log(onlineUsers)
       io.sockets.emit('people', onlineUsers)
     });
+
+    socket.on('removeUser', (data) => {
+      const index = onlineUsers.findIndex(value => value.username === data);
+      if (index < 0) {
+        onlineUsers.splice(0,1);
+      }
+      onlineUsers.splice(index, 1);
+      io.sockets.emit('people', onlineUsers)
+    })
 
     // send invite to player
     socket.on('invitePlayer', (data) => {
@@ -114,7 +124,8 @@ module.exports = function (io) {
       }
     });
 
-    socket.on('leaveGame', () => {
+    socket.on('leaveGame', (data) => {
+      io.sockets.emit('connectedUsers', (data));
       exitGame(socket);
     });
 
