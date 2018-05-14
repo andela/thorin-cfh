@@ -66,7 +66,7 @@ angular
   .run([
     'DonationService',
     function (DonationService) {
-      window.userDonationCb = function (donationObject) {
+      window.userDonationCb = function (donationObject) { /* eslint no-undef: "off" */
         DonationService.userDonated(donationObject);
       };
     }
