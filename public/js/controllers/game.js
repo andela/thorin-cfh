@@ -211,7 +211,9 @@ angular //eslint-disable-line
       };
 
       $scope.abandonGame = function () {
-        socket.emit('connectedUser', $scope.global.user.username);
+        if ($scope.global.user) {
+          socket.emit('connectedUser', $scope.global.user.username);
+        }
         $location.path('/');
       };
 

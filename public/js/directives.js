@@ -13,7 +13,11 @@ angular.module('mean.directives', [])
     return {
       restrict: 'EA',
       templateUrl: '/views/invite.html',
-      link: function(scope, elem, attr) {}
+      link: function(scope, elem, attr) {
+        if (scope.global.user) {
+          scope.showOptions = false;
+        }
+      }
     };
   }).directive('answers', function() {
     return {
