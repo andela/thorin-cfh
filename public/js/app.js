@@ -37,9 +37,6 @@ angular
         .when('/choose-avatar', {
           templateUrl: '/views/choose-avatar.html'
         })
-        .when('/team', {
-          templateUrl: '/views/team.html'
-        })
         .otherwise({
           redirectTo: '/'
         });
