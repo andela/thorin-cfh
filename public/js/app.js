@@ -1,5 +1,5 @@
 angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap',
-   'ui.route', 'ngRoute', 'firebase', 'mean.system', 'mean.directives'])
+  'ui.route', 'ngRoute', 'firebase', 'mean.system', 'mean.directives'])
   .config(['$routeProvider',
       function($routeProvider) {
           $routeProvider.
