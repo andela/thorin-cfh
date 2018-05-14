@@ -2,10 +2,10 @@ angular.module('mean.system') //eslint-disable-line
   .controller('GameController', [
     '$scope', 'game', '$timeout', '$location',
     'MakeAWishFactsService', '$dialog',
-    '$http',
+    '$http', '$firebaseArray',
     function (
       $scope, game, $timeout, $location,
-      MakeAWishFactsService, $dialog, $http
+      MakeAWishFactsService, $dialog, $http, $firebaseArray
     ) {
       $scope.hasPickedCards = false;
       $scope.winningCardPicked = false;
@@ -246,8 +246,21 @@ angular.module('mean.system') //eslint-disable-line
             );
         }
       });
+      const startChatService = () => {
+        const ref = firebase.database().ref().child('chats')
+          .child(`${game.gameID}`);
+        ref.remove();
+        $scope.chats = $firebaseArray(ref);
+      };
+
+      $scope.resetForm = () => {
+        $scope.message = '';
+      };
 
       $scope.$watch('game.gameID', function() { //eslint-disable-line
+        if (game.gameID) {
+          startChatService();
+        }
         if (game.gameID && game.state === 'awaiting players') {
           if (!$scope.isCustomGame() && $location.search().game) {
           // If the player didn't successfully enter the request room,
@@ -277,6 +290,23 @@ angular.module('mean.system') //eslint-disable-line
             }
           }
         }
+
+
+        $scope.sendChatMessage = function (message) {
+          if (message) {
+            $scope.chats.$add({
+              image: game.players[game.playerIndex].avatar,
+              message: $scope.message,
+              date: Date.now(),
+              user: game.players[game.playerIndex].username
+            });
+            $scope.resetForm();
+          }
+          if (document.getElementsByClassName('friend').length > 5) {
+            const chat = document.querySelector('.chat');
+            chat.scrollTop = chat.scrollHeight;
+          }
+        };
       });
       // Function hides modal on app.html page
       $scope.hideAppModal = () => {
@@ -293,7 +323,7 @@ angular.module('mean.system') //eslint-disable-line
       };
 
       if ($location.search().game &&
-      !(/^\d+$/).test($location.search().game) !== undefined) {
+       !(/^\d+$/).test($location.search().game) !== undefined) {
         $scope.showGameModal = false;
         game.joinGame('joinGame', $location.search().game);
       }
