@@ -80,7 +80,7 @@ module.exports = function (passport) {
             provider: 'twitter',
             twitter: profile._json, // eslint-disable-line
             imageUrl: profile._json.profile_image_url, // eslint-disable-line
-            email: profile._json.email,
+            email: profile._json.email || profile.username,
           });
           user.save((err) => {
             if (err) console.log(err);
