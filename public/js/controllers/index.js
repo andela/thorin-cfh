@@ -112,7 +112,7 @@ angular.module('mean.system').controller('IndexController', [
     const useGames = () => {
       let userGameDetails = [];
       if (window.user !== null) {
-        $http.get('/api/usergames').then(res => {
+        $http.get('/api/usergames').then((res) => {
           if (res.data.code === 200) {
             userGameDetails = res.data.data
               .map(value => {
@@ -142,7 +142,7 @@ angular.module('mean.system').controller('IndexController', [
             $scope.global.pointsWon = pointsWon;
           }
         });
-      } 
+      }
     };
 
     $scope.imageUpload = event => {
