@@ -10,6 +10,7 @@ angular //eslint-disable-line
     '$dialog',
     '$http',
     'socket',
+    '$firebaseArray',
     function (
       $scope,
       game,
@@ -19,7 +20,8 @@ angular //eslint-disable-line
       MakeAWishFactsService,
       $dialog,
       $http,
-      socket
+      socket,
+      firebaseArray
     ) {
       $scope.global = Global;
       $scope.hasPickedCards = false;
@@ -271,9 +273,20 @@ angular //eslint-disable-line
           );
         }
       });
+      const startChatService = () => {
+        const ref = firebase.database().ref().child('chats') //eslint-disable-line
+          .child(`${game.gameID}`);
+        $scope.chats = $firebaseArray(ref);
+      };
 
-      $scope.$watch('game.gameID', () => {
-        //eslint-disable-line
+      $scope.resetForm = () => {
+        $scope.message = '';
+      };
+
+      $scope.$watch('game.gameID', function() { //eslint-disable-line
+        if (game.gameID) {
+          startChatService();
+        }
         if (game.gameID && game.state === 'awaiting players') {
           if (!$scope.isCustomGame() && $location.search().game) {
             // If the player didn't successfully enter the request room,
@@ -308,6 +321,23 @@ angular //eslint-disable-line
             }
           }
         }
+
+
+        $scope.sendChatMessage = function (message) {
+          if (message) {
+            $scope.chats.$add({
+              image: game.players[game.playerIndex].avatar,
+              message: $scope.message,
+              date: Date.now(),
+              user: game.players[game.playerIndex].username
+            });
+            $scope.resetForm();
+          }
+          if (document.getElementsByClassName('friend').length > 5) { //eslint-disable-line
+            const chat = document.querySelector('.chat'); //eslint-disable-line
+            chat.scrollTop = chat.scrollHeight;
+          }
+        };
       });
       // Function hides modal on app.html page
       $scope.hideAppModal = () => {
