@@ -1,4 +1,4 @@
-<div landing>
+<div landing ng-controller="IndexController">
   <header class="main-header">
     <div class="h-container">
 
@@ -13,6 +13,13 @@
           <li>
             <a href="" id="top">Home</a>
           </li>
+          <span ng-controller="IndexController" ng-hide="showOptions">
+            <li>
+              <a href="" data-target="notify" class="modal-trigger badge mt-2">
+                Notification <span class="redfont">{{messageLength}}</span>
+              </a>
+            </li>
+          </span>
           <li>
             <a href="" id="team">
               Meet the Team
@@ -31,13 +38,14 @@
           </span>
           <span ng-hide="showOptions">
             <li>
-              <a onclick="logout()">Sign Out</a>
+              <a ng-click="removeUserOnline()" onclick="logout()">Sign Out</a>
             </li>
           </span>
         </ul>
       </nav>
-
-
+      <div id="notify" class="modal notifymodal" ng-controller="IndexController">
+        <p ng-repeat="info in notifications" ng-bind-html-unsafe="info.html">{{info}}</p>
+      </div>
       <div class="menu-toggle">
         <div class="hamburger"></div>
       </div>
@@ -125,30 +133,50 @@
   <div class="footer-content container">
     <div class="footer-col">
       <div class="footer-logo">
-          <img src="/img/playing-cards.png" />
-          <p id="footer-logo">CARDS FOR HUMANITY</p>
+        <img src="/img/playing-cards.png" />
+        <p id="footer-logo">CARDS FOR HUMANITY</p>
       </div>
       <p class="copyright">© 2018 CFH Software</p>
     </div>
     <div class="footer-col">
       <p>ABOUT CARDS FOR HUMANITY</p>
-      <p><a id="about">About Us</a></p>
-      <p><a id="about">Meet the Team</a></p>
+      <p>
+        <a id="about">About Us</a>
+      </p>
+      <p>
+        <a id="about">Meet the Team</a>
+      </p>
     </div>
     <div class="footer-col">
       <p>JOIN THE CONVERSATION</p>
       <div class="footer-icons">
-        <div class="footer-icon"><a><i class="ion-social-facebook"></i></a></div>
-        <div class="footer-icon"><a><i class="ion-social-twitter"></i></a></div>
-        <div class="footer-icon"><a><i class="ion-social-instagram"></i></a></div>
-        <div class="footer-icon"><a><i class="ion-social-youtube"></i></a></div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-facebook"></i>
+          </a>
+        </div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-twitter"></i>
+          </a>
+        </div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-instagram"></i>
+          </a>
+        </div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-youtube"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </footer>
 <script>
   $(document).ready(function () {
-
+    $('.modal').modal();
     $.fn.scrollView = function () {
       return this.each(function () {
         $('html, body').animate({
@@ -190,4 +218,9 @@
     $('.site-nav').toggleClass('site-nav--open', 500);
     $(this).toggleClass('open');
   })
+
+  window.onload = () => {
+    $scope / connectPeople
+  }
+
 </script>

@@ -36,11 +36,6 @@
               <a href="/" id="top">Home</a>
             </li>
             <li>
-              <a href="" id="team">
-                Meet the Team
-              </a>
-            </li>
-            <li>
               <a href="" id="charity">Charity</a>
             </li>
             <span ng-show="showOptions">
@@ -71,11 +66,8 @@
         </div>
       </div>
     </header>
-
   <div class="game-screen" ng-controller="GameController">
-      
     <section class="game">
-
       <form ng-show="game.state === 'awaiting players' && showOptions === false" class="search-form search-form-top">
           <input type="text" placeholder="Search for players..." ng-model="user.email"/>
           <button type="submit" ng-click="getUserInfo(user, searchForm)">
@@ -117,7 +109,6 @@
    <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div">
       <h2 id="chat-head">CHAT</h2>
   </div> 
-
   <!-- Start Game Modal-->
   <div id="app-modal" ng-if="showGameModal">
       <div id="app-modal-content">
@@ -133,7 +124,6 @@
         </div>
       </div>
     </div>
-  
     <!-- Maximum Player Reached Notification Modal-->
     <div id="modal" ng-show="game.errorMsg">
       <div id="modal-content">
@@ -159,9 +149,7 @@
         </div>
       </div>
     </div>
-
   </div>
-
 <script src="../js/chat-style.js"></script>
 <script>
   $(document).ready(function(){

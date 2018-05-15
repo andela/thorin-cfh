@@ -186,6 +186,10 @@ angular.module('mean.system')
     maxPlayersReached();
   })
 
+  game.usersOnline = function() {
+    socket.emit('showOnlineUsers');
+  }
+
   game.joinGame = function(mode,room,createPrivate) {
     mode = mode || 'joinGame';
     room = room || '';
