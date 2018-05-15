@@ -126,7 +126,6 @@ Game.prototype.prepareGame = function() {
         console.log(err);
       }
       self.questions = results[0];
-      console.log("QUESTIONS ",self.questions);
       self.answers = results[1];
       self.startGame();
     });

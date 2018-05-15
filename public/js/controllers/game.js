@@ -277,7 +277,7 @@ angular.module('mean.system') //eslint-disable-line
                 const link = document.URL; //eslint-disable-line
                 const txt = 'Give the following link to your ' +
                 'friends so they can join your game: ';
-                $('.how-to-play h1').css({
+                $('.how-to-play h1').css({ //eslint-disable-line
                   'font-size': '22px'
                 }).text(txt); //eslint-disable-line
                 $('.how-to-play p').css({ //eslint-disable-line
