@@ -1,59 +1,73 @@
 <div class="center-signup">
   <div class="logosignup" style="margin-top: 50px">
-      <a href="/"><img src="/img/playing-cards.png" alt="Home"></a> 
-       <h5>CARDS FOR HUMANITY</h5>
-     </div>
+    <a href="/">
+      <img src="/img/playing-cards.png" alt="Home">
+    </a>
+    <h5>CARDS FOR HUMANITY</h5>
+  </div>
 </div>
-     <br/>
-     
-   <div class=" row centersoutside" >
-     <div><h5 class="centerme" style="font-weight: bold;">Sign in</h5></div>
-       <br/>
-   <div class="centers" ng-controller="IndexController">
-       
-     <form class="col s12" ng-submit="login()">
-         <div class="row">
+<br/>
 
-          <div class="alert" ng-show="error">
-           <h6 class="centerme" style="font-weight: bold;">{{error}}</h6>
-          </div>
-            <br/>
-             <div class="input-field col s12">
-                <i class="material-icons prefix">email</i>
-               <input id="email" type="email" ng-model="user.email" required>
-               <label for="email" >Email</label>
-             </div>
-   
-             <div class="input-field col s12">
-               <i class="material-icons prefix">https</i>
-               <input id="password" type="password" ng-model="user.password" class="validate" required>
-               <label for="password" >Password</label>
-             </div>
+<div class=" row centersoutside">
+  <div>
+    <h5 class="centerme" style="font-weight: bold;">Sign in</h5>
+  </div>
+  <br/>
+  <div class="centers" ng-controller="IndexController">
+    <form class="col s12" ng-submit="login()">
+      <div class="row">
+        <div class="alert" ng-show="error">
+          <h6 class="centerme" style="font-weight: bold;">{{error}}</h6>
+        </div>
+        <br/>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input id="email" type="email" ng-model="user.email" required>
+          <label for="email">Email</label>
+        </div>
 
-             <div class="center">
-                 <button class="mybutton" type="submit" name="action">sign in</button>
-                 <h6 class="authp">or signin with</h6>
-              </div>
-              <div class="left">
-                <a href='/auth/facebook' class="facebook"><h4><i class="fab fa-facebook-f"></i></h4></a>
-                <a href='/auth/twitter' class="twitter"><h4><i class="fab fa-twitter"></i></h4></a>
-                <a href='/auth/google'><h4><i class="fab fa-google"></i></h4></a>
-             </div>
-             <h6 class="center">create an account? <a href='#!/signup' class="tologin">Signup</a></h6>
-         </div>
-         </form>
-     </div>
-   </div >
-   <div style="padding-bottom: 100px"></div>
-     <script>
-         $(document).ready(function(){
-           $('#file').change(function(){
-             const fileName = $(this).val()
-             if(fileName){
-               $('.addimage').hide();
-             }
-           })
-         })
-     </script>
-     
-     
+        <div class="input-field col s12">
+          <i class="material-icons prefix">https</i>
+          <input id="password" type="password" ng-model="user.password" class="validate" required>
+          <label for="password">Password</label>
+        </div>
+
+        <div class="center">
+          <button class="mybutton" type="submit" name="action">sign in</button>
+          <h6 class="authp">or signin with</h6>
+        </div>
+        <div class="left">
+          <a href='/auth/facebook' class="facebook">
+            <h4>
+              <i class="fab fa-facebook-f"></i>
+            </h4>
+          </a>
+          <a href='/auth/twitter' class="twitter">
+            <h4>
+              <i class="fab fa-twitter"></i>
+            </h4>
+          </a>
+          <a href='/auth/goolge'>
+            <h4>
+              <i class="fab fa-google"></i>
+            </h4>
+          </a>
+        </div>
+        <h6 class="center">create an account?
+          <a href='#!/signup' class="tologin">Signup</a>
+        </h6>
+      </div>
+    </form>
+  </div>
+</div>
+<div style="padding-bottom: 100px"></div>
+<script>
+  $(document).ready(function () {
+    $('#file').change(function () {
+      const fileName = $(this).val()
+      if (fileName) {
+        $('.addimage').hide();
+      }
+    })
+  })
+</script>

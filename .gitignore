@@ -9,3 +9,4 @@ coverage
 /.env
 /build
 /public/views/index2.html
+/public/views/team.html
