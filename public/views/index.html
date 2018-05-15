@@ -1,5 +1,5 @@
-<div landing>
-  <header class="main-header" ng-controller="IndexController">
+<div landing ng-controller="IndexController">
+  <header class="main-header">
     <div class="h-container">
       <div class="logo">
         <img src="/img/playing-cards.png" alt="">
@@ -11,6 +11,13 @@
           <li>
             <a href="" id="top">Home</a>
           </li>
+          <span ng-controller="IndexController" ng-hide="showOptions">
+            <li>
+              <a href="" data-target="notify" class="modal-trigger badge mt-2">
+                Notification <span class="redfont">{{messageLength}}</span>
+              </a>
+            </li>
+          </span>
           <li>
             <a href="#!">
               Meet the Team
@@ -34,6 +41,8 @@
                   <i class="ion-arrow-down-b"></i>
                 </span>
               </a>
+            <li>
+              <a ng-click="removeUserOnline()" onclick="logout()">Sign Out</a>
             </li>
           </span>
         </ul>
@@ -50,6 +59,9 @@
 
 
 
+      <div id="notify" class="modal notifymodal" ng-controller="IndexController">
+        <p ng-repeat="info in notifications" ng-bind-html-unsafe="info.html">{{info}}</p>
+      </div>
       <div class="menu-toggle">
         <div class="hamburger"></div>
       </div>
@@ -183,6 +195,7 @@
   $(document).ready(function () {
 
     $(".dropdown-trigger").dropdown();
+    $('.modal').modal();
     $.fn.scrollView = function () {
       return this.each(function () {
         $('html, body').animate({
@@ -224,4 +237,9 @@
     $('.site-nav').toggleClass('site-nav--open', 500);
     $(this).toggleClass('open');
   })
+
+  window.onload = () => {
+    $scope / connectPeople
+  }
+
 </script>

@@ -5,7 +5,19 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
-
+.notifymodal {
+  overflow-y: scroll;
+  min-width: 200px;
+  height: 200px;
+  overflow: scroll;
+  padding: 20px;
+  color: gray;
+}
+.redfont {
+  background: #fff;
+  border-radius: 50%;
+  color: red;
+}
 * {
   box-sizing: border-box;
 }
@@ -133,6 +145,11 @@ header::after {
   right: 0.5em;
   cursor: pointer;
   margin-top: 10px;
+}
+
+.mt-2 {
+  background: transparent;
+  font-size: 1rem;
 }
 
 .hamburger,
