@@ -23,7 +23,7 @@
 #app-modal-content {
   background: #fff;
   padding-bottom: 10px;
-  max-height: 50%;
+  height: 200px !important;
   max-width: 80%;
   border-radius: 10px;
 }
@@ -32,6 +32,19 @@
   background-color: rgba(232, 174, 64);
   height: 20%;
   color: #fff;
+  text-align: center;
+  margin-top: 0px !important;
+}
+
+.modal-header h3 {
+  padding-top: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.modal-body h5 {
+  font-size: 15px;
+  font-weight: bold;
   text-align: center;
 }
 
@@ -43,15 +56,19 @@
 #button-div {
   text-align: center;
   margin-top: 40px; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .start-button {
   background-color: #367A73;
   border-radius: 50px;
-  font-size: 2rem;
+  font-size: 15px;
   color: #fff;
-  width: 50%;
-  padding: 10px;
+  height: 50px;
+  width: 40%;
+  padding-bottom: 0px;
 }
 
 #landing-charity {

@@ -263,10 +263,12 @@ angular.module('mean.system') //eslint-disable-line
             if (!$scope.modalShown) {
               setTimeout(function() { //eslint-disable-line
                 const link = document.URL; //eslint-disable-line
-                const txt = 'Give the following link to your' +
+                const txt = 'Give the following link to your ' +
                 'friends so they can join your game: ';
-                $('#lobby-how-to-play').text(txt); //eslint-disable-line
-                $('#oh-el').css({ //eslint-disable-line
+                $('.how-to-play h1').css({
+                  'font-size': '22px'
+                }).text(txt); //eslint-disable-line
+                $('.how-to-play p').css({ //eslint-disable-line
                   'text-align': 'center',
                   'font-size': '22px',
                   'background': 'white', //eslint-disable-line

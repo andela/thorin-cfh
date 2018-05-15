@@ -147,7 +147,7 @@ angular.module('mean.system')
       game.czar = data.czar;
       game.curQuestion = data.curQuestion;
       // Extending the underscore within the question
-      game.curQuestion.text = data.curQuestion.text.replace(/_/g,'<u></u>');
+      game.curQuestion.text = data.curQuestion.text.replace(/_/g,"_____");
 
       // Set notifications only when entering state
       if (newState) {
