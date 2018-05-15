@@ -1,5 +1,5 @@
 <!-- Notification -->
-<div id="notifications" class="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
+<div id="notifications" class="notifications animated fadeInLeft " ng-if="game.notification">{{game.notification}}</div>
 
 <!-- Finding players -->
 <div ng-show="game.state === 'awaiting players'" class="content game-intro">
@@ -13,7 +13,7 @@
 
 <!-- question -->
 <div class="content" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'">
-  <span ng-bind-html-unsafe="game.curQuestion.text" class="question"   style="color: black"></span>
+  <span ng-bind-html="game.curQuestion.text" class="question"></span>
 </div>
 
 <!-- Game Over -->

@@ -1,5 +1,6 @@
-let chatDiv = document.getElementById("chat-div");
-let chatHead = document.getElementById("chat-head");
+/* eslint-disable */
+const chatDiv = document.getElementById("chat-div");
+const chatHead = document.getElementById("chat-head");
 console.log(chatHead);
   let isChatWindowOpen = false;
   chatHead.addEventListener('click', () => {
