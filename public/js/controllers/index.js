@@ -40,6 +40,7 @@ angular.module('mean.system').controller('IndexController', [
         successResponse => {
           $scope.global.authenticated = true;
           $scope.global.user = successResponse[0].data.data.user;
+          console.log($scope.global.user);
           localStorage.setItem(
             'card-game-token',
             successResponse[0].data.data.token
@@ -179,6 +180,7 @@ angular.module('mean.system').controller('IndexController', [
       if (window.user !== null) {
         $http.get('/api/usergames').then((res) => {
           if (res.data.code === 200) {
+            console.log(res.data.data);
             userGameDetails = res.data.data
               .map(value => {
                 return {

@@ -14,7 +14,8 @@
           <span ng-controller="IndexController" ng-hide="showOptions">
             <li>
               <a href="" data-target="notify" class="modal-trigger badge mt-2">
-                Notification <span class="redfont">{{messageLength}}</span>
+                Notification
+                <span class="redfont">{{messageLength}}</span>
               </a>
             </li>
           </span>
@@ -34,16 +35,20 @@
               <a href="#!/signin">Sign in</a>
             </li>
           </span>
+          <li>
+            <div style= "padding-top:5px">
+              <a>
+                <i class="material-icons">notifications</i>
+              </a>
+            </div>
+          </li>
           <span ng-hide="showOptions">
             <li class="dropdown">
-              <a id="arrow" href="#" class="dropdown-trigger" data-target="dropdown1">{{global.user.username}}
+              <a id="arrow" href="#" class="dropdown-trigger" data-target="dropdown1" style= "margin-left:5px">{{global.user.username}}
                 <span>
                   <i class="ion-arrow-down-b"></i>
                 </span>
               </a>
-            <li>
-              <a ng-click="removeUserOnline()" onclick="logout()">Sign Out</a>
-            </li>
           </span>
         </ul>
       </nav>
@@ -53,12 +58,9 @@
         </li>
         <li class="divider"></li>
         <li>
-          <a onclick="logout()">Log Out</a>
+          <a onclick="logout()" ng-click="removeUserOnline()">Log Out</a>
         </li>
       </ul>
-
-
-
       <div id="notify" class="modal notifymodal" ng-controller="IndexController">
         <p ng-repeat="info in notifications" ng-bind-html-unsafe="info.html">{{info}}</p>
       </div>
@@ -241,5 +243,4 @@
   window.onload = () => {
     $scope / connectPeople
   }
-
 </script>

@@ -51,7 +51,7 @@ module.exports = function (passport) {
             message: 'Invalid password'
           });
         }
-        user.email = null;
+        user.email = email;
         user.hashed_password = null;
         return done(null, user);
       });

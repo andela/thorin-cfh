@@ -23,9 +23,16 @@
             <a href="#!/signin">Sign in</a>
           </li>
         </span>
+          <li>
+            <div style="padding-top:5px">
+              <a>
+                <i class="material-icons">notifications</i>
+              </a>
+            </div>
+          </li>
         <span ng-hide="showOptions">
           <li class="dropdown">
-            <a id="arrow" class="dropdown-trigger" href="#" data-target="dropdown1">{{global.user.username}}
+            <a id="arrow" class="dropdown-trigger" href="#" data-target="dropdown1" style="margin-left:5px">{{global.user.username}}
               <span>
                 <i class="ion-arrow-down-b"></i>
               </span>
@@ -60,7 +67,7 @@
     <div class="col s4 rule">
       <div class="profile-info">
         <div class="circular-portrait">
-          <img ng-src="{{global.user.imageUrl}}" alt="Oseni Olashola">
+          <img ng-src="{{global.user.imageUrl}}">
         </div>
         <h5>
           {{global.user.username.toUpperCase()}}
