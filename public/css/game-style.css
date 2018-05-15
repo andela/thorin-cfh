@@ -48,7 +48,7 @@ body, html {
   background-color: #f2f2f2;
   border-color: black;
   border-style: solid;
-  border-width: 1.5px;
+  border-width: 1px;
   border-radius: 5px;
   box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset,
   1px 1px 1px white, 2px 2px 1px grey ;
@@ -69,7 +69,7 @@ body, html {
   background-color: #f2f2f2;
   border-color: black;
   border-style: solid;
-  border-width: 1.5px;
+  border-width: 1px;
   border-radius: 5px;
   box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset,
   1px 1px 1px white, 2px 2px 1px grey ;
@@ -100,7 +100,7 @@ body, html {
   background-color: transparent;
   border-color: black;
   border-style: solid;
-  border-width: 1.5px;
+  border-width: 1px;
   border-radius: 5px;
 }
 
@@ -148,7 +148,7 @@ body, html {
   background-color: #ffffff;
   border-color: black;
   border-style: solid;
-  border-width: 1.5px;
+  border-width: 1px;
   border-radius: 5px;
   margin-bottom: 3%;
 }
@@ -169,7 +169,7 @@ body, html {
   background-color: #f2f2f2;
   border-color: orange;
   border-style: solid;
-  border-width: 1.5px;
+  border-width: 1px;
   border-radius: 5px;
   box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset, 4px 4px 4px grey ;
 }
@@ -200,7 +200,7 @@ body, html {
   background-color: #f2f2f2;
   border-color: black;
   border-style: solid;
-  border-width: 1.5px;
+  border-width: 1px;
   border-radius: 5px;
   box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset,
   1px 1px 1px white, 2px 2px 1px black ;
@@ -248,7 +248,7 @@ body, html {
   height: 400px;
   background-color: #f2f2f2;
   border-style: solid;
-  border-width: 1.5px;
+  border-width: 1px;
   border-radius: 5px;
   box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset,
   1px 1px 1px white, 2px 2px 1px grey ;
