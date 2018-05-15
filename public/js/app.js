@@ -1,3 +1,4 @@
+
 angular
   .module('mean', [
     'ngCookies',
@@ -40,7 +41,7 @@ angular
         .otherwise({
           redirectTo: '/'
         });
-    }
+      }
   ])
   .config([
     '$locationProvider',
