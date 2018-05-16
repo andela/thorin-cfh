@@ -101,9 +101,9 @@ angular //eslint-disable-line
               $scope.hasPickedCards = true;
             } else if (
               game.curQuestion.numAnswers === 2 &&
-              $scope.pickedCards.length === 2
+            $scope.pickedCards.length === 2
             ) {
-              // delay and send
+            // delay and send
               $scope.hasPickedCards = true;
               $timeout($scope.sendPickedCards, 300);
             }
@@ -116,7 +116,7 @@ angular //eslint-disable-line
       $scope.pointerCursorStyle = function () {
         if (
           $scope.isCzar() &&
-          $scope.game.state === 'waiting for czar to decide'
+        $scope.game.state === 'waiting for czar to decide'
         ) {
           return { cursor: 'pointer' };
         }
@@ -236,7 +236,7 @@ angular //eslint-disable-line
       $scope.$watch('game.state', () => {
         if (
           game.state === 'waiting for czar to decide' &&
-          $scope.showTable === false
+        $scope.showTable === false
         ) {
           $scope.showTable = true;
         }
@@ -248,7 +248,7 @@ angular //eslint-disable-line
           } = game;
           const gameStarter = players[0].username;
           const winner = players[gameWinner].username;
-          const token = localStorage.getItem('card-game-token'); //eslint-disable-line
+        const token = localStorage.getItem('card-game-token'); //eslint-disable-line
 
           $http({
             method: 'POST',
@@ -274,7 +274,7 @@ angular //eslint-disable-line
         }
       });
       const startChatService = () => {
-        const ref = firebase.database().ref().child('chats') //eslint-disable-line
+      const ref = firebase.database().ref().child('chats') //eslint-disable-line
           .child(`${game.gameID}`);
         $scope.chats = $firebaseArray(ref);
       };
@@ -283,37 +283,39 @@ angular //eslint-disable-line
         $scope.message = '';
       };
 
-      $scope.$watch('game.gameID', function() { //eslint-disable-line
+    $scope.$watch('game.gameID', function() { //eslint-disable-line
         if (game.gameID) {
           startChatService();
         }
         if (game.gameID && game.state === 'awaiting players') {
           if (!$scope.isCustomGame() && $location.search().game) {
-            // If the player didn't successfully enter the request room,
-            // reset the URL so they don't think they're in the requested room.
+          // If the player didn't successfully enter the request room,
+          // reset the URL so they don't think they're in the requested room.
             $location.search({});
           } else if ($scope.isCustomGame() && !$location.search().game) {
-            /*
-          Once the game ID is set, update the URL
-          if this is a game with friends,
-          */
-            // where the link is meant to be shared.
+          /*
+        Once the game ID is set, update the URL
+        if this is a game with friends,
+        */
+          // where the link is meant to be shared.
             $location.search({ game: game.gameID });
             if (!$scope.modalShown) {
               setTimeout(() => {
-                //eslint-disable-line
-                const link = document.URL; //eslint-disable-line
-                const txt = 'Give the following link to your ' +
+              //eslint-disable-line
+              const link = document.URL; //eslint-disable-line
+                const txt =
+                'Give the following link to your' +
                 'friends so they can join your game: ';
-                $('.how-to-play h1').css({ //eslint-disable-line
-                  'font-size': '22px'
-                }).text(txt); //eslint-disable-line
-                $('.how-to-play p').css({ //eslint-disable-line
-                  'text-align': 'center',
-                  'font-size': '22px',
-                  'background': 'white', //eslint-disable-line
-                  'color': 'black' //eslint-disable-line
-                }).text(link);
+              $('#lobby-how-to-play').text(txt); //eslint-disable-line
+              $('#oh-el') //eslint-disable-line
+                  .css({
+                  //eslint-disable-line
+                    'text-align': 'center',
+                    'font-size': '22px',
+                  background: 'white', //eslint-disable-line
+                  color: 'black' //eslint-disable-line
+                  })
+                  .text(link);
               }, 200);
               $scope.modalShown = true;
             }
@@ -331,8 +333,8 @@ angular //eslint-disable-line
             });
             $scope.resetForm();
           }
-          if (document.getElementsByClassName('friend').length > 5) { //eslint-disable-line
-            const chat = document.querySelector('.chat'); //eslint-disable-line
+        if (document.getElementsByClassName('friend').length > 5) { //eslint-disable-line
+          const chat = document.querySelector('.chat'); //eslint-disable-line
             chat.scrollTop = chat.scrollHeight;
           }
         };
@@ -353,7 +355,7 @@ angular //eslint-disable-line
 
       if (
         $location.search().game &&
-        !/^\d+$/.test($location.search().game) !== undefined
+      !/^\d+$/.test($location.search().game) !== undefined
       ) {
         game.usersOnline();
         $scope.showGameModal = false;
@@ -361,3 +363,4 @@ angular //eslint-disable-line
       }
     }
   ]);
+

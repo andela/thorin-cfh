@@ -90,7 +90,9 @@ module.exports = function (io) {
     socket.on('invitePlayer', (data) => {
       if (onlineUsers.find(user => user.username === data.user)) {
         const socketId = onlineUsers.find(user => user.username === data.user).userId;
-        io.sockets.connected[socketId].emit('invitation', {html:`You have been Invited to play a game.<br/> Click on this <a href=${data.gameLink} target="_blank">link to join</a>`});
+        if (socketId !== undefined) {
+          io.sockets.connected[socketId].emit('invitation', {html:`You have been Invited to play a game.<br/> Click on this <a href=${data.gameLink} target="_blank">link to join</a>`});
+        }
       }
     });
 
@@ -103,7 +105,6 @@ module.exports = function (io) {
     socket.on('joinNewGame', (data) => {
       exitGame(socket);
       joinGame(socket, data);
-      console.log("SOCKET DATA", data)
     });
 
     socket.on('startGame', () => {
