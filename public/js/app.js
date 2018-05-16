@@ -1,54 +1,42 @@
 /*eslint-disable */
-angular
-  .module('mean', [
-    'ngCookies',
-    'ngResource',
-    'ui.bootstrap',
-    'ui.route',
-    'ngRoute',
-    'firebase',
-    'mean.system',
-    'mean.directives'
-  ])
-  .config([
-    '$routeProvider',
-    function($routeProvider) {
-      $routeProvider
-        .when('/', {
-          templateUrl: 'views/index.html'
-        })
-        .when('/app', {
-          templateUrl: '/views/app.html'
-        })
-        .when('/privacy', {
-          templateUrl: '/views/privacy.html'
-        })
-        .when('/bottom', {
-          templateUrl: '/views/bottom.html'
-        })
-        .when('/signin', {
-          templateUrl: '/views/signin.html'
-        })
-        .when('/signup', {
-          templateUrl: '/views/signup.html'
-        })
-        .when('/profile', {
+angular.module('mean', ['ngSanitize', 'ngAnimate', 'ngCookies', 'ngResource', 'ui.bootstrap',
+  'ui.route', 'ngRoute', 'firebase', 'mean.system', 'mean.directives'])
+  .config(['$routeProvider',
+      function($routeProvider) {
+          $routeProvider.
+          when('/', {
+            templateUrl: 'views/index.html'
+          }).
+          when('/app', {
+            templateUrl: '/views/app.html',
+          }).
+          when('/privacy', {
+            templateUrl: '/views/privacy.html',
+          }).
+          when('/bottom', {
+            templateUrl: '/views/bottom.html'
+          }).
+          when('/signin', {
+            templateUrl: '/views/signin.html'
+          }).
+          when('/signup', {
+            templateUrl: '/views/signup.html'
+          }).
+          when('/choose-avatar', {
+            templateUrl: '/views/choose-avatar.html'
+          })
+          .when('/profile', {
           templateUrl: '/views/profile.html',
           authenticated: true
-        })
-        .when('/team', {
-          templateUrl: '/views/team.html'
-        })
-        .when('/choose-avatar', {
-          templateUrl: '/views/choose-avatar.html'
-        })
-        .otherwise({
-          redirectTo: '/'
-        });
-    }
-  ])
-  .config([
-    '$locationProvider',
+        }).
+        when('/team', {
+          templateUrl: 'views/team.html'
+        }).
+          otherwise({
+            redirectTo: '/'
+          });
+      }
+  ]).config(['$locationProvider',
     function($locationProvider) {
       $locationProvider.hashPrefix('!');
     }
