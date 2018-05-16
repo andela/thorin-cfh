@@ -40,6 +40,7 @@ angular.module('mean.system').controller('IndexController', [
         successResponse => {
           $scope.global.authenticated = true;
           $scope.global.user = successResponse[0].data.data.user;
+          console.log($scope.global.user);
           localStorage.setItem(
             'card-game-token',
             successResponse[0].data.data.token
@@ -165,5 +166,49 @@ angular.module('mean.system').controller('IndexController', [
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
     });
+
+    window.onload = () => {
+      useGames();
+    };
+
+    $scope.userGames = () => {
+      useGames();
+    };
+
+    const useGames = () => {
+      let userGameDetails = [];
+      if (window.user !== null) {
+        $http.get('/api/usergames').then((res) => {
+          if (res.data.code === 200) {
+            console.log(res.data.data);
+            userGameDetails = res.data.data
+              .map(value => {
+                return {
+                  gameId: value.gameID,
+                  playedAt: value.playedAt,
+                  userGame: value.players
+                    .map(value => {
+                      return { username: value.username, points: value.points };
+                    })
+                    .filter(
+                      user => user.username === $scope.global.user.username
+                    )
+                };
+              })
+              .filter(user => user.userGame.length > 0);
+
+            pointsWon = userGameDetails
+              .reduce((list, point) => {
+                return list.concat(point.userGame[0]);
+              }, [])
+              .reduce((points, point) => {
+                return points + point.points;
+              }, 0);
+            $scope.global.userGameInfo = userGameDetails;
+            $scope.global.pointsWon = pointsWon;
+          }
+        });
+      }
+    };
   }
 ]);
