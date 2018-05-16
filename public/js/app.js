@@ -1,5 +1,5 @@
 /*eslint-disable */
-angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap',
+angular.module('mean', ['ngSanitize', 'ngAnimate', 'ngCookies', 'ngResource', 'ui.bootstrap',
   'ui.route', 'ngRoute', 'firebase', 'mean.system', 'mean.directives'])
   .config(['$routeProvider',
       function($routeProvider) {
