@@ -27,13 +27,13 @@
               <a href="#!/signin">Sign in</a>
             </li>
           </span>
+          <span ng-hide="showOptions">
           <li style="display: flex; padding: 0 0 10px 30px; margin-top: -10px; cursor: pointer;">
             <i data-target="notify" class="material-icons modal-trigger">notifications</i>
             <a class="badge mt-2" style="margin-left: 0">
               <span class="redfont">{{messageLength}}</span>
             </a>
           </li>
-          <span ng-hide="showOptions">
             <li class="dropdown">
               <a id="arrow" href="#" class="dropdown-trigger" data-target="dropdown1" style="margin-left:5px; display: flex">{{global.user.username}}
                 <span>

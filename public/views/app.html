@@ -135,7 +135,7 @@
             <div ng-repeat="person in users">
                 <div class="online-users">
                   {{person}}
-                  <i class="material-icons invite" id="{{person}}" ng-click="addInvitee(person)" onclick="hideInvite(event)">mail</i>
+                  <i class="material-icons invite" id="{{person}}" ng-click="addInvitee($event, person)" onclick="hideInvite(event)">mail</i>
                 </div>
               </div>
             </div>

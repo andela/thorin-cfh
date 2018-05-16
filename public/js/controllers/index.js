@@ -156,7 +156,8 @@ angular.module('mean.system').controller('IndexController', [
       $scope.users = result;
     });
 
-    $scope.addInvitee = (selectedUser) => {
+    $scope.addInvitee = (event, selectedUser) => {
+      console.log(event.target.id)
       if (selectedUser!= undefined && selectedUser !== $scope.global.user.username) {
         const gameLink = $location.$$absUrl;
         const messageData = {
