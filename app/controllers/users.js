@@ -365,12 +365,36 @@ exports.invitePlayersByMail = function (req, res) {
 
 /** Gathers User Info and Games Logs */
 exports.game = function (req, res) {
+  const { username } = req.params;
   Game.find().exec((err, games) => {
-    if (err) return err;
+    if (err) {
+      res.status(400).json({ message: 'An error occured' });
+    }
     if (!games) return new Error('Failed to load Game');
-    return res.status(200).json({
-      data: games,
-      code: 200
-    });
+    const userGameDetails = games
+      .map(value => ({
+        gameId: value.gameID,
+        playedAt: value.playedAt,
+        userGame: value.players
+          .map(user => ({
+            username: user.username,
+            points: user.points
+          }))
+          .filter(user => user.username === username)
+      }))
+      .filter(user => user.userGame.length > 0);
+    const pointsWon = userGameDetails
+      .reduce((list, point) => list.concat(point.userGame[0]), [])
+      .reduce((points, point) => points + point.points, 0);
+
+    if (userGameDetails.length === 0) {
+      return res.status(200).json({
+        message: 'You have not played a game',
+        code: 200
+      });
+    }
+    return res
+      .status(200)
+      .json({ games: userGameDetails, point: pointsWon, code: 200 });
   });
 };

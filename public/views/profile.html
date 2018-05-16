@@ -24,11 +24,9 @@
           </li>
         </span>
           <li>
-            <div style="padding-top:5px">
               <a>
                 <i class="material-icons">notifications</i>
               </a>
-            </div>
           </li>
         <span ng-hide="showOptions">
           <li class="dropdown">
@@ -81,7 +79,10 @@
     <div class="col s8">
       <div class="game-log">
         <h6>List of games played</h6>
-        <table class="striped">
+        <div ng-if="global.message" style="text-align:center;color:#EC6C4E">
+          <h4>{{global.message}}</h4>
+        </div>
+        <table class="striped" ng-if="global.userGameInfo">
           <thead>
             <tr>
               <th>Game ID</th>
@@ -98,13 +99,58 @@
             </tr>
           </tbody>
         </table>
-        <h5 class="pointsWon">Total Points Won:
+        <h5 class="pointsWon" ng-if="global.userGameInfo">Total Points Won:
           <span class="points">{{global.pointsWon}}</span>
         </h5>
       </div>
     </div>
   </div>
 </div>
+<footer class="footer">
+  <div class="footer-content container">
+    <div class="footer-col">
+      <div class="footer-logo">
+        <img src="/img/playing-cards.png" />
+        <p id="footer-logo">CARDS FOR HUMANITY</p>
+      </div>
+      <p class="copyright">© 2018 CFH Software</p>
+    </div>
+    <div class="footer-col">
+      <p>ABOUT CARDS FOR HUMANITY</p>
+      <p>
+        <a id="about">About Us</a>
+      </p>
+      <p>
+        <a id="about">Meet the Team</a>
+      </p>
+    </div>
+    <div class="footer-col">
+      <p>JOIN THE CONVERSATION</p>
+      <div class="footer-icons">
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-facebook"></i>
+          </a>
+        </div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-twitter"></i>
+          </a>
+        </div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-instagram"></i>
+          </a>
+        </div>
+        <div class="footer-icon">
+          <a>
+            <i class="ion-social-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script>
   $(document).ready(function () {
