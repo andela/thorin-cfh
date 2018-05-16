@@ -44,6 +44,7 @@ angular.module('mean.system').controller('IndexController', [
             'card-game-token',
             successResponse[0].data.data.token
           );
+          localStorage.setItem('tour', false);
           window.user = successResponse[0].data.data.user;
           $location.path('/');
           socket.emit('connectedUser', window.user.username);
@@ -91,6 +92,7 @@ angular.module('mean.system').controller('IndexController', [
                     $scope.global.authenticated = true;
                     $scope.global.user = $scope.data.user;
                     localStorage.setItem('card-game-token', $scope.data.token);
+                    localStorage.setItem('tour', true);
                     window.user = $scope.data.user;
                     $location.path('/');
                     socket.emit('connectedUser', window.user.username);
@@ -165,5 +167,11 @@ angular.module('mean.system').controller('IndexController', [
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
     });
+
+    window.onload = () => {
+      if (window.user === null) {
+        localStorage.setItem('tour', true);
+      }
+    };
   }
 ]);
