@@ -103,6 +103,7 @@ module.exports = function (io) {
     socket.on('joinNewGame', (data) => {
       exitGame(socket);
       joinGame(socket, data);
+      console.log("SOCKET DATA", data)
     });
 
     socket.on('startGame', () => {

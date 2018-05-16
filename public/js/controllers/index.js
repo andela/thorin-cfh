@@ -204,7 +204,6 @@ angular.module('mean.system').controller('IndexController', [
               .reduce((points, point) => {
                 return points + point.points;
               }, 0);
-
             $scope.global.userGameInfo = userGameDetails;
             $scope.global.pointsWon = pointsWon;
           }
