@@ -370,7 +370,7 @@ header::after {
   margin-top: 20px;
   width: 100px;
   height: 100px;
-  background: #f2f2f2;
+  background: #EFE7E0;
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -391,19 +391,17 @@ header::after {
 }
 
 .play-game a{
-  font-family: 'Kalam',
-  cursive;
   font-weight: 400;
-  color: #ed8b56;
+  color: #EC6C4E;
   font-style: italic;
   transition: 0.3s ease-in-out;
   font-size: 18px;
+  font-weight: bold;
 }
 
 .play-game a:hover {
   color: #6fcf97;
 } 
-
 
 .section-info {
   margin-top: 20px;
