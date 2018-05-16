@@ -21,7 +21,7 @@ angular //eslint-disable-line
       $dialog,
       $http,
       socket,
-      firebaseArray
+      $firebaseArray
     ) {
       $scope.global = Global;
       $scope.hasPickedCards = false;
@@ -303,19 +303,17 @@ angular //eslint-disable-line
               setTimeout(() => {
                 //eslint-disable-line
                 const link = document.URL; //eslint-disable-line
-                const txt =
-                  'Give the following link to your' +
-                  'friends so they can join your game: ';
-                $('#lobby-how-to-play').text(txt); //eslint-disable-line
-                $('#oh-el') //eslint-disable-line
-                  .css({
-                    //eslint-disable-line
-                    'text-align': 'center',
-                    'font-size': '22px',
-                    background: 'white', //eslint-disable-line
-                    color: 'black' //eslint-disable-line
-                  })
-                  .text(link);
+                const txt = 'Give the following link to your ' +
+                'friends so they can join your game: ';
+                $('.how-to-play h1').css({ //eslint-disable-line
+                  'font-size': '22px'
+                }).text(txt); //eslint-disable-line
+                $('.how-to-play p').css({ //eslint-disable-line
+                  'text-align': 'center',
+                  'font-size': '22px',
+                  'background': 'white', //eslint-disable-line
+                  'color': 'black' //eslint-disable-line
+                }).text(link);
               }, 200);
               $scope.modalShown = true;
             }
