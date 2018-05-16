@@ -171,19 +171,18 @@ angular.module('mean.system').controller('IndexController', [
       messageArray.push(message);
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
-      console.log(messageArray)
     });
 
-    $scope.two = false;
-    $scope.one = true;
-    $scope.showone = () => {
-      $scope.two = false;
-      $scope.one = true;
+    $scope.tab2 = false;
+    $scope.tab1 = true;
+    $scope.showtab1 = () => {
+      $scope.tab2 = false;
+      $scope.tab1 = true;
     }
 
-    $scope.showtwo = () => {
-      $scope.two = true;
-      $scope.one = false;
+    $scope.showtab2 = () => {
+      $scope.tab2 = true;
+      $scope.tab1 = false;
     }
   }
 ]);
