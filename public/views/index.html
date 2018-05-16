@@ -1,27 +1,18 @@
 <div landing>
   <header class="main-header">
-    <div class="h-container">
-
-
+    <div class="h-container" ng-controller="IndexController">
       <div class="logo">
         <img src="/img/playing-cards.png" alt="">
         <h5>Cards for Humanity</h5>
       </div>
 
-      <nav class="site-nav" id="nav-id" ng-controller="IndexController">
+      <nav class="site-nav" id="nav-id">
         <ul>
           <li>
             <a href="" id="top">Home</a>
           </li>
-          <span ng-hide="showOptions">
-            <li>
-              <a href="" data-target="notify" class="modal-trigger badge mt-2">
-                Notification <span class="redfont">{{messageLength}}</span>
-              </a>
-            </li>
-          </span>
           <li>
-            <a href="" id="team">
+            <a href="#!">
               Meet the Team
             </a>
           </li>
@@ -36,16 +27,34 @@
               <a href="#!/signin">Sign in</a>
             </li>
           </span>
+          <li style="display: flex; padding: 0 0 10px 30px; margin-top: -10px; cursor: pointer;">
+            <i data-target="notify" class="material-icons modal-trigger">notifications</i>
+            <a class="badge mt-2" style="margin-left: 0">
+              <span class="redfont">{{messageLength}}</span>
+            </a>
+          </li>
           <span ng-hide="showOptions">
-            <li>
-              <a ng-click="removeUserOnline()" onclick="logout()">Sign Out</a>
-            </li>
+            <li class="dropdown">
+              <a id="arrow" href="#" class="dropdown-trigger" data-target="dropdown1" style="margin-left:5px; display: flex">{{global.user.username}}
+                <span>
+                  <i class="ion-arrow-down-b" style="margin-left:5px; margin-top: -10px; margin-left: 5px"></i>
+                </span>
+              </a>
           </span>
         </ul>
-        <div id="notify" class="modal notifymodal">
-            <p ng-repeat="info in notifications" ng-bind-html="info.html">{{info}}</p>
-          </div>
       </nav>
+      <ul id="dropdown1" class="dropdown-content">
+        <li>
+          <a href="#!/profile" ng-click="userGames()">Profile</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a onclick="logout()" ng-click="removeUserOnline()">Log Out</a>
+        </li>
+      </ul>
+      <div id="notify" class="modal notifymodal" ng-controller="IndexController">
+        <p ng-repeat="info in notifications" ng-bind-html="info.html">{{info}}</p>
+      </div>
       <div class="menu-toggle">
         <div class="hamburger"></div>
       </div>
