@@ -1,7 +1,55 @@
 .clear {
   clear:both;
 }
+.content {
+  background: white;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  border: 1px solid #ccc;
+  margin-top: -1px;
+  overflow: scroll;
+  max-height: 620px;
+}
+.online-users {
+  background: green;
+  padding: 10px;
+  margin-top: 5px;
+  color: #f2f2f2;
+  font-size: 18px;
+  border-radius: 5px;
+}
+.pb-20 {
+  padding-bottom: 20px;
+}
+.invite {
+  float: right;
+  cursor: pointer;
+}
 
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+.tab-content {
+  padding: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  overflow: scroll;
+  height: 620px;
+}
 .uppercase {
   text-transform: uppercase;
 }

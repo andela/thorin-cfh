@@ -1,19 +1,19 @@
-<div landing ng-controller="IndexController">
+<div landing>
   <header class="main-header">
     <div class="h-container">
 
 
-      <div class="logo" ng-controller="IndexController">
+      <div class="logo">
         <img src="/img/playing-cards.png" alt="">
         <h5>Cards for Humanity</h5>
       </div>
 
-      <nav class="site-nav" id="nav-id">
+      <nav class="site-nav" id="nav-id" ng-controller="IndexController">
         <ul>
           <li>
             <a href="" id="top">Home</a>
           </li>
-          <span ng-controller="IndexController" ng-hide="showOptions">
+          <span ng-hide="showOptions">
             <li>
               <a href="" data-target="notify" class="modal-trigger badge mt-2">
                 Notification <span class="redfont">{{messageLength}}</span>
@@ -42,10 +42,10 @@
             </li>
           </span>
         </ul>
+        <div id="notify" class="modal notifymodal">
+            <p ng-repeat="info in notifications" ng-bind-html="info.html">{{info}}</p>
+          </div>
       </nav>
-      <div id="notify" class="modal notifymodal" ng-controller="IndexController">
-        <p ng-repeat="info in notifications" ng-bind-html-unsafe="info.html">{{info}}</p>
-      </div>
       <div class="menu-toggle">
         <div class="hamburger"></div>
       </div>

@@ -146,15 +146,22 @@ angular.module('mean.system').controller('IndexController', [
 
     socket.on('people', clients => {
       const result = clients.map(value => value.username);
+      if (result.includes(window.user.username)) {
+        const index = result.indexOf(window.user.username);
+        if (index < 0) {
+          result.splice(0,1);
+        }
+        result.splice(index, 1);
+      }
       $scope.users = result;
     });
 
-    $scope.addInvitee = () => {
-      if ($scope.selected != undefined && $scope.selected !== $scope.global.user.username) {
+    $scope.addInvitee = (selectedUser) => {
+      if (selectedUser!= undefined && selectedUser !== $scope.global.user.username) {
         const gameLink = $location.$$absUrl;
         const messageData = {
           gameLink,
-          user: $scope.selected
+          user: selectedUser
         };
         socket.emit('invitePlayer', messageData);
       }
@@ -164,6 +171,19 @@ angular.module('mean.system').controller('IndexController', [
       messageArray.push(message);
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
+      console.log(messageArray)
     });
+
+    $scope.two = false;
+    $scope.one = true;
+    $scope.showone = () => {
+      $scope.two = false;
+      $scope.one = true;
+    }
+
+    $scope.showtwo = () => {
+      $scope.two = true;
+      $scope.one = false;
+    }
   }
 ]);
