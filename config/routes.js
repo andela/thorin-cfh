@@ -29,84 +29,51 @@ module.exports = function (app, passport) {
   app.post('/donations', users.addDonation);
 
   // Login API endpoint
-  app.post(
-    '/api/auth/login',
-    validateSignIn,
-    passport.authenticate('local', {
-      session: false,
-      failWithError: true
-    }),
-    users.loginSuccess,
-    users.loginFailure
-  );
+  app.post('/api/auth/login', validateSignIn, passport.authenticate('local', {
+    session: false,
+    failWithError: true
+  }), users.loginSuccess, users.loginFailure);
 
-  app.post(
-    '/users/session',
-    passport.authenticate('local', {
-      failureRedirect: '/signin',
-      failureFlash: 'Invalid email or password.'
-    }),
-    users.session
-  );
+  app.post('/users/session', passport.authenticate('local', {
+    failureRedirect: '/signin',
+    failureFlash: 'Invalid email or password.'
+  }), users.session);
 
   app.get('/users/me', users.me);
   app.get('/users/:userId', users.show);
 
   // Setting the facebook oauth routes
-  app.get(
-    '/auth/facebook',
-    passport.authenticate('facebook', {
-      scope: ['email'],
-      failureRedirect: '/signin'
-    }),
-    users.signin
-  );
+  app.get('/auth/facebook', passport.authenticate('facebook', {
+    scope: ['email'],
+    failureRedirect: '/signin'
+  }), users.signin);
 
-  app.get(
-    '/auth/facebook/callback',
-    passport.authenticate('facebook', {
-      failureRedirect: '/signin'
-    }),
-    index.render
-  );
+  app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    failureRedirect: '/signin'
+  }), index.render);
 
   // Setting the twitter oauth routes
-  app.get(
-    '/auth/twitter',
-    passport.authenticate('twitter', {
-      failureRedirect: '/signin'
-    }),
-    users.signin
-  );
+  app.get('/auth/twitter', passport.authenticate('twitter', {
+    failureRedirect: '/signin'
+  }), users.signin);
 
-  app.get(
-    '/auth/twitter/callback',
-    passport.authenticate('twitter', {
-      failureRedirect: '/signin'
-    }),
-    index.render
-  );
+  app.get('/auth/twitter/callback', passport.authenticate('twitter', {
+    failureRedirect: '/signin'
+  }), index.render);
 
   // Setting the google oauth routes
-  app.get(
-    '/auth/google',
-    passport.authenticate('google', {
-      failureRedirect: '/signin',
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email'
-      ]
-    }),
-    users.signin
-  );
+  app.get('/auth/google', passport.authenticate('google', {
+    failureRedirect: '/signin',
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email'
+    ]
+  }), users.signin);
 
-  app.get(
-    '/auth/google/callback',
-    passport.authenticate('google', {
-      failureRedirect: '/signin'
-    }),
-    index.render
-  );
+  app.get('/auth/google/callback', passport.authenticate('google', {
+    failureRedirect: '/signin',
+
+  }), index.render);
 
   // Finish with setting up the userId param
   app.param('userId', users.user);
@@ -136,6 +103,4 @@ module.exports = function (app, passport) {
     validator.gameValidation,
     saveGame
   );
-
-  app.get('/api/usergames', users.game);
 };
