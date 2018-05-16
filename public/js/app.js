@@ -36,6 +36,9 @@ angular
           templateUrl: '/views/profile.html',
           authenticated: true
         })
+        .when('/team', {
+          templateUrl: '/views/team.html'
+        })
         .when('/choose-avatar', {
           templateUrl: '/views/choose-avatar.html'
         })

@@ -180,7 +180,6 @@ angular.module('mean.system').controller('IndexController', [
       if (window.user !== null) {
         $http.get('/api/usergames').then((res) => {
           if (res.data.code === 200) {
-            console.log(res.data.data);
             userGameDetails = res.data.data
               .map(value => {
                 return {

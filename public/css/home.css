@@ -804,9 +804,14 @@ p {
   align-items: stretch;
   flex-wrap: wrap;
 }
+.ajust-text{
+  width: 250px;
+  margin-top: 20px;
+  text-align: justify;
+}
 
 .member-bio {
-  height: 100px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #bdbdbd;
 }
 
