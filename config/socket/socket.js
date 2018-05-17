@@ -73,6 +73,7 @@ module.exports = function(io) {
       };
       onlineUsers.push(user);
       io.sockets.emit('people', onlineUsers);
+      console.log('connect', onlineUsers);
     });
 
     socket.on('showOnlineUsers', () => {
@@ -90,6 +91,7 @@ module.exports = function(io) {
 
     // send invite to player
     socket.on('invitePlayer', data => {
+      console.log(data)
       if (onlineUsers.find(user => user.username === data.user)) {
         const socketId = onlineUsers.find(user => user.username === data.user)
           .userId;
@@ -139,11 +141,15 @@ module.exports = function(io) {
 
     socket.on('leaveGame', data => {
       io.sockets.emit('connectedUsers', data);
+      console.log(onlineUsers, 'leavegame')
       exitGame(socket);
+      console.log(onlineUsers, 'leavegame')
     });
 
     socket.on('disconnect', () => {
+      console.log(onlineUsers, 'disconnect')
       exitGame(socket);
+      console.log(onlineUsers, 'disconnect')
     });
   });
 

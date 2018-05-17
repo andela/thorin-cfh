@@ -19,6 +19,7 @@ angular.module('mean.system').controller('IndexController', [
 
     window.onload = () => {
       connectPeople();
+      $scope.userGames()
     };
 
     connectPeople = () => {
@@ -158,8 +159,7 @@ angular.module('mean.system').controller('IndexController', [
       $scope.users = result;
     });
 
-    $scope.addInvitee = (event, selectedUser) => {
-      console.log(event.target.id);
+    $scope.addInvitee = (selectedUser) => {
       if (
         selectedUser != undefined &&
         selectedUser !== $scope.global.user.username
@@ -201,9 +201,7 @@ angular.module('mean.system').controller('IndexController', [
       }
       $scope.inviteModal = true;
     };
-    window.onload = () => {
-      $scope.userGames()
-    };
+
 
     $scope.userGames = () => {
       useGames();
@@ -220,7 +218,6 @@ angular.module('mean.system').controller('IndexController', [
           if(res.data.message){
             $scope.global.message = res.data.message;
           }else{
-            console.log($scope.global.user);
             $scope.global.userGameInfo = res.data.games;
             $scope.global.pointsWon = res.data.point;
           }
