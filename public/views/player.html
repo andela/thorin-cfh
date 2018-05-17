@@ -1,4 +1,4 @@
-<div class="player-online" ng-repeat="player in game.players">
+<div class="player-online" ng-repeat="player in game.players"  data-step="7" data-intro="Here You can see the list of players that have joined the game">
   <img ng-src="{{player.avatar}}" class="profile-pic" inherit !important" />
   <span class="name-points">{{player.username | upperFirstLetter}}<br>
     <span class="">{{player.points}}/{{game.pointLimit}}</span><br>

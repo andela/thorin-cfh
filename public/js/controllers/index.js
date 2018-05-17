@@ -44,6 +44,7 @@ angular.module('mean.system').controller('IndexController', [
             'card-game-token',
             successResponse[0].data.data.token
           );
+          localStorage.setItem('tour', false);
           window.user = successResponse[0].data.data.user;
           $location.path('/');
           socket.emit('connectedUser', window.user.username);
@@ -91,6 +92,7 @@ angular.module('mean.system').controller('IndexController', [
                     $scope.global.authenticated = true;
                     $scope.global.user = $scope.data.user;
                     localStorage.setItem('card-game-token', $scope.data.token);
+                    localStorage.setItem('tour', true);
                     window.user = $scope.data.user;
                     $location.path('/');
                     socket.emit('connectedUser', window.user.username);
@@ -171,6 +173,13 @@ angular.module('mean.system').controller('IndexController', [
       }
     };
 
+    $scope.abandonGame = function () {
+      if ($scope.global.user) {
+        socket.emit('connectedUser', $scope.global.user.username);
+      }
+      window.location = '/';
+    };
+
     socket.on('invitation', message => {
       messageArray.push(message);
       $scope.notifications = messageArray;
@@ -192,5 +201,36 @@ angular.module('mean.system').controller('IndexController', [
       }
       $scope.inviteModal = true;
     };
+    window.onload = () => {
+      $scope.userGames()
+    };
+
+    $scope.userGames = () => {
+      useGames();
+    };
+
+    const useGames = () => {
+      let userGameDetails = [];
+      const username = window.user.username;
+      const token = localStorage.getItem('card-game-token');
+      axios.get(`/api/profile/${username}`, {
+        headers: {"card-game-token": token} 
+      })
+        .then((res) => {
+          if(res.data.message){
+            $scope.global.message = res.data.message;
+          }else{
+            console.log($scope.global.user);
+            $scope.global.userGameInfo = res.data.games;
+            $scope.global.pointsWon = res.data.point;
+          }
+        })
+        .catch((error) => {
+          $scope.global.error= error.data;
+        })
+      if (window.user === null) {
+        localStorage.setItem('tour', true);
+      }
+    }
   }
 ]);

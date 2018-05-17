@@ -88,16 +88,17 @@
       <!-- timer directive-->
       <div timer class="timer">
       </div>
-      <!-- question (dashboard) directive   -->
-      <div question class="dashboard">
-      </div>
-      <div class="deck">
-        <img src="../img/deck.png" />
-      </div>
-
-    </div>
-    <!-- answers directive -->
-    <div answers class="game-body">
+      
+   <!-- question (dashboard) directive   -->
+   <div question class="dashboard" data-step="3" data-intro="You can see how many players have joined the game. A minimum of 3 players and a maximum of 12 players can play the gamne for each round.">
+  </div>
+  <div class="deck">
+    <img src="../img/deck.png" />
+  </div>
+  
+</div>
+<!-- answers directive -->
+<div answers class="game-body" data-step="2" data-intro="Here are the instruction to play the game">
 
     </div>
     <div player class="players-bottom">
@@ -135,28 +136,28 @@
             <div ng-repeat="person in users">
                 <div class="online-users">
                   {{person}}
-                  <i class="material-icons invite" id="{{person}}" ng-click="addInvitee($event, person)" onclick="hideInvite(event)">mail</i>
+                  <i class="material-icons invite" id="{{person}}" ng-click="addInvitee(person)" onclick="hideInvite(event)">mail</i>
                 </div>
               </div>
             </div>
       </div>
     </div>
-  </aside>
-  <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div">
-    <h2 id="chat-head">CHAT</h2>
-  </div>
-  <!-- Start Game Modal-->
-  <div id="app-modal" ng-if="showGameModal">
-    <div id="app-modal-content">
-      <div class="modal-header">
-        <h3>Play Game</h3>
-      </div>
-      <div class="modal-body">
-        <h5> You are about to {{game.userMessage | lowercase}}. Click button to start.</h5>
-        <div id="button-div">
-          <button class="start-button" ng-click="hideAppModal()">{{game.userMessage}}</button>
-          <button class="start-button" ng-click="abandonGame()">Cancel</button>
-        </div>
+  </aside>  
+  <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div" data-step="5" data-intro="You can chat and view conversations between players in the game. Click on the  chart button to expand or collapse the ChatBox.">
+     <h2 id="chat-head">CHAT</h2>
+ </div> 
+ <!-- Start Game Modal-->
+ <div id="app-modal" ng-if="showGameModal">
+     <div id="app-modal-content">
+       <div class="modal-header">
+         <h3 >Play Game</h3>
+       </div>
+       <div class="modal-body">
+         <h5> You are about to {{game.userMessage | lowercase}}. Click button to start.</h5>
+         <div id="button-div">
+           <button class= "start-button" ng-click="hideAppModal()">{{game.userMessage}}</button>
+           <button class= "start-button" ng-click="abandonGame()">Cancel</button>
+         </div>
       </div>
     </div>
   </div>

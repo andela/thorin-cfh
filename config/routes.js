@@ -24,6 +24,7 @@ module.exports = function (app, passport) {
   app.post('/api/auth/checkuser', users.checkEmail, users.checkUsername);
 
   app.post('/api/auth/signup', validator.Signup, users.createUser);
+  app.get('/api/profile/:username', auth.verifyToken, users.game);
 
   // Donation Routes
   app.post('/donations', users.addDonation);

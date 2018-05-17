@@ -28,16 +28,16 @@
             </li>
           </span>
           <span ng-hide="showOptions">
-            <li style="display: flex; padding: 0 0 10px 30px; margin-top: -10px; cursor: pointer;" ng-if="messageLength > 0">
+            <li style="display: flex; padding: 0 0 10px 30px; cursor: pointer;" ng-if="messageLength > 0">
               <i data-target="notify" class="material-icons modal-trigger">notifications</i>
-              <a class="badge mt-2" style="margin-left: 0">
+              <a class="badge mt-2" style="margin-left: 0; margin-top: -5px;">
                 <span class="redfont">{{messageLength}}</span>
               </a>
             </li>
             <li class="dropdown">
               <a id="arrow" href="#" class="dropdown-trigger" data-target="dropdown1" style="margin-left:5px; display: flex">{{global.user.username}}
                 <span>
-                  <i class="ion-arrow-down-b" style="margin-left:5px; margin-top: -10px; margin-left: 5px"></i>
+                  <i class="ion-arrow-down-b" style="margin-left:5px; margin-left: 5px"></i>
                 </span>
               </a>
           </span>
@@ -186,6 +186,7 @@
 <script>
   $(document).ready(function () {
     $('.modal').modal();
+    $(".dropdown-trigger").dropdown();
     $.fn.scrollView = function () {
       return this.each(function () {
         $('html, body').animate({
