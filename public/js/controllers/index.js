@@ -185,6 +185,7 @@ angular.module('mean.system').controller('IndexController', [
           if(res.data.message){
             $scope.global.message = res.data.message;
           }else{
+            console.log($scope.global.user);
             $scope.global.userGameInfo = res.data.games;
             $scope.global.pointsWon = res.data.point;
           }

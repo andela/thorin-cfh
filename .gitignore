@@ -9,5 +9,3 @@ coverage
 /.env
 /build
 /public/views/index2.html
-package-lock.json
-
