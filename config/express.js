@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 import express from 'express';
-import flash from 'connect-flash';
+// import flash from 'connect-flash';
 import helpers from 'view-helpers';
 import config  from './config';
 

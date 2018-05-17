@@ -21,7 +21,7 @@ describe('Start Game Endpoint', () => {
         userToken = res.body.token;
         done();
       });
-  }); 
+  });
 
   it('should not save a game if the user is not authenticated', (done) => {
     request(app)

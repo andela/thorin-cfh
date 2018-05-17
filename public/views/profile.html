@@ -79,14 +79,14 @@
     <div class="col s8">
       <div class="game-log">
         <h6>List of games played</h6>
-        <div ng-if="global.message" style="text-align:center;color:#EC6C4E">
-          <h4>{{global.message}}</h4>
+        <div ng-if="global.message"class="game-message">
+          <h3>{{global.message}}</h3>
         </div>
         <table class="striped" ng-if="global.userGameInfo">
           <thead>
             <tr>
               <th>Game ID</th>
-              <th>No. of rounds won</th>
+              <th>No. of rounds played</th>
               <th>Date Played</th>
             </tr>
           </thead>

@@ -880,3 +880,11 @@ p {
 .team-background {
   background: #f2f2f2;
 }
+.game-message{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.game-message h3{
+  color: #ed8b56;
+}

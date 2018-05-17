@@ -19,6 +19,7 @@ angular.module('mean.system').controller('IndexController', [
 
     window.onload = () => {
       connectPeople();
+      $scope.userGames()
     };
 
     connectPeople = () => {
@@ -168,12 +169,15 @@ angular.module('mean.system').controller('IndexController', [
       $scope.messageLength = messageArray.length;
     });
 
-    window.onload = () => {
-      $scope.userGames()
-    };
-
     $scope.userGames = () => {
       useGames();
+    };
+
+    $scope.abandonGame = function () {
+      if ($scope.global.user) {
+        socket.emit('connectedUser', $scope.global.user.username);
+      }
+      window.location = '/';
     };
 
     const useGames = () => {

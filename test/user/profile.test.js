@@ -1,36 +1,9 @@
 import request from 'supertest';
 import chai from 'chai';
-import db from '../user/profile.json';
 import app from '../../server';
 
 const { expect } = chai;
 let userToken;
-
-const result = (username) => {
-  const userGameDetails = db.map(value => ({
-    gameId: value.gameID,
-    playedAt: value.playedAt,
-    userGame: value.players
-      .map(user => ({
-        username: user.username,
-        points: user.points
-      }))
-      .filter(user => user.username === username)
-  }))
-    .filter(user => user.userGame.length > 0);
-  const pointsWon = userGameDetails
-    .reduce((list, point) => list.concat(point.userGame[0]), [])
-    .reduce((points, point) => points + point.points, 0);
-
-  if (userGameDetails.length === 0) {
-    return {
-      message: 'You have not played a game',
-      code: 200
-    };
-  }
-  return { games: userGameDetails, point: pointsWon, code: 200 };
-};
-
 
 describe('GET /api/profile/:username', () => {
   const user = {
@@ -52,7 +25,7 @@ describe('GET /api/profile/:username', () => {
 
   it('should return the user info and personal game logs', (done) => {
     request(app)
-      .get('/api/profile/foye')
+      .get('/api/profile/money')
       .set('card-game-token', userToken)
       .expect(200)
       .end((req, res) => {
