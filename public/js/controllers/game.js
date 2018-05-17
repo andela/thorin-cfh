@@ -340,6 +340,27 @@ angular //eslint-disable-line
           }
         };
       });
+
+      const tour = () => {
+        const running = introJs();  // eslint-disable-line
+        running.setOptions({
+          showStepNumbers: true,
+          disableInteraction: true,
+          showBullets: true,
+          skipLabel: 'Exit',
+          showProgress: true,
+          overlayOpacity: 2
+
+        });
+        const timeout = setTimeout(() => {
+          running.start();
+          clearTimeout(timeout);
+        }, 500);
+        localStorage.setItem('tour', false);  // eslint-disable-line
+      };
+
+      const runme = () => (localStorage.tour === 'true' ? tour() : null); // eslint-disable-line
+
       // Function hides modal on app.html page
       $scope.hideAppModal = () => {
         socket.emit('showOnlineUsers');
@@ -347,10 +368,13 @@ angular //eslint-disable-line
         if ($location.search().game && !/^\d+$/.test($location.search().game)) {
           console.log('joining custom game');
           game.joinGame('joinGame', $location.search().game);
+          runme();
         } else if ($location.search().custom) {
           game.joinGame('joinGame', null, true);
+          runme();
         } else {
           game.joinGame();
+          runme();
         }
       };
 
@@ -362,6 +386,6 @@ angular //eslint-disable-line
         $scope.showGameModal = false;
         game.joinGame('joinGame', $location.search().game);
       }
-    }
-  ]);
 
+      $scope.startsme = () => tour();
+    }]);
