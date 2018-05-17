@@ -78,7 +78,6 @@ module.exports = function (passport) {
             name: profile.displayName,
             username: profile.username,
             provider: 'twitter',
-            twitter: profile._json, // eslint-disable-line
             imageUrl: profile._json.profile_image_url, // eslint-disable-line
             email: profile._json.email || profile.username,
           });
@@ -112,7 +111,6 @@ module.exports = function (passport) {
             email: (profile.emails && profile.emails[0].value) || '',
             username: profile.username,
             provider: 'facebook',
-            facebook: profile._json, // eslint-disable-line
             imageUrl: profile._json.picture || '' // eslint-disable-line
           });
           user.save((err) => {
@@ -146,7 +144,6 @@ module.exports = function (passport) {
             email: profile._json.email,
             username: profile._json.given_name,
             provider: 'google',
-            google: profile._json, // eslint-disable-line
             imageUrl: profile._json.picture // eslint-disable-line
           });
           user.save((err) => {
