@@ -176,6 +176,13 @@ angular.module('mean.system').controller('IndexController', [
       useGames();
     };
 
+    $scope.abandonGame = function () {
+      if ($scope.global.user) {
+        socket.emit('connectedUser', $scope.global.user.username);
+      }
+      window.location = '/';
+    };
+
     const useGames = () => {
       let userGameDetails = [];
       const username = window.user.username;
