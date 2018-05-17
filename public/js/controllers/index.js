@@ -162,6 +162,13 @@ angular.module('mean.system').controller('IndexController', [
       }
     };
 
+    $scope.abandonGame = function () {
+      if ($scope.global.user) {
+        socket.emit('connectedUser', $scope.global.user.username);
+      }
+      window.location = '/';
+    };
+
     socket.on('invitation', message => {
       messageArray.push(message);
       $scope.notifications = messageArray;
@@ -200,4 +207,5 @@ angular.module('mean.system').controller('IndexController', [
       }
     };
   }
+
 ]);
