@@ -27,7 +27,7 @@ angular.module('mean.system').controller('IndexController', [
 
     $scope.removeUserOnline = () => {
       socket.emit('removeUser', $scope.global.user.username);
-    }
+    };
     $scope.showError = function() {
       if ($location.search().error) {
         return $location.search().error;
@@ -149,7 +149,7 @@ angular.module('mean.system').controller('IndexController', [
       if (result.includes(window.user.username)) {
         const index = result.indexOf(window.user.username);
         if (index < 0) {
-          result.splice(0,1);
+          result.splice(0, 1);
         }
         result.splice(index, 1);
       }
@@ -157,8 +157,11 @@ angular.module('mean.system').controller('IndexController', [
     });
 
     $scope.addInvitee = (event, selectedUser) => {
-      console.log(event.target.id)
-      if (selectedUser!= undefined && selectedUser !== $scope.global.user.username) {
+      console.log(event.target.id);
+      if (
+        selectedUser != undefined &&
+        selectedUser !== $scope.global.user.username
+      ) {
         const gameLink = $location.$$absUrl;
         const messageData = {
           gameLink,
@@ -176,14 +179,18 @@ angular.module('mean.system').controller('IndexController', [
 
     $scope.tab2 = false;
     $scope.tab1 = true;
+    $scope.inviteModal = false;
     $scope.showtab1 = () => {
       $scope.tab2 = false;
       $scope.tab1 = true;
-    }
+    };
 
     $scope.showtab2 = () => {
-      $scope.tab2 = true;
-      $scope.tab1 = false;
-    }
+      if (window.user) {
+        $scope.tab2 = true;
+        $scope.tab1 = false;
+      }
+      $scope.inviteModal = true;
+    };
   }
 ]);

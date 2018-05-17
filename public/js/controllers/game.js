@@ -215,9 +215,9 @@ angular //eslint-disable-line
       $scope.abandonGame = function () {
         if ($scope.global.user) {
           socket.emit('connectedUser', $scope.global.user.username);
-          $location.path('/');
+          window.location = '/';  // eslint-disable-line
         }
-        $location.path('/');
+        window.location = '/';  // eslint-disable-line
       };
 
       // Catches changes to round to update when no players pick card
