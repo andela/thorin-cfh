@@ -26,7 +26,7 @@
         <div class="logo" ng-controller="IndexController">
           <img src="/img/playing-cards.png" alt="">
           <h5 >
-            <a style="color:#4f4f4f !important" href="/">Cards for Humanity</a>
+            <a style="color:#4f4f4f !important" href="/" data-step="1" data-intro="Welcome to cards for humanity. Let me take you on a quick tour of how to play the GAME">Cards for Humanity</a>
           </h5>
         </div>
   
@@ -48,7 +48,10 @@
             </span>
             <span  ng-controller="GameController">
                 <li>
-                  <a style="color: red !important;" ng-click="abandonGame()">ABANDON GAME</a>
+                  <a style="color: red !important;" ng-click="abandonGame()" data-step="8" data-intro="Click to leave the game and go back to the Home Page. You wont be able to join the game again if it has already stated.">ABANDON GAME</a>
+                </li>
+                <li ng-click="startsme()">
+                  <a data-step="9" data-intro="You can click here to take the tour again. Have Fun.">Take Tour</a>
                 </li>
             </span>
 
@@ -76,10 +79,10 @@
         </form> 
       <div class="game-head">
         <!-- timer directive-->
-        <div timer class="timer">
+        <div timer class="timer" data-step="4" data-intro="This is a countdown timer that shows how much time is remaining to select answer and start next round.">
         </div>
         <!-- question (dashboard) directive   -->
-        <div question class="dashboard">
+        <div question class="dashboard" data-step="3" data-intro="You can see how many players have joined the game. A minimum of 3 players and a maximum of 12 players can play the gamne for each round.">
         </div>
         <div class="deck">
           <img src="../img/deck.png" />
@@ -87,7 +90,7 @@
         
       </div>
       <!-- answers directive -->
-      <div answers class="game-body">
+      <div answers class="game-body" data-step="2" data-intro="Here are the instruction to play the game">
 
       </div>
       <div player class="players-bottom">
@@ -106,14 +109,14 @@
 
       </div>
    </aside>  
-   <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div">
+   <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div" data-step="5" data-intro="You can chat and view conversations between players in the game. Click on the  chart button to expand or collapse the ChatBox.">
       <h2 id="chat-head">CHAT</h2>
   </div> 
   <!-- Start Game Modal-->
   <div id="app-modal" ng-if="showGameModal">
       <div id="app-modal-content">
         <div class="modal-header">
-          <h3>Play Game</h3>
+          <h3 >Play Game</h3>
         </div>
         <div class="modal-body">
           <h5> You are about to {{game.userMessage | lowercase}}. Click button to start.</h5>

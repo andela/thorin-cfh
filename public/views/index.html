@@ -36,13 +36,31 @@
               <a href="#!/signin">Sign in</a>
             </li>
           </span>
+          <li>
+              <a>
+                <i class="material-icons">notifications</i>
+              </a>
+          </li>
           <span ng-hide="showOptions">
-            <li>
-              <a ng-click="removeUserOnline()" onclick="logout()">Sign Out</a>
+            <li class="dropdown">
+              <a id="arrow" class="dropdown-trigger" href="#" data-target="dropdown1" style="margin-left:5px">{{global.user.username}}
+                <span>
+                  <i class="ion-arrow-down-b"></i>
+                </span>
+              </a>
             </li>
           </span>
         </ul>
       </nav>
+      <ul id="dropdown1" class="dropdown-content">
+        <li>
+          <a href="#!/profile" ng-click="userGames()">Profile</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a onclick="logout()" ng-click="removeUserOnline()">Log Out</a>
+        </li>
+      </ul>
       <div id="notify" class="modal notifymodal" ng-controller="IndexController">
         <p ng-repeat="info in notifications" ng-bind-html-unsafe="info.html">{{info}}</p>
       </div>
@@ -177,6 +195,7 @@
 <script>
   $(document).ready(function () {
     $('.modal').modal();
+    $(".dropdown-trigger").dropdown();
     $.fn.scrollView = function () {
       return this.each(function () {
         $('html, body').animate({
