@@ -202,9 +202,15 @@ angular.module('mean.system').controller('IndexController', [
       $scope.inviteModal = true;
     };
 
-
     $scope.userGames = () => {
       useGames();
+    };
+
+    $scope.abandonGame = function () {
+      if ($scope.global.user) {
+        socket.emit('connectedUser', $scope.global.user.username);
+      }
+      window.location = '/';
     };
 
     const useGames = () => {
@@ -218,6 +224,7 @@ angular.module('mean.system').controller('IndexController', [
           if(res.data.message){
             $scope.global.message = res.data.message;
           }else{
+            console.log($scope.global.user);
             $scope.global.userGameInfo = res.data.games;
             $scope.global.pointsWon = res.data.point;
           }
@@ -228,6 +235,7 @@ angular.module('mean.system').controller('IndexController', [
       if (window.user === null) {
         localStorage.setItem('tour', true);
       }
-    }
+    };
   }
+
 ]);

@@ -217,7 +217,7 @@ angular //eslint-disable-line
           socket.emit('connectedUser', $scope.global.user.username);
           window.location = '/';  // eslint-disable-line
         }
-        window.location = '/';  // eslint-disable-line
+        window.location = '/'; // eslint-disable-line
       };
 
       // Catches changes to round to update when no players pick card
