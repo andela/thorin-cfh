@@ -16,7 +16,7 @@
               Meet the Team
             </a>
           </li>
-          <li>
+          <li style="padding-right: 20px">
             <a href="" id="charity">Charity</a>
           </li>
           <span ng-show="showOptions">
@@ -28,12 +28,6 @@
             </li>
           </span>
           <span ng-hide="showOptions">
-            <li style="display: flex; padding: 0 0 10px 30px; margin-top: -10px; cursor: pointer;" ng-if="messageLength === 0">
-              <i data-target="notify" class="material-icons modal-trigger">notifications</i>
-              <a class="badge mt-2" style="margin-left: 0">
-                <span class="redfont">{{messageLength}}</span>
-              </a>
-            </li>
             <li style="display: flex; padding: 0 0 10px 30px; margin-top: -10px; cursor: pointer;" ng-if="messageLength > 0">
               <i data-target="notify" class="material-icons modal-trigger">notifications</i>
               <a class="badge mt-2" style="margin-left: 0">
