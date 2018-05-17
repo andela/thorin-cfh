@@ -27,7 +27,7 @@ angular.module('mean.system').controller('IndexController', [
 
     $scope.removeUserOnline = () => {
       socket.emit('removeUser', $scope.global.user.username);
-    }
+    };
     $scope.showError = function() {
       if ($location.search().error) {
         return $location.search().error;
@@ -44,6 +44,7 @@ angular.module('mean.system').controller('IndexController', [
             'card-game-token',
             successResponse[0].data.data.token
           );
+          localStorage.setItem('tour', false);
           window.user = successResponse[0].data.data.user;
           $location.path('/');
           socket.emit('connectedUser', window.user.username);
@@ -91,6 +92,7 @@ angular.module('mean.system').controller('IndexController', [
                     $scope.global.authenticated = true;
                     $scope.global.user = $scope.data.user;
                     localStorage.setItem('card-game-token', $scope.data.token);
+                    localStorage.setItem('tour', true);
                     window.user = $scope.data.user;
                     $location.path('/');
                     socket.emit('connectedUser', window.user.username);
@@ -146,15 +148,26 @@ angular.module('mean.system').controller('IndexController', [
 
     socket.on('people', clients => {
       const result = clients.map(value => value.username);
+      if (result.includes(window.user.username)) {
+        const index = result.indexOf(window.user.username);
+        if (index < 0) {
+          result.splice(0, 1);
+        }
+        result.splice(index, 1);
+      }
       $scope.users = result;
     });
 
-    $scope.addInvitee = () => {
-      if ($scope.selected != undefined && $scope.selected !== $scope.global.user.username) {
+    $scope.addInvitee = (event, selectedUser) => {
+      console.log(event.target.id);
+      if (
+        selectedUser != undefined &&
+        selectedUser !== $scope.global.user.username
+      ) {
         const gameLink = $location.$$absUrl;
         const messageData = {
           gameLink,
-          user: $scope.selected
+          user: selectedUser
         };
         socket.emit('invitePlayer', messageData);
       }
@@ -165,5 +178,26 @@ angular.module('mean.system').controller('IndexController', [
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
     });
+
+    $scope.tab2 = false;
+    $scope.tab1 = true;
+    $scope.inviteModal = false;
+    $scope.showtab1 = () => {
+      $scope.tab2 = false;
+      $scope.tab1 = true;
+    };
+
+    $scope.showtab2 = () => {
+      if (window.user) {
+        $scope.tab2 = true;
+        $scope.tab1 = false;
+      }
+      $scope.inviteModal = true;
+    };
+    window.onload = () => {
+      if (window.user === null) {
+        localStorage.setItem('tour', true);
+      }
+    }
   }
 ]);
