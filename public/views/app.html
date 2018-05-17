@@ -1,168 +1,219 @@
 <header class="main-header">
 
-      <style>
-          .main-header {
-            position: relative;
-            z-index: 100;
-          }
-          .site-nav a {
-            color: black;
-          }
-          .main-header.solid{
-            background-color: #f1f1f1;
-          }
-          input.ng-pristine.ng-valid, {background-color: red}
-          h1, h2, h3, h5, h6 {
-            font-size: 150%;
-            font-weight: bolder;
-          }
-        </style>
+  <style>
+    .main-header {
+      position: relative;
+      z-index: 100;
+    }
 
+    .site-nav a {
+      color: black;
+    }
+
+    .main-header.solid {
+      background-color: #f1f1f1;
+    }
+
+    input.ng-pristine.ng-valid,
+      {
+      background-color: red
+    }
+
+    h1,
+    h2,
+    h3,
+    h5,
+    h6 {
+      font-size: 150%;
+      font-weight: bolder;
+    }
+
+    h4 {
+      font-size: 1.28rem;
+    }
+  </style>
+
+
+
+  <div landing class="h-container">
+
+
+    <div class="logo" ng-controller="IndexController">
+      <img src="/img/playing-cards.png" alt="">
+      <h5>
+        <a style="color:#4f4f4f !important" href="/">Cards for Humanity</a>
+      </h5>
+    </div>
+
+    <nav class="site-nav" id="nav-id">
+      <ul>
+        <li>
+          <a href="/" id="top">Home</a>
+        </li>
+        <li>
+          <a href="" id="charity">Charity</a>
+        </li>
+        <span ng-show="showOptions">
+          <li>
+            <a href="#!/signup">Sign Up</a>
+          </li>
+          <li>
+            <a href="#!/signin">Sign in</a>
+          </li>
+        </span>
+        <span ng-controller="GameController">
+          <li>
+            <a style="color: red !important;" ng-click="abandonGame()">ABANDON GAME</a>
+          </li>
+        </span>
+
+        <span ng-hide="showOptions">
+          <li>
+            <a onclick="logout()">Sign Out</a>
+          </li>
+        </span>
+      </ul>
+    </nav>
+
+
+    <div class="menu-toggle">
+      <div class="hamburger"></div>
+    </div>
+  </div>
+</header>
+<div class="game-screen" ng-controller="GameController">
+  <section class="game">
+    <div class="game-head">
+      <!-- timer directive-->
+      <div timer class="timer" data-step="4" data-intro="This is a countdown timer that shows how much time is remaining to select answer and start next round.">
+      </div>
+      
+   <!-- question (dashboard) directive   -->
+   <div question class="dashboard" data-step="3" data-intro="You can see how many players have joined the game. A minimum of 3 players and a maximum of 12 players can play the gamne for each round.">
+  </div>
+  <div class="deck">
+    <img src="../img/deck.png" />
+  </div>
+  
+</div>
+<!-- answers directive -->
+<div answers class="game-body" data-step="2" data-intro="Here are the instruction to play the game">
+
+    </div>
+    <div player class="players-bottom">
+
+    </div>
+  </section>
+  <aside class="players">
+    <div class="row" ng-controller="IndexController">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab">
+            <a class="active" href="#" ng-click="showtab1()">Players</a>
+          </li>
+          <li class="tab">
+            <a href="#" ng-click="showtab2()">Send Invites</a>
+          </li>
+        </ul>
+      </div>
+      <div ng-show="tab1" class="col s12 tab-div">
+          <form ng-show="game.state === 'awaiting players' && showOptions === false" class="search-form search-form-side" name="searchForm">
+              <input type="text" placeholder="Search for players..." ng-model="user.email"/>
+              <button type="submit" ng-click="getUserInfo(user, searchForm)">
+                <i class="material-icons">search</i>
+              </button>
+            </form>
+            <div player style="width:100%" class="pb-20">
         
-
-      <div landing class="h-container" >
-  
-  
-        <div class="logo" ng-controller="IndexController">
-          <img src="/img/playing-cards.png" alt="">
-          <h5 >
-            <a style="color:#4f4f4f !important" href="/" data-step="1" data-intro="Welcome to cards for humanity. Let me take you on a quick tour of how to play the GAME">Cards for Humanity</a>
-          </h5>
-       
-  
-        <nav class="site-nav" id="nav-id">
-          <ul>
-            <li>
-              <a href="/" id="top">Home</a>
-            </li>
-            <li>
-              <a href="" id="charity">Charity</a>
-            </li>
-            <span ng-show="showOptions">
-              <li>
-                <a href="#!/signup">Sign Up</a>
-              </li>
-              <li>
-                <a href="#!/signin">Sign in</a>
-              </li>
-            </span>
-            <span>
-                <li>
-                  <a style="color: red !important;" ng-click="abandonGame()" data-step="8" data-intro="Click to leave the game and go back to the Home Page. You wont be able to join the game again if it has already stated.">ABANDON GAME</a>
-                </li>
-                <li ng-click="startsme()">
-                  <a data-step="9" data-intro="You can click here to take the tour again. Have Fun.">Take Tour</a>
-                </li>
-            </span>
-
-            <span ng-hide="showOptions">
-              <li>
-                <a onclick="logout()">Sign Out</a>
-              </li>
-            </span>
-          </ul>
-        </nav>
+            </div>
       </div>
-  
-        <div class="menu-toggle">
-          <div class="hamburger"></div>
-        </div>
-      </div>
-    </header>
-  <div class="game-screen" ng-controller="GameController">
-    <section class="game">
-      <form ng-show="game.state === 'awaiting players' && showOptions === false" class="search-form search-form-top">
-          <input type="text" placeholder="Search for players..." ng-model="user.email"/>
-          <button type="submit" ng-click="getUserInfo(user, searchForm)">
-              <i class="material-icons">search</i>
-          </button>
-        </form> 
-      <div class="game-head">
-        <!-- timer directive-->
-        <div timer class="timer" data-step="4" data-intro="This is a countdown timer that shows how much time is remaining to select answer and start next round.">
-        </div>
-        <!-- question (dashboard) directive   -->
-        <div question class="dashboard" data-step="3" data-intro="You can see how many players have joined the game. A minimum of 3 players and a maximum of 12 players can play the gamne for each round.">
-        </div>
-        <div class="deck">
-          <img src="../img/deck.png" />
-        </div>
-        
-      </div>
-      <!-- answers directive -->
-      <div answers class="game-body" data-step="2" data-intro="Here are the instruction to play the game">
-
-      </div>
-      <div player class="players-bottom">
-    
-      </div> 
-    </section>
-   <aside class="players">
-    <!-- Search form for email-->
-      <form ng-show="game.state === 'awaiting players' && showOptions === false" class="search-form search-form-side" name="searchForm">
-        <input  placeholder="Search for players..." ng-model="user.email"/>
-        <button type="submit" ng-click="getUserInfo(user, searchForm)" >
-            <i class="material-icons">search</i>
-        </button>
-      </form> 
-      <div player style="width:100%">
-
-      </div>
-   </aside>  
-   <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div" data-step="5" data-intro="You can chat and view conversations between players in the game. Click on the  chart button to expand or collapse the ChatBox.">
-      <h2 id="chat-head">CHAT</h2>
-  </div> 
-  <!-- Start Game Modal-->
-  <div id="app-modal" ng-if="showGameModal">
-      <div id="app-modal-content">
-        <div class="modal-header">
-          <h3 >Play Game</h3>
-        </div>
-        <div class="modal-body">
-          <h5> You are about to {{game.userMessage | lowercase}}. Click button to start.</h5>
-          <div id="button-div">
-            <button class= "start-button" ng-click="hideAppModal()">{{game.userMessage}}</button>
-            <button class= "start-button" ng-click="abandonGame()">Cancel</button>
-          </div>
-        </div>
+      <div ng-show="tab2" class="col s12 tab-div">
+          <div id="Paris" class="tabcontent" ng-controller="IndexController" style="padding-bottom: 20px">
+            <h4>Click on the mail button to invite other players online</h4>
+            <h6>Online Players</h6>
+            <hr>
+            <div ng-repeat="person in users">
+                <div class="online-users">
+                  {{person}}
+                  <i class="material-icons invite" id="{{person}}" ng-click="addInvitee(person)" onclick="hideInvite(event)">mail</i>
+                </div>
+              </div>
+            </div>
       </div>
     </div>
-    <!-- Maximum Player Reached Notification Modal-->
-    <div id="modal" ng-show="game.errorMsg">
-      <div id="modal-content">
-        <div class="modal-body" ng-if="game.errorMsg">
-            <h6>{{game.errorMsg}}</h6>
-        </div>
-        <div class="button-div">
-          <span><button class= "user-button" ><a href="/play?custom" id="startanewgame">New game</a></button></span>
-          <span><button class= "user-button" ng-click="abandonGame()">Go back</button></span>
-        </div>
-      </div>
-    </div>
-    <!-- User Found Modal-->
-    <div id="modal" ng-show="game.message">
-        <div id="modal-content">
-          <button type="button" ng-click="closeModal()">&times;</button>
-          <div class="modal-body" ng-if="game.message">
-            <h6>{{game.message}}</h6>
-          </div>
-          <div class="button-div">
-            <span><button class= "user-button" ng-click="sendGameInvite()" ng-if="userInfo.user.email">Invite</button></span>
-          </div>
-        </div>
+  </aside>  
+  <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div" data-step="5" data-intro="You can chat and view conversations between players in the game. Click on the  chart button to expand or collapse the ChatBox.">
+     <h2 id="chat-head">CHAT</h2>
+ </div> 
+ <!-- Start Game Modal-->
+ <div id="app-modal" ng-if="showGameModal">
+     <div id="app-modal-content">
+       <div class="modal-header">
+         <h3 >Play Game</h3>
+       </div>
+       <div class="modal-body">
+         <h5> You are about to {{game.userMessage | lowercase}}. Click button to start.</h5>
+         <div id="button-div">
+           <button class= "start-button" ng-click="hideAppModal()">{{game.userMessage}}</button>
+           <button class= "start-button" ng-click="abandonGame()">Cancel</button>
+         </div>
       </div>
     </div>
   </div>
+  <!-- Maximum Player Reached Notification Modal-->
+  <div id="modal" ng-show="game.errorMsg">
+    <div id="modal-content">
+      <div class="modal-body" ng-if="game.errorMsg">
+        <h6>{{game.errorMsg}}</h6>
+      </div>
+      <div class="button-div">
+        <span>
+          <button class="user-button">
+            <a href="/play?custom" id="startanewgame">New game</a>
+          </button>
+        </span>
+        <span>
+          <button class="user-button" ng-click="abandonGame()">Go back</button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div id="modal" ng-show="inviteModal">
+      <div id="modal-content">
+        <h5>You must be logged in to send invites</h5>
+        <h4><a href="#!/signup">Sign Up</a>/h4>
+      </div>
+    </div>
+  <!-- User Found Modal-->
+  <div id="modal" ng-show="game.message">
+    <div id="modal-content">
+      <button type="button" ng-click="closeModal()">&times;</button>
+      <div class="modal-body" ng-if="game.message">
+        <h6>{{game.message}}</h6>
+      </div>
+      <div class="button-div">
+        <span>
+          <button class="user-button" ng-click="sendGameInvite()" ng-if="userInfo.user.email">Invite</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="../js/chat-style.js"></script>
 <script>
-  $(document).ready(function(){
+  function hideInvite(e) {
+    document.getElementById(e.target.id).style.display= 'none';
+  }
+  $(document).ready(function () {
+    $('.tabs').tabs();
+
     $('.menu-toggle').click(function () {
-    $('.site-nav').toggleClass('site-nav--open', 500);
-    $(this).toggleClass('open');
-  })
-        $(".main-header").addClass("solid");
-        $(".site-nav").addClass("solid");
-        $(".humburger.solid").addClass("solid")
+      $('.site-nav').toggleClass('site-nav--open', 500);
+      $(this).toggleClass('open');
+    })
+    $(".main-header").addClass("solid");
+    $(".site-nav").addClass("solid");
+    $(".humburger.solid").addClass("solid")
   })
 </script>
 <!-- </body>
