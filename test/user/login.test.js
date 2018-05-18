@@ -8,6 +8,7 @@ import app from '../../server';
 const User = mongoose.model('User');
 const request = supertest(app);
 const userDetails = {
+  username: `tester${Math.random()}`,
   email: `tester${Math.random()}@tester.com`,
   password: 'password'
 };
@@ -15,6 +16,7 @@ const userDetails = {
 (() => {
   const user = new User({
     name: 'Full name',
+    username: userDetails.username,
     email: userDetails.email,
     password: userDetails.password
   });
@@ -27,7 +29,7 @@ const userDetails = {
 })();
 
 describe('/api/auth/login', (done) => { //eslint-disable-line
-    
+
   it('Should return 200 on successful login', (done) => {
     request.post('/api/auth/login')
       .send(userDetails)
