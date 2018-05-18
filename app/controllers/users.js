@@ -381,7 +381,7 @@ exports.game = function (req, res) {
 
     if (userGameDetails.length === 0) {
       return res.status(200).json({
-        message: 'You have not played a game',
+        message: 'You have not earned any points',
         code: 200
       });
     }
