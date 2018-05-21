@@ -1,7 +1,9 @@
 <div landing ng-controller="IndexController">
   <header class="main-header">
     <div class="h-container">
-      <div class="logo">
+
+
+      <div class="logo" ng-controller="IndexController">
         <img src="/img/playing-cards.png" alt="">
         <h5>Cards for Humanity</h5>
       </div>
@@ -14,8 +16,7 @@
           <span ng-controller="IndexController" ng-hide="showOptions">
             <li>
               <a href="" data-target="notify" class="modal-trigger badge mt-2">
-                Notification
-                <span class="redfont">{{messageLength}}</span>
+                Notification <span class="redfont">{{messageLength}}</span>
               </a>
             </li>
           </span>
@@ -42,11 +43,12 @@
           </li>
           <span ng-hide="showOptions">
             <li class="dropdown">
-              <a id="arrow" href="#" class="dropdown-trigger" data-target="dropdown1" style= "margin-left:5px">{{global.user.username}}
+              <a id="arrow" class="dropdown-trigger" href="#" data-target="dropdown1" style="margin-left:5px">{{global.user.username}}
                 <span>
                   <i class="ion-arrow-down-b"></i>
                 </span>
               </a>
+            </li>
           </span>
         </ul>
       </nav>
@@ -76,8 +78,7 @@
     <div class="header-overlay"></div>
     <div class="h-content">
       <div class="header-content">
-        <h1>
-          game for horrible people desperately trying to do good</h1>
+        <h1>A game for horrible people desperately trying to do good</h1>
         <p>Cards for Humanity is a fast-paced online version of the popular card game, Cards Against Humanity, that gives you
           the opportunity to donate to children in need - all while remaining as despicable and awkward as you naturally
           are.
@@ -193,9 +194,8 @@
 </footer>
 <script>
   $(document).ready(function () {
-
-    $(".dropdown-trigger").dropdown();
     $('.modal').modal();
+    $(".dropdown-trigger").dropdown();
     $.fn.scrollView = function () {
       return this.each(function () {
         $('html, body').animate({
@@ -241,4 +241,5 @@
   window.onload = () => {
     $scope / connectPeople
   }
+
 </script>

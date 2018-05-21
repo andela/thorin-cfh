@@ -40,11 +40,11 @@ angular.module('mean.system').controller('IndexController', [
         successResponse => {
           $scope.global.authenticated = true;
           $scope.global.user = successResponse[0].data.data.user;
-          console.log($scope.global.user);
           localStorage.setItem(
             'card-game-token',
             successResponse[0].data.data.token
           );
+          localStorage.setItem('tour', false);
           window.user = successResponse[0].data.data.user;
           $location.path('/');
           socket.emit('connectedUser', window.user.username);
@@ -92,6 +92,7 @@ angular.module('mean.system').controller('IndexController', [
                     $scope.global.authenticated = true;
                     $scope.global.user = $scope.data.user;
                     localStorage.setItem('card-game-token', $scope.data.token);
+                    localStorage.setItem('tour', true);
                     window.user = $scope.data.user;
                     $location.path('/');
                     socket.emit('connectedUser', window.user.username);
@@ -168,46 +169,41 @@ angular.module('mean.system').controller('IndexController', [
     });
 
     window.onload = () => {
-      useGames();
+      $scope.userGames()
     };
 
     $scope.userGames = () => {
       useGames();
     };
 
+    $scope.abandonGame = function () {
+      if ($scope.global.user) {
+        socket.emit('connectedUser', $scope.global.user.username);
+      }
+      window.location = '/';
+    };
+
     const useGames = () => {
       let userGameDetails = [];
-      if (window.user !== null) {
-        $http.get('/api/usergames').then((res) => {
-          if (res.data.code === 200) {
-            userGameDetails = res.data.data
-              .map(value => {
-                return {
-                  gameId: value.gameID,
-                  playedAt: value.playedAt,
-                  userGame: value.players
-                    .map(value => {
-                      return { username: value.username, points: value.points };
-                    })
-                    .filter(
-                      user => user.username === $scope.global.user.username
-                    )
-                };
-              })
-              .filter(user => user.userGame.length > 0);
-
-            pointsWon = userGameDetails
-              .reduce((list, point) => {
-                return list.concat(point.userGame[0]);
-              }, [])
-              .reduce((points, point) => {
-                return points + point.points;
-              }, 0);
-
-            $scope.global.userGameInfo = userGameDetails;
-            $scope.global.pointsWon = pointsWon;
+      const username = window.user.username;
+      const token = localStorage.getItem('card-game-token');
+      axios.get(`/api/profile/${username}`, {
+        headers: {"card-game-token": token} 
+      })
+        .then((res) => {
+          if(res.data.message){
+            $scope.global.message = res.data.message;
+          }else{
+            console.log($scope.global.user);
+            $scope.global.userGameInfo = res.data.games;
+            $scope.global.pointsWon = res.data.point;
           }
-        });
+        })
+        .catch((error) => {
+          $scope.global.error= error.data;
+        })
+      if (window.user === null) {
+        localStorage.setItem('tour', true);
       }
     };
   }

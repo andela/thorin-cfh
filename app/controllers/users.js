@@ -41,13 +41,14 @@ exports.checkAvatar = (req, res) => {
   if (req.user && req.user._id) {
     User.findOne({
       _id: req.user._id
-    }).exec(function (err, user) {
-      if (user.avatar !== undefined) {
-        res.redirect('/#!/');
-      } else {
-        res.redirect('/#!/choose-avatar');
-      }
-    });
+    })
+      .exec(function (err, user) {
+        if (user.avatar !== undefined) {
+          res.redirect('/#!/');
+        } else {
+          res.redirect('/#!/choose-avatar');
+        }
+      });
   } else {
     // If user doesn't even exist, redirect to /
     res.redirect('/');
@@ -65,9 +66,10 @@ exports.signup = function (req, res) {
 };
 
 exports.loginSuccess = (req, res) => {
-  const token = jwt.sign({ user: req.user }, process.env.SECRET, {
-    expiresIn: 86400
-  });
+  const token = jwt.sign(
+    { user: req.user }, process.env.SECRET,
+    { expiresIn: 86400 }
+  );
   return res.status(200).json({
     status: 'success',
     message: 'Login Successful',
@@ -167,8 +169,8 @@ exports.createUser = function (req, res) {
       user: {
         _id: newUser._id, // eslint-disable-line no-underscore-dangle
         username: newUser.username,
-        email: newUser.email,
-        imageUrl: newUser.imageUrl
+        imageUrl: newUser.imageUrl,
+        email: newUser.email
       },
       token
     });
@@ -179,47 +181,44 @@ exports.createUser = function (req, res) {
 exports.checkEmail = (req, res, next) => {
   const { email } = req.body;
   User.findOne({
-    email: req.body.email
-  })
-    .then((existingEmail) => {
-      if (existingEmail) {
-        res.status(409).json({
-          error: 'A user with that email already exist',
-          existingEmail
-        });
-        return;
-      }
-      next();
-    })
-    .catch(error =>
-      res.status(400).json({
-        message: 'An error occoured',
-        error
-      }));
+    email: req.body.email,
+  }).then((existingEmail) => {
+    if (existingEmail) {
+      res.status(409).json({
+        error: 'A user with that email already exist',
+        existingEmail
+      });
+      return;
+    }
+    next();
+  }).catch(error => res.status(400).json({
+    message: 'An error occoured',
+    error
+  }));
 };
 
+
 exports.checkUsername = (req, res, next) => {
-  const { username } = req.body;
+  const {
+    username,
+  } = req.body;
   User.findOne({
-    username: req.body.username
-  })
-    .then((existingUsername) => {
-      if (existingUsername) {
-        res.status(409).json({
-          error: 'A user with that Username already exist',
-          existingUsername
-        });
-      } else {
-        res.status(200).json({
-          message: 'You are Good to Go!!!'
-        });
-      }
-    })
-    .catch(error =>
-      res.status(400).json({
-        message: 'An error occoured',
-        error
-      }));
+    username: req.body.username,
+  }).then((existingUsername) => {
+    if (existingUsername) {
+      res.status(409).json({
+        error: 'A user with that Username already exist',
+        existingUsername
+      });
+    } else {
+      res.status(200).json({
+        message: 'You are Good to Go!!!'
+      });
+    }
+  }).catch(error => res.status(400).json({
+    message: 'An error occoured',
+    error
+  }));
 };
 
 
@@ -228,53 +227,42 @@ exports.checkUsername = (req, res, next) => {
  */
 exports.avatars = function (req, res) {
   // Update the current user's profile to include the avatar choice they've made
-  if (
-    req.user &&
-    req.user._id &&
-    req.body.avatar !== undefined &&
-    /\d/.test(req.body.avatar) &&
-    avatars[req.body.avatar] // eslint-disable-line
-  ) {
-    // eslint-disable-line
+  if (req.user && req.user._id && req.body.avatar !== undefined &&
+    /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {  // eslint-disable-line
     User.findOne({
       _id: req.user._id
-    }).exec((err, user) => {
-      user.avatar = avatars[req.body.avatar]; // eslint-disable-line
-      user.save();
-    });
+    })
+      .exec((err, user) => {
+        user.avatar = avatars[req.body.avatar];  // eslint-disable-line
+        user.save();
+      });
   }
   return res.redirect('/#!/app');
 };
 
 exports.addDonation = function (req, res) {
-  if (req.body && req.user && req.user._id) {
-    //eslint-disable-line
+  if (req.body && req.user && req.user._id) { //eslint-disable-line
     // Verify that the object contains crowdrise data
-    if (
-      req.body.amount &&
-      req.body.crowdrise_donation_id &&
-      req.body.donor_name
-    ) {
+    if (req.body.amount && req.body.crowdrise_donation_id
+       && req.body.donor_name) {
       User.findOne({
         _id: req.user._id //eslint-disable-line
-      }).exec((err, user) => {
+      })
+        .exec((err, user) => {
         // Confirm that this object hasn't already been entered
-        let duplicate = false;
-        for (let i = 0; i < user.donations.length; i += 1) {
-          //eslint-disable-line
-          if (
-            user.donations[i].crowdrise_donation_id ===
-            req.body.crowdrise_donation_id
-          ) {
-            duplicate = true;
+          let duplicate = false;
+          for (let i = 0; i < user.donations.length; i++) { //eslint-disable-line
+            if (user.donations[i].crowdrise_donation_id
+              === req.body.crowdrise_donation_id) {
+              duplicate = true;
+            }
           }
-        }
-        if (!duplicate) {
-          user.donations.push(req.body);
-          user.premium = 1;
-          user.save();
-        }
-      });
+          if (!duplicate) {
+            user.donations.push(req.body);
+            user.premium = 1;
+            user.save();
+          }
+        });
     }
   }
   res.send();
@@ -303,14 +291,16 @@ exports.me = function (req, res) {
  * Find user by id
  */
 exports.user = function (req, res, next, id) {
-  User.findOne({
-    _id: id
-  }).exec((err, user) => {
-    if (err) return next(err);
-    if (!user) return next(new Error(`Failed to load User ${id}`));
-    req.profile = user;
-    next();
-  });
+  User
+    .findOne({
+      _id: id
+    })
+    .exec((err, user) => {
+      if (err) return next(err);
+      if (!user) return next(new Error(`Failed to load User ${id}`));
+      req.profile = user;
+      next();
+    });
 };
 
 /**
@@ -320,13 +310,15 @@ exports.user = function (req, res, next, id) {
 exports.searchUser = function (req, res, next) {
   const regexp = /^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/;
   if (regexp.test(req.body.email)) {
-    User.findOne({
-      email: req.body.email
-    }).exec((err, user) => {
-      if (err) return next(err);
-      if (!user) return res.json({ message: 'Email not found' });
-      return res.json({ message: 'User successfully found', user });
-    });
+    User
+      .findOne({
+        email: req.body.email
+      })
+      .exec((err, user) => {
+        if (err) return next(err);
+        if (!user) return res.json({ message: 'Email not found' });
+        return res.json({ message: 'User successfully found', user });
+      });
   } else {
     return res.json({ message: 'Invalid email' });
   }
@@ -365,12 +357,36 @@ exports.invitePlayersByMail = function (req, res) {
 
 /** Gathers User Info and Games Logs */
 exports.game = function (req, res) {
+  const { username } = req.params;
   Game.find().exec((err, games) => {
-    if (err) return err;
+    if (err) {
+      res.status(400).json({ message: 'An error occured' });
+    }
     if (!games) return new Error('Failed to load Game');
-    return res.status(200).json({
-      data: games,
-      code: 200
-    });
+    const userGameDetails = games
+      .map(value => ({
+        gameId: value.gameID,
+        playedAt: value.playedAt,
+        userGame: value.players
+          .map(user => ({
+            username: user.username,
+            points: user.points
+          }))
+          .filter(user => user.username === username)
+      }))
+      .filter(user => user.userGame.length > 0);
+    const pointsWon = userGameDetails
+      .reduce((list, point) => list.concat(point.userGame[0]), [])
+      .reduce((points, point) => points + point.points, 0);
+
+    if (userGameDetails.length === 0) {
+      return res.status(200).json({
+        message: 'You have not played a game',
+        code: 200
+      });
+    }
+    return res
+      .status(200)
+      .json({ games: userGameDetails, point: pointsWon, code: 200 });
   });
 };
