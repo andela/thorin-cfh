@@ -10,7 +10,7 @@
         <li>
           <a href="#!/" id="top">Home</a>
         </li>
-        <li>
+        <li style="margin-right: 20px;">
           <a href="#!/team">
             Meet the Team
           </a>
@@ -23,19 +23,19 @@
             <a href="#!/signin">Sign in</a>
           </li>
         </span>
-          <li>
-              <a>
-                <i class="material-icons">notifications</i>
-              </a>
-          </li>
-        <span ng-hide="showOptions">
-          <li class="dropdown">
-            <a id="arrow" class="dropdown-trigger" href="#" data-target="dropdown1" style="margin-left:5px">{{global.user.username}}
-              <span>
-                <i class="ion-arrow-down-b"></i>
-              </span>
+        <span ng-hide="showOptions" ng-controller="IndexController">
+          <li style="display: flex; padding: 0 0 10px 30px; cursor: pointer;" ng-if="messageLength > 0">
+            <i data-target="notify" class="material-icons modal-trigger" style="color: #4f4f4f">notifications</i>
+            <a class="badge mt-2" style="margin-left: 0; margin-top: -5px;">
+              <span style="color: #4f4f4f">{{messageLength}}</span>
             </a>
           </li>
+          <li class="dropdown">
+            <a id="arrow" href="#" class="dropdown-trigger" data-target="dropdown1" style="margin-left:5px; display: flex">{{global.user.username}}
+              <span>
+                <i class="ion-arrow-down-b" style="margin-left:5px; margin-left: 5px"></i>
+              </span>
+            </a>
         </span>
       </ul>
     </nav>
@@ -45,9 +45,12 @@
       </li>
       <li class="divider"></li>
       <li>
-        <a onclick="logout()">Log Out</a>
+        <a onclick="logout()" ng-click="removeUserOnline()">Log Out</a>
       </li>
     </ul>
+    <div id="notify" class="modal notifymodal" ng-controller="IndexController">
+      <p ng-repeat="info in notifications" ng-bind-html="info.html">{{info}}</p>
+    </div>
 
 
 
@@ -154,6 +157,7 @@
 
 <script>
   $(document).ready(function () {
+    $('.modal').modal();
     $(".dropdown-trigger").dropdown();
     $('.menu-toggle').click(function () {
       $('.site-nav').toggleClass('site-nav--open', 500);

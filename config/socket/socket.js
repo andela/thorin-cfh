@@ -55,12 +55,12 @@ module.exports = function (io) {
       }
     });
 
-     // store online users
-     socket.on('connectedUser', (data) => {
+      // store online users
+    socket.on('connectedUser', data => {
       if (onlineUsers.find(user => user.username === data)) {
         const index = onlineUsers.findIndex(value => value.username === data);
         if (index < 0) {
-          onlineUsers.splice(0,1);
+          onlineUsers.splice(0, 1);
         }
         onlineUsers.splice(index, 1);
       }
@@ -69,30 +69,41 @@ module.exports = function (io) {
         username: data
       };
       onlineUsers.push(user);
-      io.sockets.emit('people', onlineUsers)
-
+      io.sockets.emit('people', onlineUsers);
+      console.log('connect', onlineUsers);
     });
 
     socket.on('showOnlineUsers', () => {
-      io.sockets.emit('people', onlineUsers)
+      io.sockets.emit('people', onlineUsers);
     });
 
-    socket.on('removeUser', (data) => {
+    socket.on('removeUser', data => {
       const index = onlineUsers.findIndex(value => value.username === data);
       if (index < 0) {
-        onlineUsers.splice(0,1);
+        onlineUsers.splice(0, 1);
       }
       onlineUsers.splice(index, 1);
-      io.sockets.emit('people', onlineUsers)
-    })
+      io.sockets.emit('people', onlineUsers);
+    });
 
     // send invite to player
-    socket.on('invitePlayer', (data) => {
+    socket.on('invitePlayer', data => {
       if (onlineUsers.find(user => user.username === data.user)) {
-        const socketId = onlineUsers.find(user => user.username === data.user).userId;
-        io.sockets.connected[socketId].emit('invitation', {html:`You have been Invited to play a game.<br/> Click on this <a href=${data.gameLink} target="_blank">link to join</a>`});
+        const socketId = onlineUsers.find(user => user.username === data.user)
+          .userId;
+        if (socketId !== undefined) {
+          io
+            .to(socketId)
+            .emit('invitation', {
+              html: `You have been Invited to play a game.<br/> Click on this <span class="invite-link"><a style="color: red;" href=${
+                data.gameLink
+              } target="_blank">link to join</a></span>`
+            });
+            console.log(data)
+        }
       }
     });
+
 
     socket.on('joinGame', (data) => {
       if (!allPlayers[socket.id]) {
