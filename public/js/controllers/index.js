@@ -29,6 +29,7 @@ angular.module('mean.system').controller('IndexController', [
     $scope.removeUserOnline = () => {
       socket.emit('removeUser', $scope.global.user.username);
     };
+    
     $scope.showError = function() {
       if ($location.search().error) {
         return $location.search().error;

@@ -214,6 +214,7 @@ angular //eslint-disable-line
 
       $scope.abandonGame = function () {
         if ($scope.global.user) {
+          console.log('abandon');
           socket.emit('connectedUser', $scope.global.user.username);
           window.location = '/';  // eslint-disable-line
         }
