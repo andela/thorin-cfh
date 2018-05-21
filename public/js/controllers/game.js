@@ -216,7 +216,7 @@ angular //eslint-disable-line
         if ($scope.global.user) {
           socket.emit('connectedUser', $scope.global.user.username);
         }
-        window.location = '/';
+        window.location = '/'; //eslint-disable-line
       };
 
       // Catches changes to round to update when no players pick card
@@ -273,10 +273,20 @@ angular //eslint-disable-line
           );
         }
       });
+      const chatContent = document.getElementById('chat-content'); //eslint-disable-line
       const startChatService = () => {
         const ref = firebase.database().ref().child('chats') //eslint-disable-line
           .child(`${game.gameID}`);
         $scope.chats = $firebaseArray(ref);
+        $scope.chats.$watch((e) => {
+          setTimeout(() => {
+            if (e.event === 'child_added') {
+              if (chatContent.scrollHeight > parseInt(window.getComputedStyle(chatContent).height.split('px')[0])) { //eslint-disable-line
+                chatContent.scrollTop = chatContent.scrollHeight - parseInt(window.getComputedStyle(chatContent).height.split('px')[0]); //eslint-disable-line
+              }
+            }
+          }, 300);
+        });
       };
 
       $scope.resetForm = () => {
@@ -320,7 +330,6 @@ angular //eslint-disable-line
           }
         }
 
-
         $scope.sendChatMessage = function (message) {
           if (message) {
             $scope.chats.$add({
@@ -328,12 +337,9 @@ angular //eslint-disable-line
               message: $scope.message,
               date: Date.now(),
               user: game.players[game.playerIndex].username
+            }).then(() => {
             });
             $scope.resetForm();
-          }
-          if (document.getElementsByClassName('friend').length > 5) { //eslint-disable-line
-            const chat = document.querySelector('.chat'); //eslint-disable-line
-            chat.scrollTop = chat.scrollHeight;
           }
         };
       });

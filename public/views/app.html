@@ -109,8 +109,24 @@
 
       </div>
    </aside>  
-   <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div" data-step="5" data-intro="You can chat and view conversations between players in the game. Click on the  chart button to expand or collapse the ChatBox.">
-      <h2 id="chat-head">CHAT</h2>
+   <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div">
+    <h2 id="chat-head" onclick="show()">CHAT</h2>
+    <div id="chat-content" class="chat-content">
+        <div id="chat-item" ng-repeat="chat in chats" style="display: flex; flex-direction: row">
+            <span id="image"><img class="chat-img" ng-src="{{chat.image}}"/></span>
+            <div id="chat-message" class="chat-info" style="display: flex; flex-direction: column">
+                <span class="usernames">{{chat.user}}</span>
+                <span class="chat-message">{{chat.message}}</span> 
+                <span class="time">{{chat.date | date:'hh:mm'}}</span>
+            </div>
+       </div>
+    </div>
+    <form>
+      <span class="chat-control">
+        <input type="text" name="message" id="input"  ng-model="message"placeholder="Message from {{game.players[game.playerIndex].username}}...">
+        <button ng-click="sendChatMessage(message)">Send</button>
+      </span>
+    </form>
   </div> 
   <!-- Start Game Modal-->
   <div id="app-modal" ng-if="showGameModal">

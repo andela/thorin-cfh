@@ -274,15 +274,17 @@ body, html {
 
 .chat-div {
   position: fixed;
-  bottom:-365px;
+  bottom:-330px;
   right: 0;
-  height: 400px;
+  height: 360px;
   width: 320px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: grey;
+  background: #fff;
+  font-size: 14px;
+  border: 1px solid rgba(60,51, 176,0.1);
+  color: rgba(60,51, 176,0.9);
   transition: bottom 0.8s; 
-  overflow: scroll;
 }
 
 .chat-div h2{
@@ -293,6 +295,72 @@ body, html {
   width: 100%;
   color: white;
   background-color: black;
+}
+
+.chat-content {
+  height: 278px;
+  overflow: scroll;
+  color: #C54141
+}
+
+.chat-info {
+  min-height: 40px;
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-bottom: 15px;
+  width: 200px;
+  height: auto;
+  left: 50px;
+  display: inline-block;
+  background: #fff;
+  padding: 5px;
+  box-shadow: 2px 2px 20px -2px rgba(60,51, 176,0.2);
+  color: rgba(60,51, 176,1);
+  border-radius: 2px 15px 15px 15px;
+  word-wrap: break-word;
+}
+.usernames {
+  font-size: 10px;
+}
+.chat-message {
+  color: #000;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+}
+.time {
+  display: block;
+  right: 0;
+  margin-top: 2px;
+  margin-right: 0px;
+  margin-left: 150px;
+  margin-bottom: 0;
+  font-size: 8px;
+  font-weight: 500;
+  color: rgba(60,51, 176,0.5);
+  bottom: 0;
+}
+#input {
+  background-color: rgba(0,0,0,0.3);;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 0px;
+}
+.chat-img {
+  width: 30px;
+  border-radius: 100%;
+  border: 3px solid rgba(255,255,255,1);
+  bottom: 0;
+  cursor: pointer;
+  margin-left: 8px;
+}
+#image {
+  top: 0px;
+  position: relative;
+}
+.chat-control {
+  display: flex;
+  flex-direction: row;
 }
 
 .players-bottom {
@@ -465,6 +533,3 @@ body, html {
 
   
 }
-
-
-
