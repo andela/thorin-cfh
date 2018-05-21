@@ -337,7 +337,6 @@ angular //eslint-disable-line
               message: $scope.message,
               date: Date.now(),
               user: game.players[game.playerIndex].username
-            }).then(() => {
             });
             $scope.resetForm();
           }
