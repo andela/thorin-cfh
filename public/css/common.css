@@ -1875,9 +1875,6 @@ img.deckSize {
   cursor: pointer; 
 }
 
-
-
-
 .mycard {
   height: 200px;
   transform-style: preserve-3d;
@@ -1885,8 +1882,6 @@ img.deckSize {
   width: 200px;
   transform: rotateY(180deg);
 }
-
-
 
 .mycard .side {
   backface-visibility: hidden;
@@ -1902,31 +1897,12 @@ img.deckSize {
   transform: rotateY(180deg);
 }
 
-
-
-/* .mycard {
-  position: absolute;
-  top: 25px;
-  left: 25px;
-}
-.firstimagA1 {
-  z-index: 1;
-}
-.firstimagA2 {
-  z-index: 3;
-} */
-
-
-
-
-
 /* entire container, keeps perspective */
+
 .flip-container {
 	perspective: 1000px;
 }
-	/* flip the pane when hovered */
     
-
 
 .flip-container.hover .flipper, .flip-container.flip .flipper {
 	transform: rotateY(180deg);
@@ -1937,7 +1913,6 @@ img.deckSize {
   height: 180px;
 }
 
-/* flip speed goes here */
 .flipper {
 	transition: 0.6s;
 	transform-style: preserve-3d;
@@ -1957,9 +1932,6 @@ img.deckSize {
 .back {
 	transform: rotateY(180deg);
 }
-
-
-
 
 .myfront {
   width:300px;
