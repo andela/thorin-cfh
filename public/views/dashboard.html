@@ -1,0 +1,226 @@
+<div class="row" ng-controller="dashboardController">
+    <header class="main-header">
+      <div class="h-container">
+  
+  
+        <div class="logo" ng-controller="IndexController">
+          <img src="/img/playing-cards.png" alt="">
+          <h5>Cards for Humanity</h5>
+        </div>
+  
+        <nav class="site-nav" id="nav-id">
+          <ul>
+            <li>
+              <a href="/" id="top">Home</a>
+            </li>
+            <li>
+              <a href="" id="team">
+                Meet the Team
+              </a>
+            </li>
+            <li>
+              <a href="" id="charity">Charity</a>
+            </li>
+            <li>
+              <a href="">Play a Game</a>
+            </li>
+            <li>
+              <div class="game-play">
+                <div id="game-details">
+                  <i class="material-icons grey-text text-darken-2" ng-click="toggleGameOptions()">details</i>
+                </div>
+                <div id="game-options" ng-show="showGameOptions" class="z-depth-1">
+                  <a href="/play">Play with Strangers</a>
+                  <div class="divider"></div>
+                  <a href="/play?custom"> Play with Friends</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <div id="notify" class="modal notifymodal" ng-controller="IndexController">
+          <p ng-repeat="info in notifications" ng-bind-html-unsafe="info.html">{{info}}</p>
+        </div>
+        <div class="menu-toggle">
+          <div class="hamburger"></div>
+        </div>
+      </div>
+    </header>
+  
+    <div class="row dashboard-top">
+      <h1 class="center">DASHBOARD</h1>
+    </div>
+    <div class="col s12 dashboard-items">
+      <ul class="tabs">
+        <li id="game-log" class="tab col s4" ng-click="getGameLog(1)">Game Log</li>
+        <li id="leader-board" class="tab col s4" ng-click="getLeaderboard()">Leaderboard
+  
+        </li>
+        <li id="donation" class="tab col s4" ng-click="getDonations()">Donations</li>
+      </ul>
+    </div>
+  
+    <div class="tab-div" ng-show="showGameLog">
+        <div ng-show="games">
+      <div class="container table-container">
+        <table class="responsive-table striped centered z-depth-1">
+          <thead>
+            <tr id="thead">
+              <th>GameID</th>
+              <th>Rounds Played</th>
+              <th>Winner</th>
+              <th>Players</th>
+              <th>Date Played</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="game in games" >
+              <td>{{ game.game.gameID }}</td>
+              <td>{{ game.game.roundsPlayed }}</td>
+              <td>{{ game.game.winner }}</td>
+              <td>
+                {{ game.playersNames.toString() }}
+              </td>
+              <td>{{ game.game.playedAt | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <ul class="pagination-box">
+          <li class="waves-effect" ng-hide="hidePrev">
+            <i class="material-icons" ng-click="getGameLog(gameLogPage - 1)">chevron_left</i>
+          </li>
+          <div ng-repeat="page in logPages">
+            <li><button ng-class="{active: gameLogPage === page }" ng-click="getGameLog(page)">{{ page }}</button></li>
+          </div>
+          <li class="waves-effect" ng-hide="hideNext">
+            <i class="material-icons" ng-click="getGameLog(gameLogPage + 1)">chevron_right</i>
+          </li>
+          <li class="showing">Showing {{min}} to {{max}} of {{count}} </li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  
+    <div class="tab-div" ng-show="showLeaderboard">
+      <div class="container table-container" ng-show="leaderboard">
+        <table class="striped centered responsive-table z-depth-1">
+          <thead>
+            <tr id="thead">
+              <th></th>
+              <th>Position</th>
+              <th>Player</th>
+              <th>Games won</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <tr ng-repeat="(player, games) in leaderboard">
+              <td ng-hide="{{ $index >= 10 }}">
+                <img src="/img/leaderboard.png" style="width:24px; height:24px;" />
+              </td>
+              <td> {{ $index + 1 }}</td>
+              <td>{{ player }}</td>
+              <td>{{ games.length }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div class="tab-div" ng-show="showDonations">
+      <div class="container table-container" ng-show="donations || noDonations">
+        <div class="table-container" ng-show="noDonations">
+            <h5 class="center donation-text">No donations yet! Be the first to donate.</h5>
+          </div>
+        <table class="striped centered responsive-table z-depth-1" ng-hide="noDonations">
+          <thead>
+            <tr id="thead">
+              <th>Premium</th>
+              <th>Donor</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <tr ng-repeat="donation in donations">
+              <td>
+                <i class="material-icons stars">star</i>
+              </td>
+              <td>{{donation.donor.username}}</td>
+              <td>{{donation.donations}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  
+  <footer class="footer">
+    <div class="footer-content container">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <img src="/img/playing-cards.png" />
+          <p id="footer-logo">CARDS FOR HUMANITY</p>
+        </div>
+        <p class="copyright">© 2018 CFH Software</p>
+      </div>
+      <div class="footer-col">
+        <p>ABOUT CARDS FOR HUMANITY</p>
+        <p>
+          <a id="about">About Us</a>
+        </p>
+        <p>
+          <a id="about">Meet the Team</a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>JOIN THE CONVERSATION</p>
+        <div class="footer-icons">
+          <div class="footer-icon">
+            <a>
+              <i class="ion-social-facebook"></i>
+            </a>
+          </div>
+          <div class="footer-icon">
+            <a>
+              <i class="ion-social-twitter"></i>
+            </a>
+          </div>
+          <div class="footer-icon">
+            <a>
+              <i class="ion-social-instagram"></i>
+            </a>
+          </div>
+          <div class="footer-icon">
+            <a>
+              <i class="ion-social-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+  
+    $(document).ready(function () {
+      $(".dropdown-trigger").dropdown();
+      $('.menu-toggle').click(function () {
+        $('.site-nav').toggleClass('site-nav--open', 500);
+        $(this).toggleClass('open');
+      })
+      $(".main-header").addClass("solid");
+      $(".site-nav").addClass("solid");
+      $(".humburger.solid").addClass("solid")
+      $(window).scroll(function(){
+        $(".main-header").addClass("solid");
+          $(".site-nav").addClass("solid");
+          $(".humburger.solid").addClass("solid")
+      }) 
+    })
+  
+  </script>
+  

@@ -9,7 +9,7 @@ let userToken;
 describe('GET /api/profile/:username', () => {
   const user = {
     email: `user${Math.random()}@yahoo.com`,
-    username: 'money',
+    username: 'Amarachi',
     password: 'password',
     imageUr: 'https://www.mmm.png',
   };
@@ -26,7 +26,7 @@ describe('GET /api/profile/:username', () => {
 
   it('should return the user info and personal game logs', (done) => {
     request(app)
-      .get('/api/profile/money')
+      .get('/api/profile/Amarachi')
       .set('card-game-token', `${userToken}`)
       .expect(200)
       .end((req, res) => {
@@ -52,7 +52,6 @@ describe('GET /api/profile/:username', () => {
           expect(res.body)
             .to.have.property('message')
             .to.equal('You have not played a game');
-
           done();
         });
     }

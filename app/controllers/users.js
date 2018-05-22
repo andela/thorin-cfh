@@ -6,6 +6,7 @@
  */
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import Helper from '../helpers/index';
 
 require('dotenv').config({ path: '.env' });
 
@@ -389,4 +390,37 @@ exports.game = function (req, res) {
       .status(200)
       .json({ games: userGameDetails, point: pointsWon, code: 200 });
   });
+};
+
+exports.getDonations = function (req, res) {
+  const { page, limit, offset } = Helper.setupPagination(req);
+  User.$where('this.donations.length > 0').count()
+    .then((count) => {
+      const pagination = Helper.pagination(page, count, limit);
+      User.$where('this.donations.length > 0')
+        .skip(offset).limit(+limit).exec((error, donation) => {
+          pagination.dataCount = donation.length;
+          if (error) {
+            res.status(500).json({
+              message: 'Donations could not be retrieved',
+              error
+            });
+          }
+          const userDonations = donation.map(donor => ({
+            donor,
+            donations: Helper.calculateDonation(donor.donations),
+          }));
+
+          res.status(200).json({
+            message: 'Donations successfully retrieved',
+            userDonations,
+            pagination
+          });
+        });
+    }).catch((error) => {
+      res.status(500).json({
+        message: 'Donations could not be retrieved',
+        error
+      });
+    });
 };
