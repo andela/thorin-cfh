@@ -1716,7 +1716,6 @@ body,
   padding: 10px;
 }
 
-
 .circlebtn {
   background: transparent;
   height: 150px;
@@ -1743,7 +1742,6 @@ body,
   padding: 10px;
   padding: 10px;
   background-color: white;
-
 }
 
 .centersoutside{
@@ -1769,7 +1767,6 @@ body,
   -webkit-box-shadow: 0 0 5px#888;  
   box-shadow: 0 0 5px #888;
 }
-
 
 .upload-btn-wrapper {
   position: relative;
@@ -1828,7 +1825,6 @@ body,
 
 }
 
-
 .left h4{
     padding: 0 10px;
 }
@@ -1836,7 +1832,6 @@ body,
 .facebook {
   color:  #4867AD
 }
-
 
 .twitter {
   color: #48A0EC
@@ -1896,8 +1891,6 @@ img.deckSize {
   text-align: center;
   transform: rotateY(180deg);
 }
-
-/* entire container, keeps perspective */
 
 .flip-container {
 	perspective: 1000px;
