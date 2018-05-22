@@ -147,7 +147,8 @@ angular.module('mean.system')
     if (data.state === 'black card') {
       game.czar = data.czar;
       if (game.czar === game.playerIndex) {
-        addToNotificationQueue('You are now the Czar, Click any of the black card to choose the question for the round.');
+        addToNotificationQueue('You are now the Czar');
+        addToNotificationQueue('Click the black card to choose the question.')
       } else {
         addToNotificationQueue('Wait! The Czar is picking a card');
       }

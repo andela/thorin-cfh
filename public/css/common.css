@@ -1864,7 +1864,6 @@ deckSize {
   height: 200px;
 }
 
-
 img.deckSize { 
   cursor: pointer; 
 }
@@ -1895,7 +1894,6 @@ img.deckSize {
 	perspective: 1000px;
 }
     
-
 .flip-container.hover .flipper, .flip-container.flip .flipper {
 	transform: rotateY(180deg);
 }

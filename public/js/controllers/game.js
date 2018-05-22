@@ -226,7 +226,7 @@ angular //eslint-disable-line
 
 
       $scope.cardMixer = () => {
-        if ($scope.isCzar()) {
+        if ($scope.isCzar() && game.state === 'black card') {
           document.querySelector('#myCard').classList.toggle('flip');
           $timeout(() => {
             document.querySelector('#myCard').classList.toggle('flip');
