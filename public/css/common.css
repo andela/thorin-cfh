@@ -80,35 +80,12 @@ body,
 .main-container,
 .cont,
 #first-section,
-/* #inner-container {
-  height: 100%;
-} */
-
-
-
-
-/* .content {
-    margin-top: 50px;
-    width: 70%;
-  } */
-
-/* #main-container {
-  height: 100%;
-} */
-/* #main-container #app-container {
-
-  max-width: 1200px;
-  margin: 0px auto;
-  position: relative;
-} */
 
 #main-container #app-container #menu-container {
   width: 100%;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-
-
 }
 @media (max-width: 520px) {
   #main-container #app-container #menu-container {
