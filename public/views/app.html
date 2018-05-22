@@ -112,14 +112,14 @@
       <div class="col s12">
         <ul class="tabs">
           <li class="tab">
-            <a class="active" href="#" ng-click="showtab1()">Players</a>
+            <a class="active" href="#" ng-click="playerTab()">Players</a>
           </li>
           <li class="tab">
-            <a href="#" ng-click="showtab2()">Send Invites</a>
+            <a href="#" ng-click="inviteTab()">Send Invites</a>
           </li>
         </ul>
       </div>
-      <div ng-show="tab1" class="col s12 tab-div">
+      <div ng-show="tabPlayer" class="col s12 tab-div">
           <form ng-show="game.state === 'awaiting players' && showOptions === false" class="search-form search-form-side" name="searchForm">
               <input type="text" placeholder="Search for players..." ng-model="user.email"/>
               <button type="submit" ng-click="getUserInfo(user, searchForm)">
@@ -130,8 +130,8 @@
         
             </div>
       </div>
-      <div ng-show="tab2" class="col s12 tab-div">
-          <div id="Paris" class="tabcontent" ng-controller="IndexController" style="padding-bottom: 20px">
+      <div ng-show="tabInvite" class="col s12 tab-div">
+          <div id="invite" class="tabcontent" ng-controller="IndexController" style="padding-bottom: 20px">
             <h4>Click on the mail button to invite other players online</h4>
             <h6>Online Players</h6>
             <hr>

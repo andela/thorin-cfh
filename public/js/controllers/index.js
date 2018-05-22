@@ -180,18 +180,18 @@ angular.module('mean.system').controller('IndexController', [
       $scope.messageLength = messageArray.length;
     });
 
-    $scope.tab2 = false;
-    $scope.tab1 = true;
+    $scope.Invite = false;
+    $scope.player = true;
     $scope.inviteModal = false;
-    $scope.showtab1 = () => {
-      $scope.tab2 = false;
-      $scope.tab1 = true;
+    $scope.playerTab = () => {
+      $scope.tabInvite = false;
+      $scope.tabPlayer = true;
     };
 
-    $scope.showtab2 = () => {
+    $scope.inviteTab = () => {
       if (window.user) {
-        $scope.tab2 = true;
-        $scope.tab1 = false;
+        $scope.tabInvite = true;
+        $scope.tabPlayer = false;
       }
       $scope.inviteModal = true;
     };
