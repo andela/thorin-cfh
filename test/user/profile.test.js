@@ -9,7 +9,7 @@ let userToken;
 describe('GET /api/profile/:username', () => {
   const user = {
     email: `user${Math.random()}@yahoo.com`,
-    username: 'Amarachi',
+    username: 'money',
     password: 'password',
     imageUr: 'https://www.mmm.png',
   };
@@ -26,7 +26,7 @@ describe('GET /api/profile/:username', () => {
 
   it('should return the user info and personal game logs', (done) => {
     request(app)
-      .get('/api/profile/Amarachi')
+      .get('/api/profile/money')
       .set('card-game-token', `${userToken}`)
       .expect(200)
       .end((req, res) => {
