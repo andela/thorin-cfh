@@ -23,6 +23,7 @@ angular.module('mean.system').controller('IndexController', [
     };
 
     connectPeople = () => {
+      console.log('@@@@@@@@@@@@@@', $scope.global.user.username)
       socket.emit('connectedUser', $scope.global.user.username);
     };
 
@@ -200,9 +201,6 @@ angular.module('mean.system').controller('IndexController', [
     };
 
     $scope.abandonGame = function () {
-      if ($scope.global.user) {
-        socket.emit('connectedUser', $scope.global.user.username);
-      }
       window.location = '/'; //eslint-disable-line
     };
   }
