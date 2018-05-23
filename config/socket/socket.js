@@ -73,7 +73,6 @@ module.exports = function(io) {
       };
       onlineUsers.push(user);
       io.sockets.emit('people', onlineUsers);
-      console.log('connect', onlineUsers);
     });
 
     socket.on('showOnlineUsers', () => {
