@@ -1,9 +1,7 @@
-<div landing ng-controller="IndexController">
+<div landing>
   <header class="main-header">
-    <div class="h-container">
-
-
-      <div class="logo" ng-controller="IndexController">
+    <div class="h-container" ng-controller="IndexController">
+      <div class="logo">
         <img src="/img/playing-cards.png" alt="">
         <h5>Cards for Humanity</h5>
       </div>
@@ -13,19 +11,12 @@
           <li>
             <a href="" id="top">Home</a>
           </li>
-          <span ng-controller="IndexController" ng-hide="showOptions">
-            <li>
-              <a href="" data-target="notify" class="modal-trigger badge mt-2">
-                Notification <span class="redfont">{{messageLength}}</span>
-              </a>
-            </li>
-          </span>
           <li>
-            <a href="" id="team">
+            <a href="#!/team">
               Meet the Team
             </a>
           </li>
-          <li>
+          <li style="padding-right: 20px">
             <a href="" id="charity">Charity</a>
           </li>
           <span ng-show="showOptions">
@@ -37,14 +28,32 @@
             </li>
           </span>
           <span ng-hide="showOptions">
-            <li>
-              <a ng-click="removeUserOnline()" onclick="logout()">Sign Out</a>
+            <li style="display: flex; padding: 0 0 10px 30px; cursor: pointer;" ng-if="messageLength > 0">
+              <i data-target="notify" class="material-icons modal-trigger">notifications</i>
+              <a class="badge mt-2" style="margin-left: 0; margin-top: -5px;">
+                <span class="redfont">{{messageLength}}</span>
+              </a>
             </li>
+            <li class="dropdown">
+              <a id="arrow" href="#" class="dropdown-trigger" data-target="dropdown1" style="margin-left:5px; display: flex">{{global.user.username}}
+                <span>
+                  <i class="ion-arrow-down-b" style="margin-left:5px; margin-left: 5px"></i>
+                </span>
+              </a>
           </span>
         </ul>
       </nav>
+      <ul id="dropdown1" class="dropdown-content">
+        <li>
+          <a href="#!/profile" ng-click="userGames()">Profile</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a onclick="logout()" ng-click="removeUserOnline()">Log Out</a>
+        </li>
+      </ul>
       <div id="notify" class="modal notifymodal" ng-controller="IndexController">
-        <p ng-repeat="info in notifications" ng-bind-html-unsafe="info.html">{{info}}</p>
+        <p ng-repeat="info in notifications" ng-bind-html="info.html">{{info}}</p>
       </div>
       <div class="menu-toggle">
         <div class="hamburger"></div>
@@ -176,6 +185,7 @@
 <script>
   $(document).ready(function () {
     $('.modal').modal();
+    $(".dropdown-trigger").dropdown();
     $.fn.scrollView = function () {
       return this.each(function () {
         $('html, body').animate({

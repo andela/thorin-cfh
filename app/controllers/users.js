@@ -10,6 +10,7 @@ import jwt from 'jsonwebtoken';
 require('dotenv').config({ path: '.env' });
 
 const User = mongoose.model('User');
+const Game = mongoose.model('Game');
 
 const nodemailer = require('nodemailer');
 
@@ -159,7 +160,8 @@ exports.createUser = function (req, res) {
     const user = {
       _id: newUser._id, // eslint-disable-line no-underscore-dangle
       imageUrl: newUser.imageUrl,
-      username: newUser.username
+      username: newUser.username,
+      email: newUser.email
     };
     const token = jwt.sign({ user }, process.env.SECRET);
     res.status(201).json({
@@ -167,7 +169,8 @@ exports.createUser = function (req, res) {
       user: {
         _id: newUser._id, // eslint-disable-line no-underscore-dangle
         username: newUser.username,
-        imageUrl: newUser.imageUrl
+        imageUrl: newUser.imageUrl,
+        email: newUser.email
       },
       token
     });
@@ -349,5 +352,41 @@ exports.invitePlayersByMail = function (req, res) {
       message: 'Invite Successfully Sent',
       id: info.messageId
     });
+  });
+};
+
+/** Gathers User Info and Games Logs */
+exports.game = function (req, res) {
+  const { username } = req.params;
+  Game.find().exec((err, games) => {
+    if (err) {
+      res.status(400).json({ message: 'An error occured' });
+    }
+    if (!games) return new Error('Failed to load Game');
+    const userGameDetails = games
+      .map(value => ({
+        gameId: value.gameID,
+        playedAt: value.playedAt,
+        userGame: value.players
+          .map(user => ({
+            username: user.username,
+            points: user.points
+          }))
+          .filter(user => user.username === username)
+      }))
+      .filter(user => user.userGame.length > 0);
+    const pointsWon = userGameDetails
+      .reduce((list, point) => list.concat(point.userGame[0]), [])
+      .reduce((points, point) => points + point.points, 0);
+
+    if (userGameDetails.length === 0) {
+      return res.status(200).json({
+        message: 'You have not played a game',
+        code: 200
+      });
+    }
+    return res
+      .status(200)
+      .json({ games: userGameDetails, point: pointsWon, code: 200 });
   });
 };
