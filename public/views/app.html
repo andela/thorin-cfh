@@ -1,3 +1,4 @@
+<div ng-controller="GameController">
 <header class="main-header">
 
       <style>
@@ -43,7 +44,7 @@
                 <a href="#!/signin">Sign in</a>
               </li>
             </span>
-            <span  ng-controller="GameController">
+            <span>
                 <li>
                   <a style="color: red !important;" ng-click="abandonGame()" data-step="8" data-intro="Click to leave the game and go back to the Home Page. You wont be able to join the game again if it has already stated.">ABANDON GAME</a>
                 </li>
@@ -69,7 +70,7 @@
         </div>
       </div>
     </header>
-  <div class="game-screen" ng-controller="GameController">
+  <div class="game-screen">
     <section class="game">
       <form ng-show="game.state === 'awaiting players' && showOptions === false" class="search-form search-form-top">
           <input type="text" placeholder="Search for players..." ng-model="user.email"/>
@@ -123,8 +124,8 @@
     </div>
     <form>
       <span class="chat-control">
-        <input type="text" name="message" id="input"  ng-model="message"placeholder="Message from {{game.players[game.playerIndex].username}}...">
-        <button ng-click="sendChatMessage(message)">Send</button>
+        <input type="text" name="message" id="input"  ng-model="message">
+        <button ng-click="sendChatMessage(message)"><i class="material-icons">send</i></button>
       </span>
     </form>
   </div> 
@@ -169,6 +170,7 @@
       </div>
     </div>
   </div>
+</div>
 <script src="../js/chat-style.js"></script>
 <script>
   $(document).ready(function(){
