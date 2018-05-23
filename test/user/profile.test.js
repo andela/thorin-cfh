@@ -1,12 +1,12 @@
 import request from 'supertest';
-import chai from 'chai';
 import app from '../../server';
+import chai from 'chai';
 
 const { expect } = chai;
 let userToken;
 
-
 describe('GET /api/profile/:username', () => {
+
   const user = {
     email: `user${Math.random()}@yahoo.com`,
     username: 'Amarachi',
@@ -33,7 +33,6 @@ describe('GET /api/profile/:username', () => {
       .set('card-game-token', `${userToken}`)
       .expect(200)
       .end((req, res) => {
-        expect(res.body).to.have.property('games');
         expect(res.body).to.have.property('code');
         expect(res.body).to.have.property('point');
         expect(res.status).to.equal(200);
