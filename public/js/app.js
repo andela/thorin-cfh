@@ -28,7 +28,14 @@ angular.module('mean', ['ngSanitize', 'ngAnimate', 'ngCookies', 'ngResource', 'u
         }).
           when('/choose-avatar', {
             templateUrl: '/views/choose-avatar.html'
-          }).
+          })
+          .when('/profile', {
+          templateUrl: '/views/profile.html',
+          authenticated: true
+        }).
+        when('/team', {
+          templateUrl: 'views/team.html'
+        }).
           otherwise({
             redirectTo: '/'
           });
