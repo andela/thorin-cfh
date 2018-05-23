@@ -46,8 +46,21 @@
 
 <!-- Game CZAR-->
 <section class="game-czar" ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
-  <h2>You are now the game Czar<br>
-  Players are choosing their answers. Prepare to select the Winner</h2>
+    <div ng-show="isCzar() && game.state === 'black card'">
+        <div>
+          <div>
+              <h2 class="text-align: center">You are now the game Czar</h2>
+          </div>
+          <div>
+              <h3 style="color:red; font-size: 20px; text-align: center;"> Click on the black card to draw the next question</h3>
+            <div >
+            </div>
+          </div>
+        </div>
+      </div>
+    <div ng-show="isCzar() && game.state !== 'black card'">
+      <h2>Players are choosing their answers. Prepare to select the Winner</h2>
+  </div>
 </section>
 
 <!-- Game Cards -->

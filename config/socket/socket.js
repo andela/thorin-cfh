@@ -141,6 +141,10 @@ module.exports = function (io) {
     socket.on('disconnect', () => {
       exitGame(socket);
     });
+
+    socket.on('pickBlackCards', () => {
+      allGames[socket.gameID].continue(allGames[socket.gameID]);
+    });
   });
 
   const joinGame = function (socket, data) {
