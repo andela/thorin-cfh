@@ -158,6 +158,9 @@ body, html {
   width: 80% !important;
   margin-left: 10%;
   height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .player-online {

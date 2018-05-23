@@ -77,7 +77,64 @@
           <i class="ion-ios-email"></i>
           <p>{{global.user.email.toLowerCase()}}</p>
         </span>
+        <button class="waves-effect waves-light modal-trigger btn-small" ng-click="amountPaid()" href={{modalDonation}}>Customise your card</button>
       </div>
+    </div>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <h4 class="sign-body">Choose Your Preferred Card Design</h4>
+          <div style="display: flex;">
+            <div class="card-design">
+              <div class="card preset-1" style="width: 150px;background-position-y: 8px;background-size: contain;">
+              </div>
+              <label>
+                <input class="with-gap" name="group1" type="radio" ng-model="design" ng-value="1" />
+                <span>Archaic</span>
+              </label>
+            </div>
+            <div class="card-design">
+              <div class="card preset-2" style="width: 150px;background-position-y: 8px;background-size: contain;">
+              </div>
+              <label>
+                <input class="with-gap" name="group1" type="radio" ng-model="design" ng-value="2" />
+                <span>Aladdin</span>
+              </label>
+            </div>
+            <div class="card-design">
+              <div class="card preset-3" style="width: 150px;background-position-y: 8px;background-size: contain; background-repeat: no-repeat">
+              </div>
+              <label>
+                <input class="with-gap" name="group1" type="radio" ng-model="design" ng-value="3" />
+                <span>Classic</span>
+              </label>
+            </div>
+            <div class="card-design">
+              <div class="card preset-4" style="width: 150px;background-position-y: 8px;background-size: contain;">
+              </div>
+              <label>
+                <input class="with-gap" name="group1" type="radio" ng-model="design" ng-value="4" />
+                <span>Modern</span>
+              </label>
+            </div>
+            <div class="card-design">
+              <div class="card preset-5" style="width: 150px;background-position-x: 4px;background-size: contain; background-repeat: no-repeat">
+              </div>
+              <label>
+                <input class="with-gap" name="group1" type="radio" ng-model="design" ng-value="5" />
+                <span>Beauty</span>
+              </label>
+            </div>
+          </div>
+          
+        </div>
+        <p ng-click="designPicked(design)" class="modal-close waves-effect waves-light btn-small">Save</p>
+      </div>
+    </div>
+
+    <div id="modal2" class="modal">
+      <h2>Please Donate</h2>
     </div>
     <div class="col s8">
       <div class="game-log">
