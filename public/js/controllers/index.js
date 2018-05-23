@@ -180,7 +180,7 @@ angular.module('mean.system').controller('IndexController', [
       $scope.messageLength = messageArray.length;
     });
 
-    $scope.Invite = false;
+    $scope.invite = false;
     $scope.player = true;
     $scope.inviteModal = false;
     $scope.playerTab = () => {
