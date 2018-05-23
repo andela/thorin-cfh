@@ -36,6 +36,9 @@
                 </div>
               </div>
             </li>
+            <li>
+              <a onclick="logout()">Sign Out</a>
+            </li>
           </ul>
         </nav>
         <div id="notify" class="modal notifymodal" ng-controller="IndexController">
@@ -97,7 +100,7 @@
           <li class="waves-effect" ng-hide="hideNext">
             <i class="material-icons" ng-click="getGameLog(gameLogPage + 1)">chevron_right</i>
           </li>
-          <li class="showing">Showing {{min}} to {{max}} of {{count}} </li>
+          <li class="showing">Showing {{minPage}} to {{maxPage}} of {{count}} </li>
         </ul>
       </div>
       </div>
@@ -223,4 +226,3 @@
     })
   
   </script>
-  

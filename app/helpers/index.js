@@ -4,56 +4,56 @@
 export default class Helper {
   /**
        * Group Games by their winners
-       * @param {Array} gamesArray - All games played
+       * @param {Array} games - All games played
        * @param {String} winner - The game winner
        * @returns {Object} - The grouped leaderboard
        */
-  static groupByWinner(gamesArray, winner) {
-    const grouped = gamesArray.reduce((acc, obj) => {
-      const key = obj[winner];
-      if (!acc[key]) {
-        acc[key] = [];
+  static groupByWinner(games, winner) {
+    const grouped = games.reduce((groupedGame, game) => {
+      const key = game[winner];
+      if (!groupedGame[key]) {
+        groupedGame[key] = [];
       }
-      acc[key].push(obj);
-      return acc;
+      groupedGame[key].push(game);
+      return groupedGame;
     }, {});
     return grouped;
   }
 
   /**
        * Sort the leaderboard to start with top winners
-       * @param {Object} obj - The leaderboard object
+       * @param {Object} board - The leaderboard object
        * @returns {Object} - The sorted leaderboard
        */
-  static sortLeaderboard(obj) {
-    const sortable = Object.keys(obj).map(arrayKey => obj[arrayKey]);
-    sortable.sort((a, b) => {
+  static sortLeaderboard(board) {
+    const sortableBoard = Object.keys(board).map(key => board[key]);
+    sortableBoard.sort((firstItem, secondItem) => {
       let comparison = 0;
-      if (b.length > a.length) {
+      if (secondItem.length > firstItem.length) {
         comparison = 1;
-      } else if (b.length < a.length) {
+      } else if (secondItem.length < firstItem.length) {
         comparison = -1;
       }
       return comparison;
     });
-    const leaderBoard = sortable.reduce((acc, item) => {
+    const leaderBoard = sortableBoard.reduce((finalBoard, item) => {
       const key = item[0].winner;
-      acc[key] = item;
-      return acc;
+      finalBoard[key] = item;
+      return finalBoard;
     }, {});
     return leaderBoard;
   }
 
   /**
        * Calculate the donations for a user
-       * @param {Array} donations - The user's donations
+       * @param {Array} allDonations - The user's donations
        * @returns {String} - The sum of donations
        */
-  static calculateDonation(donations) {
-    const donationSum = donations.reduce((acc, donation) => {
+  static calculateDonation(allDonations) {
+    const donationSum = allDonations.reduce((donations, donation) => {
       const amount = parseInt(donation.amount.split('$')[1], 10);
-      acc += amount;
-      return acc;
+      donations += amount;
+      return donations;
     }, 0);
     return `$${donationSum}`;
   }
@@ -63,10 +63,10 @@ export default class Helper {
        * @param {Array} players - The game players
        * @returns {Array} - The array of player usernames
        */
-  static getPlayers(players) {
-    const playersNames = players.reduce((acc, player) => {
-      acc.push(player.username);
-      return acc;
+  static getPlayersNames(players) {
+    const playersNames = players.reduce((allPlayers, player) => {
+      allPlayers.push(player.username);
+      return allPlayers;
     }, []);
     return playersNames;
   }

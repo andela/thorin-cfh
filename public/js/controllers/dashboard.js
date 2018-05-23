@@ -37,8 +37,8 @@ angular.module('mean.system')
                         } else {
                             $scope.hidePrev = false;
                         }
-                        $scope.min = ($scope.gameLogPage - 1) * logPagination.limit + 1;
-                        $scope.max = ($scope.gameLogPage - 1) * logPagination.limit + logPagination.pageSize;
+                        $scope.minPage = ($scope.gameLogPage - 1) * logPagination.limit + 1;
+                        $scope.maxPage = ($scope.gameLogPage - 1) * logPagination.limit + logPagination.pageSize;
                         $scope.count = logPagination.dataCount;
                         $scope.logPages = [];
                         for (let i = 1; i <= logPagination.pageCount; i++) {

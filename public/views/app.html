@@ -19,11 +19,11 @@
           }
         </style>
 
-        
+
 
       <div landing class="h-container" >
   
-  
+       
         <div class="logo" ng-controller="IndexController">
           <img src="/img/playing-cards.png" alt="">
           <h5 >
@@ -85,11 +85,28 @@
         <!-- question (dashboard) directive   -->
         <div question class="dashboard" data-step="3" data-intro="You can see how many players have joined the game. A minimum of 3 players and a maximum of 12 players can play the gamne for each round.">
         </div>
-        <div class="deck">
-          <img src="../img/deck.png" />
+        <div ng-click="cardMixer()" data-step="5" data-intro="This is a card you click when you are the czar to draw the next question">
+            <div class="flip-container" id="myCard" >
+                <div class="flipper">
+                    <div class="front">
+                        <div class="front" >
+                            <div class="deck">
+                                <img src="../img/deck22.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="front">
+                            <div class="deck">
+                                <img src="../img/deck.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
       </div>
+
       <!-- answers directive -->
       <div answers class="game-body" data-step="2" data-intro="Here are the instruction to play the game">
 
@@ -110,7 +127,7 @@
 
       </div>
    </aside>  
-   <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div">
+   <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div" data-step="6" data-intro="You can click here to chat with other online gamers.">
     <h2 id="chat-head" onclick="show()">CHAT</h2>
     <div id="chat-content" class="chat-content">
         <div id="chat-item" ng-repeat="chat in chats" style="display: flex; flex-direction: row">
@@ -183,4 +200,4 @@
         $(".humburger.solid").addClass("solid")
   })
 </script>
-<!-- </body>
+

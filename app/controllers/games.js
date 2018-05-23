@@ -65,7 +65,7 @@ class Game {
 
           const gameLog = games.map(game => ({
             game,
-            playersNames: Helper.getPlayers(game.players)
+            playersNames: Helper.getPlayersNames(game.players)
           }));
 
           return res.status(200).json({
