@@ -1,8 +1,8 @@
-body,
-html {
+body, html {
   background-color: #f2f2f2;
   min-width: 320px;
 }
+
 
 .game-screen {
   margin-top: 0px;
@@ -14,7 +14,7 @@ html {
 }
 
 .game {
-  width: 700%;
+  width:700%;
   background-color: transparent;
   margin-right: 8px;
 }
@@ -29,14 +29,15 @@ html {
 }
 
 .game-body {
-  height: auto;
-  background-color: #ede4df;
+  height:auto;
+  background-color:#ede4df;
 }
+
 
 .players {
   width: 300%;
   height: 600px;
-  background-color: transparent;
+  background-color:transparent;
   margin-top: 5px;
   height: auto;
 }
@@ -49,8 +50,8 @@ html {
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px white inset, 2px 2px 1px grey inset, 1px 1px 1px white,
-    2px 2px 1px grey;
+  box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset,
+  1px 1px 1px white, 2px 2px 1px grey ;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,11 +71,11 @@ html {
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px white inset, 2px 2px 1px grey inset, 1px 1px 1px white,
-    2px 2px 1px grey;
+  box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset,
+  1px 1px 1px white, 2px 2px 1px grey ;
 }
 
-.dashboard .content {
+.dashboard .content{
   position: relative;
   margin-left: 15%;
   margin-right: 15%;
@@ -82,16 +83,16 @@ html {
   text-align: center;
 }
 
-.question,
-.game-end {
+.question, .game-end {
   font-weight: bold;
 }
 
-.question span {
-  text-shadow: 1px 1px 1px black, -1px 1px 1px black, 1px -1px 1px black,
-    -1px -1px 1px !important;
-  color: #42b72a;
+.question  span {
+  text-shadow: 1px 1px 1px black,-1px 1px 1px black,
+   1px -1px 1px black, -1px -1px 1px !important;
+   color: #42b72a;
 }
+
 
 .deck {
   width: 150px;
@@ -119,8 +120,8 @@ html {
   border-style: solid;
   border-width: 1.5px;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px white inset, 2px 2px 1px grey inset, 1px 1px 1px white,
-    2px 2px 1px grey;
+  box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset,
+  1px 1px 1px white, 2px 2px 1px grey ;
   padding-top: 15px;
 }
 
@@ -170,7 +171,7 @@ html {
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px white inset, 2px 2px 1px grey inset, 4px 4px 4px grey;
+  box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset, 4px 4px 4px grey ;
 }
 
 .profile-pic {
@@ -181,10 +182,12 @@ html {
 
 .player-online .name-points {
   font-size: 11px;
+  
 }
 
 .player-online .czar {
   font-size: 15px;
+  
 }
 
 .how-to-play {
@@ -199,8 +202,8 @@ html {
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px white inset, 2px 2px 1px grey inset, 1px 1px 1px white,
-    2px 2px 1px black;
+  box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset,
+  1px 1px 1px white, 2px 2px 1px black ;
 }
 
 .how-to-play h1 {
@@ -224,7 +227,7 @@ html {
   height: 35px;
   width: 100%;
   color: white;
-  background-color: #e57e3a;
+  background-color: #E57E3A;
   font-family: 'Kalam', cursive;
   font-size: 15px;
   box-shadow: 2px 2px 3px black;
@@ -237,9 +240,7 @@ html {
   font-size: 25px;
 }
 
-.game-invite,
-.game-czar,
-.game-over-body {
+.game-invite, .game-czar, .game-over-body {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -249,12 +250,13 @@ html {
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px white inset, 2px 2px 1px grey inset, 1px 1px 1px white,
-    2px 2px 1px grey;
+  box-shadow:   1px 1px 1px white inset,2px 2px 1px grey inset,
+  1px 1px 1px white, 2px 2px 1px grey ;
   text-align: center;
+
 }
 
-.game-over-body button {
+.game-over-body  button {
   width: 30%;
   box-shadow: 2px 2px 3px black;
   border: 0;
@@ -264,7 +266,7 @@ html {
   background-color: green;
 }
 
-.game-over-body .buttons {
+.game-over-body .buttons{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -285,7 +287,7 @@ html {
   transition: bottom 0.8s; 
 }
 
-.chat-div h2 {
+.chat-div h2{
   text-align: center;
   height: 30px;
   margin-top: 0px;
@@ -376,10 +378,10 @@ html {
 
 .search-form {
   margin-top: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 5px
 }
 
-.search-form input {
+.search-form  input {
   width: 80% !important;
   height: 26px !important;
 }
@@ -421,10 +423,10 @@ html {
     text-align: center;
   }
 
-  .game-intro {
+  .game-intro{
     font-size: 10px;
   }
-
+  
   .game-intro button {
     font-size: 10px;
   }
@@ -443,8 +445,7 @@ html {
     font-size: 12px;
   }
 
-  .game-body,
-  .game {
+  .game-body, .game {
     width: 350px;
   }
 
@@ -492,6 +493,8 @@ html {
   .search-form-side {
     display: none;
   }
+
+
 }
 
 @media only screen and (max-width: 553px) {
@@ -511,7 +514,7 @@ html {
   .timer .count {
     font-size: 50px;
   }
-
+  
   .timer {
     padding-left: 5%;
     padding-right: 5%;
@@ -522,7 +525,7 @@ html {
     font-size: 12px;
   }
 
-  .how-to-play h1 {
+  .how-to-play h1{
     font-size: 20px;
     padding-top: 20px;
   }
@@ -530,4 +533,6 @@ html {
   .notifications {
     font-size: 12px !important;
   }
+
+  
 }

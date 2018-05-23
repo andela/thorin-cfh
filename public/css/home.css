@@ -14,8 +14,9 @@ body {
   color: gray;
 }
 .redfont {
-  margin-left: -5px;
+  background: #fff;
   border-radius: 50%;
+  color: red;
 }
 * {
   box-sizing: border-box;
