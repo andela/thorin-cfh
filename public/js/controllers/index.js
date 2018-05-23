@@ -19,6 +19,7 @@ angular.module('mean.system').controller('IndexController', [
 
     window.onload = () => {
       connectPeople();
+      $scope.userGames()
     };
 
     connectPeople = () => {
@@ -27,7 +28,8 @@ angular.module('mean.system').controller('IndexController', [
 
     $scope.removeUserOnline = () => {
       socket.emit('removeUser', $scope.global.user.username);
-    }
+    };
+    
     $scope.showError = function() {
       if ($location.search().error) {
         return $location.search().error;
@@ -148,15 +150,25 @@ angular.module('mean.system').controller('IndexController', [
 
     socket.on('people', clients => {
       const result = clients.map(value => value.username);
+      if (result.includes(window.user.username)) {
+        const index = result.indexOf(window.user.username);
+        if (index < 0) {
+          result.splice(0, 1);
+        }
+        result.splice(index, 1);
+      }
       $scope.users = result;
     });
 
-    $scope.addInvitee = () => {
-      if ($scope.selected != undefined && $scope.selected !== $scope.global.user.username) {
+    $scope.addInvitee = (selectedUser) => {
+      if (
+        selectedUser != undefined &&
+        selectedUser !== $scope.global.user.username
+      ) {
         const gameLink = $location.$$absUrl;
         const messageData = {
           gameLink,
-          user: $scope.selected
+          user: selectedUser
         };
         socket.emit('invitePlayer', messageData);
       }
@@ -168,8 +180,20 @@ angular.module('mean.system').controller('IndexController', [
       $scope.messageLength = messageArray.length;
     });
 
-    window.onload = () => {
-      $scope.userGames()
+    $scope.invite = false;
+    $scope.player = true;
+    $scope.inviteModal = false;
+    $scope.playerTab = () => {
+      $scope.tabInvite = false;
+      $scope.tabPlayer = true;
+    };
+
+    $scope.inviteTab = () => {
+      if (window.user) {
+        $scope.tabInvite = true;
+        $scope.tabPlayer = false;
+      }
+      $scope.inviteModal = true;
     };
 
     $scope.userGames = () => {
