@@ -139,6 +139,7 @@ module.exports = function (io) {
     });
 
     socket.on('disconnect', () => {
+      io.sockets.emit('connectedUsers', (data));
       exitGame(socket);
     });
 
