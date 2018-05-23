@@ -180,18 +180,18 @@ angular.module('mean.system').controller('IndexController', [
       $scope.messageLength = messageArray.length;
     });
 
-    $scope.invite = false;
-    $scope.player = true;
+    $scope.inviteTab = false;
+    $scope.playerTab = true;
     $scope.inviteModal = false;
-    $scope.playerTab = () => {
-      $scope.tabInvite = false;
-      $scope.tabPlayer = true;
+    $scope.showPlayerTab = () => {
+      $scope.inviteTab = false;
+      $scope.playerTab = true;
     };
 
-    $scope.inviteTab = () => {
+    $scope.showInviteTab = () => {
       if (window.user) {
-        $scope.tabInvite = true;
-        $scope.tabPlayer = false;
+        $scope.inviteTab = true;
+        $scope.playerTab = false;
       }
       $scope.inviteModal = true;
     };
@@ -203,6 +203,7 @@ angular.module('mean.system').controller('IndexController', [
     $scope.abandonGame = function () {
       if ($scope.global.user) {
         socket.emit('connectedUser', $scope.global.user.username);
+        window.location = '/';
       }
       window.location = '/';
     };
@@ -218,7 +219,6 @@ angular.module('mean.system').controller('IndexController', [
           if(res.data.message){
             $scope.global.message = res.data.message;
           }else{
-            console.log($scope.global.user);
             $scope.global.userGameInfo = res.data.games;
             $scope.global.pointsWon = res.data.point;
           }
