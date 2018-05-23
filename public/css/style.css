@@ -28,6 +28,30 @@
   border-radius: 10px;
 }
 
+#app-modal2 {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  z-index: 1000;
+  position: fixed;
+  padding: 20px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+}
+
+#app-modal-content2 {
+  background: #fff;
+  padding-bottom: 10px;
+  max-height: 50%;
+  max-width: 80%;
+  border-radius: 10px;
+}
+
+
+
 .modal-header {
   background-color: rgba(232, 174, 64);
   height: 20%;
@@ -198,7 +222,14 @@
 }
 
 .modal-header {
-  background-color: green;
+  background-color: black;
+  height: 20%;
+  color: #fff;
+  text-align: center;
+}
+
+.modal-header2 {
+  background-color:black;
   height: 20%;
   color: #fff;
   text-align: center;
@@ -208,6 +239,12 @@
   margin: 10px;
   font-weight: lighter;
 }
+
+.modal-body2 {
+  margin: 10px;
+  font-weight: lighter;
+}
+
 
 .button-div {
   text-align: center;
@@ -404,9 +441,6 @@ p a:hover {
   position: relative;
   z-index:1000;
 }
-
-
-
 
 /**** LANDING ****/
 

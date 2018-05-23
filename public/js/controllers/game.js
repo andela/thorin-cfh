@@ -208,6 +208,33 @@ angular //eslint-disable-line
         return game.winningCard !== -1;
       };
 
+
+      $scope.$watch('game.state', () => {
+        if (!$scope.isCzar() && game.state === 'black card') {
+          $scope.waitingForCzarToPick = 'Wait! The Czar is picking a card';
+        } else {
+          $scope.waitingForCzarToPick = '';
+        }
+      });
+
+
+      $scope.continue = () => {
+        if ($scope.isCzar()) {
+          game.continue();
+        }
+      };
+
+
+      $scope.cardMixer = () => {
+        if ($scope.isCzar() && game.state === 'black card') {
+          document.querySelector('#myCard').classList.toggle('flip');
+          $timeout(() => {
+            document.querySelector('#myCard').classList.toggle('flip');
+            $scope.continue();
+          }, 2000);
+        }
+      };
+
       $scope.startGame = function () {
         game.startGame();
       };
