@@ -6,6 +6,7 @@ const { expect } = chai;
 let userToken;
 
 describe('GET /api/profile/:username', () => {
+
   const user = {
     email: `user${Math.random()}@yahoo.com`,
     username: 'Amarachi',
