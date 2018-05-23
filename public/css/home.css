@@ -807,9 +807,14 @@ p {
   align-items: stretch;
   flex-wrap: wrap;
 }
+.ajust-text{
+  width: 250px;
+  margin-top: 20px;
+  text-align: justify;
+}
 
 .member-bio {
-  height: 100px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #bdbdbd;
 }
 
@@ -879,4 +884,26 @@ p {
 
 .team-background {
   background: #f2f2f2;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 360px) and (max-device-width : 480px) {
+  .main-cover{
+    height: 100vh;
+    margin-top: 20px;
+  }
+  .team-lead img {
+    width: 124px;
+    height: 124px;
+  }
+  .team-lead h3{
+    font-size: 24px;
+  }
+  .managers{
+    padding: 10px;margin: 10px;
+  }
+  .team-lead{
+    margin: 10px;
+  }
+
 }

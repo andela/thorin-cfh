@@ -141,8 +141,8 @@
     </div>
     <form>
       <span class="chat-control">
-        <input type="text" name="message" id="input"  ng-model="message"placeholder="Message from {{game.players[game.playerIndex].username}}...">
-        <button ng-click="sendChatMessage(message)">Send</button>
+        <input type="text" name="message" id="input"  ng-model="message">
+        <button ng-click="sendChatMessage(message)"><i class="material-icons">send</i></button>
       </span>
     </form>
   </div> 
@@ -200,4 +200,4 @@
         $(".humburger.solid").addClass("solid")
   })
 </script>
-<!-- </body>
+

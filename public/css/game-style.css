@@ -407,6 +407,9 @@ body, html {
   display: none;
 }
 
+.chat-control button{
+  background-color: white;
+}
 
 
 
