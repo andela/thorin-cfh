@@ -203,6 +203,7 @@ angular.module('mean.system').controller('IndexController', [
     $scope.abandonGame = function () {
       if ($scope.global.user) {
         socket.emit('connectedUser', $scope.global.user.username);
+        window.location = '/';
       }
       window.location = '/';
     };

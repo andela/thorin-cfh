@@ -120,7 +120,7 @@
         <li class="tab">
           <a class="active" href="#" ng-click="showPlayerTab()">Players</a>
         </li>
-        <li class="tab">
+        <li class="tab" ng-if="global.user">
           <a href="#" ng-click="showInviteTab()">Send Invites</a>
         </li>
       </ul>
@@ -137,8 +137,8 @@
           </div>
     </div>
     <div ng-show="inviteTab" class="col s12 tab-div" style="background: white">
-        <div id="Paris" class="tabcontent" ng-controller="IndexController" style="padding-bottom: 20px">
-          <h4>Click on the mail button to invite other players online</h4>
+        <div class="tabcontent" ng-controller="IndexController" style="padding-bottom: 20px">
+          <h4 style="font-size: 2rem">Click on the mail button to invite other players online</h4>
           <h6>Online Players</h6>
           <hr>
           <div ng-repeat="person in users">
