@@ -366,20 +366,42 @@ header::after {
   color: #6fcf97;
 }
 
-.play-as-guest {
-  font-family: 'Kalam', cursive;
-  font-weight: 400;
-  font-size: 30px;
-  color: #f2f2f2;
-  border-bottom: 1px solid #f2f2f2;
-  font-style: italic;
+.play-game{
+  margin-top: 20px;
+  width: 100px;
+  height: 100px;
+  background: #EFE7E0;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
   transition: 0.3s ease-in-out;
+  -moz-box-shadow: 0 0 20px #6fcf97;
+  -webkit-box-shadow: 0 0 20px #6fcf97;
+  box-shadow: 0 0 20px #6fcf97;
 }
 
-.play-as-guest:hover {
-  color: #ed8b56;
-  border-bottom: 1px solid #ed8b56;
+.play-game:hover{
+  transform: scale(1.2);
+  -moz-box-shadow: 0 0 50px #ed8b56;
+  -webkit-box-shadow: 0 0 50px #ed8b56;
+  box-shadow: 0 0 50px #ed8b56;
+  cursor: pointer;
 }
+
+.play-game a{
+  font-weight: 400;
+  color: #EC6C4E;
+  font-style: italic;
+  transition: 0.3s ease-in-out;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.play-game a:hover {
+  color: #6fcf97;
+} 
 
 .section-info {
   margin-top: 20px;
@@ -630,6 +652,16 @@ footer {
   font-weight: bold;
   padding: 0;
   margin: 0;
+}
+.circle-text{
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  font-size: 50px;
+  color: #fff;
+  line-height: 500px;
+  text-align: center;
+  background: #000
 }
 
 #arrow {

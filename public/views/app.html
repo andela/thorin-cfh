@@ -1,3 +1,4 @@
+<div ng-controller="GameController">
 <header class="main-header">
 
   <style>
@@ -18,6 +19,7 @@
       }
     </style>
 
+
     
 
   <div landing class="h-container" >
@@ -37,6 +39,9 @@
             <a href="/" id="top">Home</a>
           </li>
           <li>
+            <li>
+            <a href="#!/dashboard">Dashboard</a>
+        </li>
             <a href="" id="charity">Charity</a>
           </li>
           <span ng-show="showOptions">
@@ -84,6 +89,50 @@
         <p ng-repeat="info in notifications" ng-bind-html="info.html">{{info}}</p>
       </div>
     </div>
+    </span>
+  
+  
+        <div class="menu-toggle">
+          <div class="hamburger"></div>
+        </div>
+      </div>
+    </header>
+  <div class="game-screen">
+    <section class="game">
+      <form ng-show="game.state === 'awaiting players' && showOptions === false" class="search-form search-form-top">
+          <input type="text" placeholder="Search for players..." ng-model="user.email"/>
+          <button type="submit" ng-click="getUserInfo(user, searchForm)">
+              <i class="material-icons">search</i>
+          </button>
+        </form> 
+      <div class="game-head">
+        <!-- timer directive-->
+        <div timer class="timer" data-step="4" data-intro="This is a countdown timer that shows how much time is remaining to select answer and start next round.">
+        </div>
+        <!-- question (dashboard) directive   -->
+        <div question class="dashboard" data-step="3" data-intro="You can see how many players have joined the game. A minimum of 3 players and a maximum of 12 players can play the gamne for each round.">
+        </div>
+        <div ng-click="cardMixer()" data-step="5" data-intro="This is a card you click when you are the czar to draw the next question">
+            <div class="flip-container" id="myCard" >
+                <div class="flipper">
+                    <div class="front">
+                        <div class="front" >
+                            <div class="deck">
+                                <img src="../img/deck22.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="front">
+                            <div class="deck">
+                                <img src="../img/deck.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
 
 
     <div class="menu-toggle">
@@ -91,7 +140,7 @@
     </div>
   </div>
 </header>
-<div class="game-screen" ng-controller="GameController">
+<div class="game-screen">
 <section class="game">
   <div class="game-head">
     <!-- timer directive-->
@@ -229,4 +278,4 @@ $(this).toggleClass('open');
     $(".humburger.solid").addClass("solid")
 })
 </script>
-<!-- </body>
+

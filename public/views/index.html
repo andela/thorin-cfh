@@ -10,9 +10,11 @@
 
       <nav class="site-nav" id="nav-id">
         <ul>
-          <li>
-            <a href="" id="top">Home</a>
-          </li>
+          <span ng-controller="IndexController" ng-hide="showOptions">
+            <li>
+              <a href="#!/dashboard">Dashboard</a>
+            </li>
+          </span>
           <li>
             <a href="" id="team">
               Meet the Team
@@ -51,7 +53,7 @@
         </li>
         <li class="divider"></li>
         <li>
-          <a onclick="logout()" ng-click="removeUserOnline()">Log Out</a>
+          <a onclick="logout()" ng-click="removeUserOnline()">Sign Out</a>
         </li>
       </ul>
       <div id="notify" class="modal notifymodal" ng-controller="IndexController">
@@ -86,13 +88,12 @@
             <a class="btn-large btn-large-a" href="/play?custom">PLAY WITH FRIENDS</a>
           </span>
         </div>
-        <div ng-show="showOptions">
-          <a href="/play" class="play-as-guest">Play as a guest</a>
+        <div ng-show="showOptions" class="play-game">
+          <a href="/play" class="play-as-guest">PLAY AS A GUEST</a>
         </div>
       </div>
     </div>
   </section>
-
 
   <div>
     <div class="charity-side">

@@ -10,12 +10,14 @@
     ng-show="(game.playerIndex === 0 || game.joinOverride) && game.players.length >= 3"
     >Start game with {{game.players.length}} players</button>
 </div>
+<h5>{{ waitingForCzarToPick }}</h5>
 
 <!-- question -->
 <div class="content" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'">
   <span ng-bind-html="game.curQuestion.text" class="question"></span>
 </div>
-
+<div ng-show="game.state === 'black card'" class="text-center">
+</div>
 <!-- Game Over -->
 <div class="content" ng-show="game.state ==='game dissolved' && game.gameWinner === -1">
     <span class="game-end" >
