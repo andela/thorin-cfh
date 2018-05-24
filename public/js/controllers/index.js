@@ -19,6 +19,7 @@ angular.module('mean.system').controller('IndexController', [
 
     window.onload = () => {
       connectPeople();
+      $scope.userGames()
     };
 
     connectPeople = () => {
@@ -148,15 +149,25 @@ angular.module('mean.system').controller('IndexController', [
 
     socket.on('people', clients => {
       const result = clients.map(value => value.username);
+      if (result.includes(window.user.username)) {
+        const index = result.indexOf(window.user.username);
+        if (index < 0) {
+          result.splice(0, 1);
+        }
+        result.splice(index, 1);
+      }
       $scope.users = result;
     });
 
-    $scope.addInvitee = () => {
-      if ($scope.selected != undefined && $scope.selected !== $scope.global.user.username) {
+    $scope.addInvitee = (selectedUser) => {
+      if (
+        selectedUser != undefined &&
+        selectedUser !== $scope.global.user.username
+      ) {
         const gameLink = $location.$$absUrl;
         const messageData = {
           gameLink,
-          user: $scope.selected
+          user: selectedUser
         };
         socket.emit('invitePlayer', messageData);
       }
@@ -164,12 +175,25 @@ angular.module('mean.system').controller('IndexController', [
 
     socket.on('invitation', message => {
       messageArray.push(message);
+      console.log(message, 'invite sent');
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
     });
 
-    window.onload = () => {
-      $scope.userGames()
+    $scope.inviteTab = false;
+    $scope.playerTab = true;
+    $scope.inviteModal = false;
+    $scope.showPlayerTab = () => {
+      $scope.inviteTab = false;
+      $scope.playerTab = true;
+    };
+
+    $scope.showInviteTab = () => {
+      if (window.user) {
+        $scope.inviteTab = true;
+        $scope.playerTab = false;
+      }
+      $scope.inviteModal = true;
     };
 
     $scope.userGames = () => {
@@ -177,34 +201,7 @@ angular.module('mean.system').controller('IndexController', [
     };
 
     $scope.abandonGame = function () {
-      if ($scope.global.user) {
-        socket.emit('connectedUser', $scope.global.user.username);
-      }
-      window.location = '/';
-    };
-
-    const useGames = () => {
-      let userGameDetails = [];
-      const username = window.user.username;
-      const token = localStorage.getItem('card-game-token');
-      axios.get(`/api/profile/${username}`, {
-        headers: {"card-game-token": token} 
-      })
-        .then((res) => {
-          if(res.data.message){
-            $scope.global.message = res.data.message;
-          }else{
-            console.log($scope.global.user);
-            $scope.global.userGameInfo = res.data.games;
-            $scope.global.pointsWon = res.data.point;
-          }
-        })
-        .catch((error) => {
-          $scope.global.error= error.data;
-        })
-      if (window.user === null) {
-        localStorage.setItem('tour', true);
-      }
+      window.location = '/'; //eslint-disable-line
     };
   }
 ]);
