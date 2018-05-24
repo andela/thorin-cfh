@@ -70,6 +70,7 @@ module.exports = function (io) {
       };
       onlineUsers.push(user);
       io.sockets.emit('people', onlineUsers)
+       console.loh(onlineUsers);
     });
 
     socket.on('showOnlineUsers', () => {
@@ -99,6 +100,7 @@ module.exports = function (io) {
                 } target="_blank">link to join</a></span>`
               });
           }
+          console.log(data, 'invite sent');
         }
       });
 
@@ -134,7 +136,6 @@ module.exports = function (io) {
     });
 
     socket.on('leaveGame', (data) => {
-      io.sockets.emit('connectedUsers', (data));
       exitGame(socket);
     });
 
