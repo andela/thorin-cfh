@@ -17,16 +17,15 @@ angular.module('mean.system').controller('IndexController', [
       $location.path('/app');
     };
 
-//     window.onload = () => {
-//       connectPeople();
-//       $scope.userGames()
-//     };
+    window.onload = () => {
+      connectPeople();
+      $scope.userGames()
+    };
 
     connectPeople = () => {
       console.log('This function sets the user online');
       socket.emit('connectedUser', $scope.global.user.username);
     };
-    $window.onload = connectPeople();
 
     $scope.removeUserOnline = () => {
       socket.emit('removeUser', $scope.global.user.username);
