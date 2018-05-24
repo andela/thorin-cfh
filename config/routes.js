@@ -3,7 +3,7 @@
 import { validateSignIn } from './middlewares/validateSignIn';
 import validator from './middlewares/validator';
 import auth from './middlewares/checkToken';
-import saveGame from '../app/controllers/games';
+import game from '../app/controllers/games';
 
 module.exports = function (app, passport) {
   // User Routes
@@ -102,9 +102,17 @@ module.exports = function (app, passport) {
     '/api/games/:id/start',
     auth.verifyToken,
     validator.gameValidation,
-    saveGame
+    game.saveGame,
   );
 
   app.put('/api/designPicked', auth.verifyToken, users.updateUser);
   app.get('/api/checkDonations', auth.verifyToken, users.checkUserDonation);
+  // Game history API endpoint
+  app.get('/api/games/history', auth.verifyToken, game.gameHistory);
+
+  // User donations API endpoint
+  app.get('/api/donations', auth.verifyToken, users.getDonations);
+
+  // Leaderboard API endpoint
+  app.get('/api/leaderboard', auth.verifyToken, game.gameLeaderboard);
 };

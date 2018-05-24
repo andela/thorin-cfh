@@ -49,7 +49,7 @@
               <a href="/" id="top">Home</a>
             </li>
             <li>
-              <a href="" id="charity">Charity</a>
+              <a href="#!/dashboard">Dashboard</a>
             </li>
             </span>
             <span ng-show="showOptions">
@@ -61,12 +61,12 @@
               </li>
             </span>
             <span>
-              <li>
-                <a style="color: red !important;" ng-click="abandonGame()" data-step="8" data-intro="Click to leave the game and go back to the Home Page. You wont be able to join the game again if it has already stated.">ABANDON GAME</a>
-              </li>
-              <li ng-click="startsme()">
-                <a data-step="9" data-intro="You can click here to take the tour again. Have Fun." style="margin-right:20px;">Take Tour</a>
-              </li>
+                <li>
+                  <a style="color: red !important;" ng-click="abandonGame()" data-step="8" data-intro="Click to leave the game and go back to the Home Page. You wont be able to join the game again if it has already stated.">ABANDON GAME</a>
+                </li>
+                <li ng-click="startsme()">
+                  <a data-step="9" data-intro="You can click here to take the tour again. Have Fun.">Take Tour</a>
+                </li>
             </span>
             <span ng-hide="showOptions">
               <li style="display: flex; padding: 0 0 10px 30px; cursor: pointer;" ng-if="messageLength > 0">

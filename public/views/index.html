@@ -10,9 +10,11 @@
 
       <nav class="site-nav" id="nav-id">
         <ul>
-          <li>
-            <a href="" id="top">Home</a>
-          </li>
+          <span ng-controller="IndexController" ng-hide="showOptions">
+            <li>
+              <a href="#!/dashboard">Dashboard</a>
+            </li>
+          </span>
           <li>
             <a href="#!/team">
               Meet the Team
@@ -51,7 +53,7 @@
         </li>
         <li class="divider"></li>
         <li>
-          <a onclick="logout()" ng-click="removeUserOnline()">Log Out</a>
+          <a onclick="logout()" ng-click="removeUserOnline()">Sign Out</a>
         </li>
       </ul>
       <div id="notify" class="modal notifymodal" ng-controller="IndexController">

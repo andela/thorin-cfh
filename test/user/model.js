@@ -15,7 +15,7 @@ describe('<Unit Test>', function() {
         before(function(done) {
             user = new User({
                 name: 'Full name',
-                email: 'test@test.com',
+                email: `test@test${Math.random()}.com`,
                 username: 'user',
                 password: 'password'
             });
