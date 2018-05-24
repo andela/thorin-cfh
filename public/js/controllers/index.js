@@ -23,7 +23,6 @@ angular.module('mean.system').controller('IndexController', [
     };
 
     connectPeople = () => {
-      console.log('@@@@@@@@@@@@@@', $scope.global.user.username)
       socket.emit('connectedUser', $scope.global.user.username);
     };
 
@@ -176,6 +175,7 @@ angular.module('mean.system').controller('IndexController', [
 
     socket.on('invitation', message => {
       messageArray.push(message);
+      console.log(message, 'invite sent');
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
     });
