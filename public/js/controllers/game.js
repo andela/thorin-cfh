@@ -227,9 +227,9 @@ angular //eslint-disable-line
 
       $scope.cardMixer = () => {
         if ($scope.isCzar() && game.state === 'black card') {
-          document.querySelector('#myCard').classList.toggle('flip');
+          document.querySelector('#myCard').classList.toggle('flip'); //eslint-disable-line
           $timeout(() => {
-            document.querySelector('#myCard').classList.toggle('flip');
+            document.querySelector('#myCard').classList.toggle('flip');//eslint-disable-line
             $scope.continue();
           }, 2000);
         }
@@ -433,8 +433,8 @@ angular //eslint-disable-line
       $scope.startsme = () => tour();
 
 
-      if (window.user) {
-      const design = $scope.global.user.presetId;
-      $scope.preset = `card preset-${design}`;
+      if (window.user) { //eslint-disable-line
+        const design = $scope.global.user.presetId;
+        $scope.preset = `card preset-${design}`;
       }
     }]);
