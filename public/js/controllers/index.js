@@ -18,11 +18,6 @@ angular.module('mean.system').controller('IndexController', [
       $location.path('/app');
     };
 
-//     window.onload = () => {
-//       connectPeople();
-//       $scope.userGames()
-//     };
-
     connectPeople = () => {
       if (window.user) {
       console.log('This function sets the user online');
@@ -32,9 +27,15 @@ angular.module('mean.system').controller('IndexController', [
     
     $window.onload = connectPeople();
 
+    
+    window.onload = () => {
+      useGames();
+    };
+    
     $scope.removeUserOnline = () => {
       socket.emit('removeUser', $scope.global.user.username);
-    }
+    };
+    
     $scope.showError = function() {
       if ($location.search().error) {
         return $location.search().error;
@@ -55,6 +56,7 @@ angular.module('mean.system').controller('IndexController', [
           window.user = successResponse[0].data.data.user;
           $location.path('/');
           socket.emit('connectedUser', window.user.username);
+          $scope.checkDonations();
         },
         errorResponse => {
           $scope.global.authenticated = false;
@@ -103,6 +105,7 @@ angular.module('mean.system').controller('IndexController', [
                     window.user = $scope.data.user;
                     $location.path('/');
                     socket.emit('connectedUser', window.user.username);
+                    $scope.checkDonations();
                   },
                   error => {
                     $scope.error = error.data;
@@ -173,16 +176,18 @@ angular.module('mean.system').controller('IndexController', [
         const gameLink = $location.$$absUrl;
         const messageData = {
           gameLink,
-          user: selectedUser
+          user: selectedUser,
+          userCard: window.user.presetId,
         };
         socket.emit('invitePlayer', messageData);
       }
     };
 
-    socket.on('invitation', message => {
-      messageArray.push(message);
+    socket.on('invitation', invite => {
+      messageArray.push(invite.message);
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
+      localStorage.setItem('gameCard', invite.userCard);
     });
 
     $scope.inviteTab = false;
@@ -200,13 +205,110 @@ angular.module('mean.system').controller('IndexController', [
       }
       $scope.inviteModal = true;
     };
-
+    
     $scope.userGames = () => {
       useGames();
     };
 
     $scope.abandonGame = function () {
-      window.location = '/'; //eslint-disable-line
+      window.location = '/';
     };
+
+    const useGames = () => {
+      let userGameDetails = [];
+      const username = window.user.username;
+      const token = localStorage.getItem('card-game-token');
+      axios.get(`/api/profile/${username}`, {
+        headers: {"card-game-token": token} 
+      })
+        .then((res) => {
+          if(res.data.message){
+            $scope.global.message = res.data.message;
+          }else{
+            $scope.global.userGameInfo = res.data.games;
+            $scope.global.pointsWon = res.data.point;
+          }
+        })
+        .catch((error) => {
+          $scope.global.error= error.data;
+        })
+      if (window.user === null) {
+        localStorage.setItem('tour', true);
+      }
+    };
+
+    $scope.designPicked = (design) => {
+      let message;
+      const token = localStorage.getItem('card-game-token');
+      if (design) {
+        $http({
+          method: 'PUT',
+          url: '/api/designpicked',
+          headers: {
+            'card-game-token': token,
+          },
+          data: {
+            preset: design
+          }
+        })
+        .then((success) => {
+          useGames();
+          $scope.global.authenticated = true;
+          $scope.global.user = success.data.token;
+          localStorage.setItem(
+            'card-game-token',
+            success.data.token
+          );
+          $scope.global.user = success.data.foundUser;
+          window.user = success.data.foundUser;
+          message = success.data.message;
+          useGames();
+          M.toast({html: `${message}`, displayLength:2000});
+        }, (error) => { 
+          M.toast({html: "Sorry your selection cannot be saved at this time, pls try again later"});
+        }); 
+      }
+    }
+
+    $scope.checkDonations = () => {
+      const token = localStorage.getItem('card-game-token');
+        $http({
+          method: 'GET',
+          url: '/api/checkDonations',
+          headers: {
+            'card-game-token': token,
+          }
+        })
+        .then((success) => {
+          localStorage.setItem('donation', success.data.amountInvested);
+        });
+    }
+    $scope.modalDonation = '';
+
+    $scope.amountPaid = () => {
+      const investment = localStorage.getItem('donation')
+      if (investment< 5) {
+        $scope.modalDonation="#modal2";
+      } else {
+        $scope.modalDonation="#modal1";
+      }
+    }
+
+    $scope.tabInvite = false;
+    $scope.tabPlayer = true;
+    $scope.inviteModal = false;
+    $scope.playerTab = () => {
+      $scope.tabInvite = false;
+      $scope.tabPlayer = true;
+    };
+
+    $scope.inviteTab = () => {
+      if (window.user) {
+        $scope.tabInvite = true;
+        $scope.tabPlayer = false;
+      }
+      $scope.inviteModal = true;
+    };
+
   }
 ]);
