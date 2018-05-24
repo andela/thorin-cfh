@@ -28,6 +28,30 @@
   border-radius: 10px;
 }
 
+#app-modal2 {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  z-index: 1000;
+  position: fixed;
+  padding: 20px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+}
+
+#app-modal-content2 {
+  background: #fff;
+  padding-bottom: 10px;
+  max-height: 50%;
+  max-width: 80%;
+  border-radius: 10px;
+}
+
+
+
 .modal-header {
   background-color: rgba(232, 174, 64);
   height: 20%;
@@ -90,6 +114,110 @@
   color: red;
   border-style: solid;
   border-width: 1px;
+}
+
+.pagination-box {
+  display: flex;
+  flex-direction: row;
+}
+
+#game-options a{
+  margin: 0;
+  padding: 0 7px 0 7px;
+  text-align: center;
+  line-height: 2.5;
+}
+
+#game-details i.material-icons {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.tab-div {
+  min-height: 400px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-box li button {
+  height: 24px;
+  width: 24px;
+}
+
+.pagination-box .active {
+    color:white;
+    background-color: gray;
+}
+
+.pagination-box button:hover {
+  color:white;
+  background-color: black;
+}
+
+.showing {
+  margin-left: 10px;
+}
+
+.donation-text {
+  background-color: #F2F2F2;
+}
+
+.dashboard-top {
+  margin-top: 150px;
+}
+
+.table-container {
+  margin-top: 100px;
+  background-color: #E0E0E0;
+}
+
+.dashboard-items li:hover {
+  background-color: grey;
+  cursor: pointer;
+  color: white;
+}
+
+.dashboard-items li:active {
+  border-bottom: 1px solid indigo;
+}
+
+.active-tab {
+  border-bottom: 1px;
+  background-color: #E08F60;
+  color: white;
+}
+
+#thead {
+  font-size: 16px;
+  transition: 0.5s ease-in;
+}
+
+#thead:hover {
+  background-color: #f2f2f2;
+  font-size: 18px;
+}
+
+.stars {
+  color: #F8D270;
+  height: 24px;
+  width: 24px;
+}
+
+.game-play {
+  position: relative;
+  display: block;
+}
+
+#game-options {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
 }
 
 #landing-charity {
@@ -198,7 +326,14 @@
 }
 
 .modal-header {
-  background-color: green;
+  background-color: black;
+  height: 20%;
+  color: #fff;
+  text-align: center;
+}
+
+.modal-header2 {
+  background-color:black;
   height: 20%;
   color: #fff;
   text-align: center;
@@ -208,6 +343,12 @@
   margin: 10px;
   font-weight: lighter;
 }
+
+.modal-body2 {
+  margin: 10px;
+  font-weight: lighter;
+}
+
 
 .button-div {
   text-align: center;
@@ -404,9 +545,6 @@ p a:hover {
   position: relative;
   z-index:1000;
 }
-
-
-
 
 /**** LANDING ****/
 
@@ -1640,151 +1778,4 @@ li {
    .row {
       margin: 0 0 0 4px;
    }
-}
-
-
-#container {
-  width: 0px;
-  height: 0px;
-  margin: 0px auto;
-  margin-left: 915px;
-  display: inline-block;
-}
-
-div.app {
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  background: transparent;
-  margin-top: -80px;
-}
-
-div.chat-content img {
-  width: 35px;
-  height: 35px;
-  border-radius: 100%;
-  border: 3px solid rgba(255,255,255,1);
-}
-
-div.chat-content span.usernames {
-  color: rgba(0,0,0,1);
-}
-
-.clearfix::after {
-  content: '';
-  clear: both;
-  display: table;
-}
-
-div.chat.messages {
-  position: relative;
-  margin-top: 15px;
-  z-index: 10;
-  height: inherit;
-}
-
-div.chat-messages div.chat {
-  position: absolute;
-  height: 500px;
-  width: 300px;
-  background: #fcfcfe;
-  top: -500px;
-  z-index: 1000;
-  left: 10%;
-  bottom: 0px;
-  margin-bottom: -10px;
-  margin-left: 50px;
-  padding: 20px;
-  border-radius: 5px;
-  font-size: 15px;
-  border: 1px solid rgba(60,51, 176,0.1);
-}
-
-.chat {
-  position: relative;
-  overflow: scroll;
- 
-}
-
-.chat-content {
-  position: absolute;
-  height: inherit;
-  bottom: 0px;
-}
-
-div.chat div.chat-content > span {
-  margin-bottom: 15px;
-}
-
-div.chat div.chat-content span.friend {
-  position: relative;
-  width: 200px;
-  height: auto;
-  left: 20px;
-  margin-top: 20px;
-  display: inline-block;
-  background: #fff;
-  padding: 10px;
-  padding-bottom: 25px;
-  box-shadow: 2px 2px 20px -2px rgba(60,51, 176,0.2);
-  color: rgba(60,51, 176,1);
-}
-
-div.chat div.chat-content span.friend.last {
-  border-radius: 2px 15px 15px 15px;
-}
-
-div.chat div.chat-content span.friend span.time {
-  position: absolute;
-  display: block;
-  right: 0;
-  margin-top: 5px;
-  margin-right: 10px;
-  font-size: 10px;
-  font-weight: 500;
-  color: rgba(60,51, 176,0.5);
-}
-
-div.msg-box {
-  position: relative;
-  width: 300px;
-  left: 50px;
-  border-top: 1px solid rgba(60,51, 176,0.1);
-  overflow: hidden;
-}
-
-div.msg-box .chat-msg {
-  width: 100%;
-  font-size: 14px;
-  padding: 15px;
-  padding-right: 20%;
-  color: rgba(60,51, 176,0.9);
-  border: none;
-  background: rgba(0,0,0,0.3);
-}
-
-div.msg-box .sendbutton {
-  height: 0;
-  width: 0;
-  background: transparent;
-  border: 0;
-}
-
-div.msg-box .chat-msg::placeholder {
-  color: rgba(60,51, 176,0.4);
-}
-
-div.msg-box span.btn-group {
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin-top: 14px;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-div.msg-box span.btn-group {
-  color: #fff;
-  font-size: 20px;
-  padding: 0 7px;
 }

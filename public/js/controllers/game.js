@@ -208,6 +208,33 @@ angular //eslint-disable-line
         return game.winningCard !== -1;
       };
 
+
+      $scope.$watch('game.state', () => {
+        if (!$scope.isCzar() && game.state === 'black card') {
+          $scope.waitingForCzarToPick = 'Wait! The Czar is picking a card';
+        } else {
+          $scope.waitingForCzarToPick = '';
+        }
+      });
+
+
+      $scope.continue = () => {
+        if ($scope.isCzar()) {
+          game.continue();
+        }
+      };
+
+
+      $scope.cardMixer = () => {
+        if ($scope.isCzar() && game.state === 'black card') {
+          document.querySelector('#myCard').classList.toggle('flip');
+          $timeout(() => {
+            document.querySelector('#myCard').classList.toggle('flip');
+            $scope.continue();
+          }, 2000);
+        }
+      };
+
       $scope.startGame = function () {
         game.startGame();
       };
@@ -216,7 +243,7 @@ angular //eslint-disable-line
         if ($scope.global.user) {
           socket.emit('connectedUser', $scope.global.user.username);
         }
-        window.location = '/';
+        window.location = '/'; //eslint-disable-line
       };
 
       // Catches changes to round to update when no players pick card
@@ -273,18 +300,42 @@ angular //eslint-disable-line
           );
         }
       });
+      const chatContent = document.getElementById('chat-content'); //eslint-disable-line
       const startChatService = () => {
         const ref = firebase.database().ref().child('chats') //eslint-disable-line
           .child(`${game.gameID}`);
         $scope.chats = $firebaseArray(ref);
+        $scope.chats.$watch((e) => {
+          setTimeout(() => {
+            if (e.event === 'child_added') {
+              if (chatContent.scrollHeight > parseInt(window.getComputedStyle(chatContent).height.split('px')[0])) { //eslint-disable-line
+                chatContent.scrollTop = chatContent.scrollHeight - parseInt(window.getComputedStyle(chatContent).height.split('px')[0]); //eslint-disable-line
+              }
+            }
+          }, 300);
+        });
       };
 
       $scope.resetForm = () => {
-        $scope.message = '';
+        $('#input').emojioneArea().data('emojioneArea').setText(''); //eslint-disable-line
       };
 
-      $scope.$watch('game.gameID', function() { //eslint-disable-line
+      $scope.$watch('game.gameID', function () { //eslint-disable-line
         if (game.gameID) {
+          const chat = $('#input').emojioneArea({ //eslint-disable-line
+            pickerPosition: 'top',
+            placeholder: 'Type something here ...',
+            events: {
+              keydown: (editor, event) => {
+                if (event.keyCode === 13) {
+                  const message = chat.emojioneArea()
+                    .data('emojioneArea').getText();
+                  $scope.sendChatMessage(message);
+                  $scope.resetForm();
+                }
+              }
+            }
+          });
           startChatService();
         }
         if (game.gameID && game.state === 'awaiting players') {
@@ -304,7 +355,7 @@ angular //eslint-disable-line
                 //eslint-disable-line
                 const link = document.URL; //eslint-disable-line
                 const txt = 'Give the following link to your ' +
-                'friends so they can join your game: ';
+                  'friends so they can join your game: ';
                 $('.how-to-play h1').css({ //eslint-disable-line
                   'font-size': '22px'
                 }).text(txt); //eslint-disable-line
@@ -320,20 +371,15 @@ angular //eslint-disable-line
           }
         }
 
-
         $scope.sendChatMessage = function (message) {
           if (message) {
             $scope.chats.$add({
               image: game.players[game.playerIndex].avatar,
-              message: $scope.message,
+              message,
               date: Date.now(),
               user: game.players[game.playerIndex].username
             });
             $scope.resetForm();
-          }
-          if (document.getElementsByClassName('friend').length > 5) { //eslint-disable-line
-            const chat = document.querySelector('.chat'); //eslint-disable-line
-            chat.scrollTop = chat.scrollHeight;
           }
         };
       });

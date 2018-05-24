@@ -1,6 +1,6 @@
 /*eslint-disable */
 angular.module('mean', ['ngSanitize', 'ngAnimate', 'ngCookies', 'ngResource', 'ui.bootstrap',
-  'ui.route', 'ngRoute', 'firebase', 'mean.system', 'mean.directives'])
+'ngRoute', 'firebase', 'mean.system', 'mean.directives'])
   .config(['$routeProvider',
       function($routeProvider) {
           $routeProvider.
@@ -26,9 +26,18 @@ angular.module('mean', ['ngSanitize', 'ngAnimate', 'ngCookies', 'ngResource', 'u
           templateUrl: '/views/profile.html',
           authenticated: true
         }).
-          when('/choose-avatar', {
+        when('/dashboard', {
+          templateUrl: '/views/dashboard.html'
+        }).when('/choose-avatar', {
             templateUrl: '/views/choose-avatar.html'
-          }).
+          })
+          .when('/profile', {
+          templateUrl: '/views/profile.html',
+          authenticated: true
+        }).
+        when('/team', {
+          templateUrl: 'views/team.html'
+        }).
           otherwise({
             redirectTo: '/'
           });
