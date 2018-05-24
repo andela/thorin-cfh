@@ -95,11 +95,13 @@ module.exports = function (io) {
           io
             .to(socketId)
             .emit('invitation', {
+              userCard: data.userCard,
+              message: {
               html: `You have been Invited to play a game.<br/> Click on this <span class="invite-link"><a style="color: red;" href=${
                 data.gameLink
               } target="_blank">link to join</a></span>`
+            },
             });
-            console.log(data)
         }
       }
     });

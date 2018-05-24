@@ -170,16 +170,18 @@ angular.module('mean.system').controller('IndexController', [
         const gameLink = $location.$$absUrl;
         const messageData = {
           gameLink,
-          user: selectedUser
+          user: selectedUser,
+          userCard: window.user.presetId,
         };
         socket.emit('invitePlayer', messageData);
       }
     };
 
-    socket.on('invitation', message => {
-      messageArray.push(message);
+    socket.on('invitation', invite => {
+      messageArray.push(invite.message);
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
+      localStorage.setItem('gameCard', invite.userCard);
     });
 
     $scope.userGames = () => {
@@ -204,7 +206,6 @@ angular.module('mean.system').controller('IndexController', [
           if(res.data.message){
             $scope.global.message = res.data.message;
           }else{
-            console.log($scope.global.user);
             $scope.global.userGameInfo = res.data.games;
             $scope.global.pointsWon = res.data.point;
           }

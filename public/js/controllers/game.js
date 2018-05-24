@@ -31,6 +31,7 @@ angular //eslint-disable-line
       $scope.modalShown = false;
       $scope.game = game;
 
+      const gameCard = localStorage.getItem('gameCard'); //eslint-disable-line
       // Get email address from search box
       $scope.getUserEmail = function (user) {
         return user.email;
@@ -432,9 +433,8 @@ angular //eslint-disable-line
 
       $scope.startsme = () => tour();
 
-
-      if (window.user) { //eslint-disable-line
-        const design = $scope.global.user.presetId;
+      if (window.user || !window.user) { //eslint-disable-line
+        const design = $scope.global.user.presetId || gameCard;
         $scope.preset = `card preset-${design}`;
       }
     }]);
