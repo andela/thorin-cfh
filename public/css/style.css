@@ -116,6 +116,110 @@
   border-width: 1px;
 }
 
+.pagination-box {
+  display: flex;
+  flex-direction: row;
+}
+
+#game-options a{
+  margin: 0;
+  padding: 0 7px 0 7px;
+  text-align: center;
+  line-height: 2.5;
+}
+
+#game-details i.material-icons {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.tab-div {
+  min-height: 400px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-box li button {
+  height: 24px;
+  width: 24px;
+}
+
+.pagination-box .active {
+    color:white;
+    background-color: gray;
+}
+
+.pagination-box button:hover {
+  color:white;
+  background-color: black;
+}
+
+.showing {
+  margin-left: 10px;
+}
+
+.donation-text {
+  background-color: #F2F2F2;
+}
+
+.dashboard-top {
+  margin-top: 150px;
+}
+
+.table-container {
+  margin-top: 100px;
+  background-color: #E0E0E0;
+}
+
+.dashboard-items li:hover {
+  background-color: grey;
+  cursor: pointer;
+  color: white;
+}
+
+.dashboard-items li:active {
+  border-bottom: 1px solid indigo;
+}
+
+.active-tab {
+  border-bottom: 1px;
+  background-color: #E08F60;
+  color: white;
+}
+
+#thead {
+  font-size: 16px;
+  transition: 0.5s ease-in;
+}
+
+#thead:hover {
+  background-color: #f2f2f2;
+  font-size: 18px;
+}
+
+.stars {
+  color: #F8D270;
+  height: 24px;
+  width: 24px;
+}
+
+.game-play {
+  position: relative;
+  display: block;
+}
+
+#game-options {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+}
+
 #landing-charity {
   width: 300px !important;
   margin-left: 15px !important;

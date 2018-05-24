@@ -36,9 +36,6 @@
             <li>
               <a href="/" id="top">Home</a>
             </li>
-            <li>
-              <a href="" id="charity">Charity</a>
-            </li>
             <span ng-show="showOptions">
               <li>
                 <a href="#!/signup">Sign Up</a>
@@ -47,7 +44,7 @@
                 <a href="#!/signin">Sign in</a>
               </li>
             </span>
-            <span >
+            <span>
                 <li>
                   <a style="color: red !important;" ng-click="abandonGame()" data-step="8" data-intro="Click to leave the game and go back to the Home Page. You wont be able to join the game again if it has already stated.">ABANDON GAME</a>
                 </li>
@@ -57,6 +54,9 @@
             </span>
 
             <span ng-hide="showOptions">
+                <li>
+                    <a href="#!/dashboard">Dashboard</a>
+                </li>
               <li>
                 <a onclick="logout()">Sign Out</a>
               </li>

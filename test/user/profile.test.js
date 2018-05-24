@@ -51,7 +51,6 @@ describe('GET /api/profile/:username', () => {
           expect(res.body)
             .to.have.property('message')
             .to.equal('You have not played a game');
-
           done();
         });
     }
