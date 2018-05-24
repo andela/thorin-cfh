@@ -171,11 +171,13 @@ angular.module('mean.system').controller('IndexController', [
           user: selectedUser
         };
         socket.emit('invitePlayer', messageData);
+        console.log('invite sent')
       }
     };
 
     socket.on('invitation', message => {
       messageArray.push(message);
+      console.log(message)
       $scope.notifications = messageArray;
       $scope.messageLength = messageArray.length;
     });
