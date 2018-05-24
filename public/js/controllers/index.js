@@ -19,7 +19,7 @@ angular.module('mean.system').controller('IndexController', [
 
     window.onload = () => {
       connectPeople();
-      $scope.userGames();
+      useGames();
     };
 
     connectPeople = () => {
@@ -242,6 +242,7 @@ angular.module('mean.system').controller('IndexController', [
           $scope.global.user = success.data.foundUser;
           window.user = success.data.foundUser;
           message = success.data.message;
+          useGames();
           M.toast({html: `${message}`, displayLength:2000});
         }, (error) => { 
           M.toast({html: "Sorry your selection cannot be saved at this time, pls try again later"});

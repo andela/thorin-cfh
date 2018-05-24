@@ -432,7 +432,9 @@ angular //eslint-disable-line
 
       $scope.startsme = () => tour();
 
+
+      if (window.user) {
       const design = $scope.global.user.presetId;
-      console.log(design, window.user.presetId);
       $scope.preset = `card preset-${design}`;
+      }
     }]);
