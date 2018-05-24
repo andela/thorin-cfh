@@ -24,8 +24,10 @@ angular.module('mean.system').controller('IndexController', [
 //     };
 
     connectPeople = () => {
+      if (window.user) {
       console.log('This function sets the user online');
-      socket.emit('connectedUser', $scope.global.user.username);
+      socket.emit('connectedUser', window.user.username);
+      }
     };
     
     $window.onload = connectPeople();
