@@ -430,7 +430,7 @@ angular //eslint-disable-line
 
       $scope.startsme = () => tour();
 
-      if (window.user || !window.user) { //eslint-disable-line
+      if (window.user) { //eslint-disable-line
         const design = $scope.global.user.presetId || gameCard;
         $scope.preset = `card preset-${design}`;
       }
