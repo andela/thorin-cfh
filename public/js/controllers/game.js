@@ -31,6 +31,7 @@ angular //eslint-disable-line
       $scope.modalShown = false;
       $scope.game = game;
 
+      const gameCard = localStorage.getItem('gameCard'); //eslint-disable-line
       // Get email address from search box
       $scope.getUserEmail = function (user) {
         return user.email;
@@ -227,9 +228,9 @@ angular //eslint-disable-line
 
       $scope.cardMixer = () => {
         if ($scope.isCzar() && game.state === 'black card') {
-          document.querySelector('#myCard').classList.toggle('flip');
+          document.querySelector('#myCard').classList.toggle('flip'); //eslint-disable-line
           $timeout(() => {
-            document.querySelector('#myCard').classList.toggle('flip');
+            document.querySelector('#myCard').classList.toggle('flip');//eslint-disable-line
             $scope.continue();
           }, 2000);
         }
@@ -240,9 +241,6 @@ angular //eslint-disable-line
       };
 
       $scope.abandonGame = function () {
-        if ($scope.global.user) {
-          socket.emit('connectedUser', $scope.global.user.username);
-        }
         window.location = '/'; //eslint-disable-line
       };
 
@@ -431,4 +429,9 @@ angular //eslint-disable-line
       }
 
       $scope.startsme = () => tour();
+
+      if (window.user) { //eslint-disable-line
+        const design = $scope.global.user.presetId || gameCard;
+        $scope.preset = `card preset-${design}`;
+      }
     }]);

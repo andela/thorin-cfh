@@ -2,8 +2,8 @@
   position: relative;
   display: inline-block;
   box-sizing: border-box;
-  width: 17.5%;
-  height: 215px;
+  width: 22%;
+  height: 213px;
   padding: 1%;
   margin: 1%;
   background-color: #fff;
@@ -13,7 +13,9 @@
   font-size: 20px;
   font-weight: bold;
   vertical-align: top;
+  font-family: 'Kalam', cursive;
 }
+
 @media (max-width: 520px) {
   .card {
     font-size: 14px;
@@ -47,6 +49,46 @@
 .card.smallest {
   font-size: 0.75em;
 }
+
+.preset-1 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  background-image: url('../img/preset-1.jpg');
+  background-size: cover;
+  width: 22%;
+}
+
+.preset-2 {
+  font-size: 1.2rem;
+  color: black;
+  background-image: url('../img/preset-2.jpg');
+  background-size: cover;
+}
+
+.preset-3 {
+  font-size: 1.2rem;
+  color: red;
+  background-image: url('../img/preset-3.png');
+  background-size: cover;
+}
+
+.preset-4 {
+  font-size: 1.2rem;
+  background-image: url('../img/preset-4.jpeg');
+  background-size: cover;
+  color: #000000;
+}
+
+.preset-5 {
+  font-size: 1.2rem;
+  color: purple;
+  background-image: url('../img/preset-5.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
 @media (max-width: 520px) {
   .card.smallest {
     font-size: 10px;

@@ -26,7 +26,8 @@ const UserSchema = new Schema({
   hashed_password: String,
   facebook: {},
   twitter: {},
-  google: {}
+  google: {},
+  presetId: String,
 });
 
 /**

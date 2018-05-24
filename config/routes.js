@@ -104,6 +104,9 @@ module.exports = function (app, passport) {
     validator.gameValidation,
     game.saveGame,
   );
+
+  app.put('/api/designPicked', auth.verifyToken, users.updateUser);
+  app.get('/api/checkDonations', auth.verifyToken, users.checkUserDonation);
   // Game history API endpoint
   app.get('/api/games/history', auth.verifyToken, game.gameHistory);
 
