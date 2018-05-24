@@ -7,7 +7,8 @@ angular.module('mean.system').controller('IndexController', [
   '$location',
   'socket',
   'game',
-  ($scope, Global, $http, $q, $location, socket, game) => {
+  '$window',
+  ($scope, Global, $http, $q, $location, socket, game, $window) => {
     $scope.global = Global;
 
     let messageArray = [];
@@ -17,15 +18,20 @@ angular.module('mean.system').controller('IndexController', [
       $location.path('/app');
     };
 
+    connectPeople = () => {
+      if (window.user) {
+      console.log('This function sets the user online');
+      socket.emit('connectedUser', window.user.username);
+      }
+    };
+    
+    $window.onload = connectPeople();
+
+    
     window.onload = () => {
-      connectPeople();
       useGames();
     };
-
-    connectPeople = () => {
-      socket.emit('connectedUser', $scope.global.user.username);
-    };
-
+    
     $scope.removeUserOnline = () => {
       socket.emit('removeUser', $scope.global.user.username);
     };
@@ -184,14 +190,27 @@ angular.module('mean.system').controller('IndexController', [
       localStorage.setItem('gameCard', invite.userCard);
     });
 
+    $scope.inviteTab = false;
+    $scope.playerTab = true;
+    $scope.inviteModal = false;
+    $scope.showPlayerTab = () => {
+      $scope.inviteTab = false;
+      $scope.playerTab = true;
+    };
+
+    $scope.showInviteTab = () => {
+      if (window.user) {
+        $scope.inviteTab = true;
+        $scope.playerTab = false;
+      }
+      $scope.inviteModal = true;
+    };
+    
     $scope.userGames = () => {
       useGames();
     };
 
     $scope.abandonGame = function () {
-      if ($scope.global.user) {
-        socket.emit('connectedUser', $scope.global.user.username);
-      }
       window.location = '/';
     };
 

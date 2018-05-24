@@ -69,8 +69,7 @@ module.exports = function (io) {
         username: data
       };
       onlineUsers.push(user);
-      io.sockets.emit('people', onlineUsers);
-      console.log('connect', onlineUsers);
+      io.sockets.emit('people', onlineUsers)
     });
 
     socket.on('showOnlineUsers', () => {

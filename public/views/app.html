@@ -35,7 +35,7 @@
     <div landing class="h-container">
 
 
-      <div class="logo" ng-controller="IndexController">
+      <div class="logo">
         <img src="/img/playing-cards.png" alt="">
         <h5>
           <a style="color:#4f4f4f !important" href="/" data-step="1" data-intro="Welcome to cards for humanity. Let me take you on a quick tour of how to play the GAME">Cards for Humanity</a>
@@ -49,9 +49,8 @@
               <a href="/" id="top">Home</a>
             </li>
             <li>
-              <a href="#!/dashboard">Dashboard</a>
+              <a href="" id="charity">Charity</a>
             </li>
-            </span>
             <span ng-show="showOptions">
               <li>
                 <a href="#!/signup">Sign Up</a>
@@ -60,13 +59,16 @@
                 <a href="#!/signin">Sign in</a>
               </li>
             </span>
+            <li>
+              <a href="#!/dashboard">Dashboard</a>
+          </li>
             <span>
-                <li>
-                  <a style="color: red !important;" ng-click="abandonGame()" data-step="8" data-intro="Click to leave the game and go back to the Home Page. You wont be able to join the game again if it has already stated.">ABANDON GAME</a>
-                </li>
-                <li ng-click="startsme()">
-                  <a data-step="9" data-intro="You can click here to take the tour again. Have Fun.">Take Tour</a>
-                </li>
+              <li>
+                <a style="color: red !important;" ng-click="abandonGame()" data-step="8" data-intro="Click to leave the game and go back to the Home Page. You wont be able to join the game again if it has already stated.">ABANDON GAME</a>
+              </li>
+              <li ng-click="startsme()">
+                <a data-step="9" data-intro="You can click here to take the tour again. Have Fun." style="margin-right:20px;">Take Tour</a>
+              </li>
             </span>
             <span ng-hide="showOptions">
               <li style="display: flex; padding: 0 0 10px 30px; cursor: pointer;" ng-if="messageLength > 0">
@@ -113,28 +115,11 @@
         <!-- question (dashboard) directive   -->
         <div question class="dashboard" data-step="3" data-intro="You can see how many players have joined the game. A minimum of 3 players and a maximum of 12 players can play the gamne for each round.">
         </div>
-        <div ng-click="cardMixer()" data-step="5" data-intro="This is a card you click when you are the czar to draw the next question">
-          <div class="flip-container" id="myCard">
-            <div class="flipper">
-              <div class="front">
-                <div class="front">
-                  <div class="deck">
-                    <img src="../img/deck22.jpg">
-                  </div>
-                </div>
-              </div>
-              <div class="back">
-                <div class="front">
-                  <div class="deck">
-                    <img src="../img/deck.png">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="deck">
+          <img src="../img/deck.png" />
         </div>
-      </div>
 
+      </div>
       <!-- answers directive -->
       <div answers class="game-body" data-step="2" data-intro="Here are the instruction to play the game">
 
@@ -148,14 +133,14 @@
         <div class="col s12">
           <ul class="tabs">
             <li class="tab">
-              <a class="active" href="#" ng-click="playerTab()">Players</a>
+              <a class="active" href="#" ng-click="showPlayerTab()">Players</a>
             </li>
             <li class="tab">
-              <a href="#" ng-click="inviteTab()">Send Invites</a>
+              <a href="#" ng-click="showInviteTab()">Send Invites</a>
             </li>
           </ul>
         </div>
-        <div ng-show="tabPlayer" class="col s12 tabDiv">
+        <div ng-show="playerTab" class="col s12 tab-div" style="background: white">
           <form ng-show="game.state === 'awaiting players' && showOptions === false" class="search-form search-form-side" name="searchForm">
             <input type="text" placeholder="Search for players..." ng-model="user.email" />
             <button type="submit" ng-click="getUserInfo(user, searchForm)">
@@ -166,9 +151,9 @@
 
           </div>
         </div>
-        <div ng-show="tabInvite" class="col s12 tabDiv">
-          <div id="invite" class="tabcontent" ng-controller="IndexController" style="padding-bottom: 20px">
-            <h4>Click on the mail button to invite other players online</h4>
+        <div ng-show="inviteTab" class="col s12 tab-div" style="background: white">
+          <div class="tabcontent" ng-controller="IndexController" style="padding-bottom: 20px">
+            <h4 style="font-size: 1.8rem">Click on the mail button to invite other players online</h4>
             <h6>Online Players</h6>
             <hr>
             <div ng-repeat="person in users">
@@ -181,7 +166,7 @@
         </div>
       </div>
     </aside>
-    <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div" data-step="6" data-intro="You can click here to chat with other online gamers.">
+    <div id="chat-div" style="display:flex; flex-direction: column" class="chat-div">
       <h2 id="chat-head" onclick="show()">CHAT</h2>
       <div id="chat-content" class="chat-content">
         <div id="chat-item" ng-repeat="chat in chats" style="display: flex; flex-direction: row">
@@ -197,10 +182,8 @@
       </div>
       <form>
         <span class="chat-control">
-          <input type="text" name="message" id="input" ng-model="message">
-          <button ng-click="sendChatMessage(message)">
-            <i class="material-icons">send</i>
-          </button>
+          <input type="text" name="message" id="input" ng-model="message" placeholder="Message from {{game.players[game.playerIndex].username}}...">
+          <button ng-click="sendChatMessage(message)">Send</button>
         </span>
       </form>
     </div>
@@ -220,7 +203,7 @@
       </div>
     </div>
     <!-- Maximum Player Reached Notification Modal-->
-    <div id="modal" ng-show="game.errorMsg">
+    <div id="app-modal" ng-show="game.errorMsg">
       <div id="modal-content">
         <div class="modal-body" ng-if="game.errorMsg">
           <h6>{{game.errorMsg}}</h6>
@@ -238,7 +221,7 @@
       </div>
     </div>
     <!-- User Found Modal-->
-    <div id="modal" class="app-modal" ng-show="game.message">
+    <div id="modal" ng-show="game.message">
       <div id="modal-content" class="app-modal-content">
         <button type="button" ng-click="closeModal()">&times;</button>
         <div class="modal-body" ng-if="game.message">
@@ -252,23 +235,21 @@
       </div>
     </div>
   </div>
-</div>
-</div>
-<script src="../js/chat-style.js"></script>
-<script>
-  function hideInvite(e) {
-    document.getElementById(e.target.id).style.display = 'none';
-  }
-  $(document).ready(function () {
-    $('.tabs').tabs();
-    $('.modal').modal();
-    $(".dropdown-trigger").dropdown();
-    $('.menu-toggle').click(function () {
-      $('.site-nav').toggleClass('site-nav--open', 500);
-      $(this).toggleClass('open');
+  <script src="../js/chat-style.js"></script>
+  <script>
+    function hideInvite(e) {
+      document.getElementById(e.target.id).style.display = 'none';
+    }
+    $(document).ready(function () {
+      $('.tabs').tabs();
+      $('.modal').modal();
+      $(".dropdown-trigger").dropdown();
+      $('.menu-toggle').click(function () {
+        $('.site-nav').toggleClass('site-nav--open', 500);
+        $(this).toggleClass('open');
+      })
+      $(".main-header").addClass("solid");
+      $(".site-nav").addClass("solid");
+      $(".humburger.solid").addClass("solid")
     })
-    $(".main-header").addClass("solid");
-    $(".site-nav").addClass("solid");
-    $(".humburger.solid").addClass("solid")
-  })
-</script>
+  </script>
