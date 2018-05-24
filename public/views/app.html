@@ -93,6 +93,7 @@
       </div>
 
 
+
       <div class="menu-toggle">
         <div class="hamburger"></div>
       </div>
@@ -107,9 +108,27 @@
         <!-- question (dashboard) directive   -->
         <div question class="dashboard" data-step="3" data-intro="You can see how many players have joined the game. A minimum of 3 players and a maximum of 12 players can play the gamne for each round.">
         </div>
-        <div class="deck">
-          <img src="../img/deck.png" />
-        </div>
+        
+        <div ng-click="cardMixer()" data-step="5" data-intro="This is a card you click when you are the czar to draw the next question">
+          <div class="flip-container" id="myCard" >
+              <div class="flipper">
+                  <div class="front">
+                      <div class="front" >
+                          <div class="deck">
+                              <img src="../img/deck22.jpg">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="back">
+                      <div class="front">
+                          <div class="deck">
+                              <img src="../img/deck.png">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
 
       </div>
       <!-- answers directive -->
