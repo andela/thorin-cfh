@@ -67,7 +67,7 @@
   <section ng-cloak id="cards" class="cards" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players' || (isCzar() && game.table.length===0)" >
     <span ng-show="winnerPicked()"></span>
     <div class="card-row" >
-      <div ng-style="{'cursor':'pointer'}" class="game-card" id='answers' ng-click="pickCard(card)" ng-hide="showTable || isCzar()"
+      <div ng-style="{'cursor':'pointer'}" class="{{preset}}" id='answers' ng-click="pickCard(card)" ng-hide="showTable || isCzar()"
       ng-repeat="card in game.players[game.playerIndex].hand" ng-animate="{enter:'animated fadeInUp', leave: 'animated fadeInOut'}">
           <p class="game-card-text" ng-bind-html="card.text"></p>
           <span class='selection-number' ng-show="showFirst(card)"> 1 </span>
@@ -76,9 +76,9 @@
    </div>
 
     <div class="card-row" style="display: inline-flex !important">
-    <div style="width:18%; display:inline-block" ng-repeat="answer in game.table">
-        <div class="game-card"  ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()"
-        ng-repeat="card in answer.card" ng-animate="{enter:'animated bounceInLeft'}" style="width:100%; background-color:{{winningColor($parent.$index)}}">
+    <div ng-repeat="answer in game.table">
+        <div class="{{preset}}"  ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()"
+        ng-repeat="card in answer.card" ng-animate="{enter:'animated bounceInLeft'}" style="width:160px; background-color:{{winningColor($parent.$index)}}">
             <p class="game-card-text"  ng-bind-html="card.text"></p>
             <span class='selection-number' ng-show="firstAnswer($index)"> 1 </span>
             <span class='selection-number' ng-show="secondAnswer($index)"> 2 </span>

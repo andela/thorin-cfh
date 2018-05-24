@@ -392,6 +392,66 @@ exports.game = function (req, res) {
   });
 };
 
+exports.updateUser = (req, res) => {
+  const { preset } = req.body;
+  User.findOne({
+    _id: req.user.user._id,
+  }).then((foundUser) => {
+    if (foundUser) {
+      foundUser.presetId = preset;
+      foundUser.save();
+      const token = jwt.sign({ user: foundUser }, process.env.SECRET, {
+        expiresIn: 86400
+      });
+      let gameCard;
+      if (preset === 1) {
+        gameCard = 'Archaic';
+      } else if (preset === 2) {
+        gameCard = 'Aladdin';
+      } else if (preset === 3) {
+        gameCard = 'Classic';
+      } else if (preset === 4) {
+        gameCard = 'Modern';
+      } else if (preset === 5) {
+        gameCard = 'Beauty';
+      }
+      return res.status(200).send({
+        message: `Your game card has been successfully changed to ${gameCard}`,
+        foundUser,
+        token
+      });
+    }
+  }).catch(error => res.status(400).json({
+    message: 'An error occoured',
+    error
+  }));
+};
+
+const calculate = (user) => {
+  let sum = 0;
+  const amountDonated = user[0].donations.map((acc) => {
+    const dollar = acc.amount;
+    const money = dollar.replace('$', '');
+    sum += Number(money);
+    return sum;
+  });
+  return sum;
+};
+
+exports.checkUserDonation = (req, res) => {
+  User.find({
+    _id: req.user.user._id,
+  }).then((user) => {
+    const amountInvested = calculate(user);
+    return res.status(200).send({
+      amountInvested,
+      message: 'Ok'
+    });
+  }).catch(err => res.status(500).send({
+    message: 'Sorry, Donations not found at this time',
+  }));
+};
+
 exports.getDonations = function (req, res) {
   const { page, limit, offset } = Helper.setupPagination(req);
   User.$where('this.donations.length > 0').count()

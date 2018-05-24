@@ -78,7 +78,6 @@ module.exports = function (passport) {
             name: profile.displayName,
             username: profile.username,
             provider: 'twitter',
-            twitter: profile._json, // eslint-disable-line
             imageUrl: profile._json.profile_image_url, // eslint-disable-line
             email: profile._json.email || profile.username,
           });
@@ -98,32 +97,48 @@ module.exports = function (passport) {
     {
       clientID: process.env.FB_CLIENT_ID,
       clientSecret: process.env.FB_CLIENT_SECRET,
-      callbackURL: process.env.FB_CALLBACK
+      callbackURL: process.env.FB_CALLBACK,
+      profileFields: [
+        'id',
+        'birthday',
+        'email',
+        'first_name',
+        'last_name',
+        'gender',
+        'picture.width(200).height(200)'
+      ]
     },
-    ((accessToken, refreshToken, profile, done) => {
-      User.findOne({
-        'facebook.id': profile.id
-      }, (err, user) => {
-        if (err) {
-          return done(err);
-        }
-        if (!user) {
-          user = new User({
-            email: (profile.emails && profile.emails[0].value) || '',
-            username: profile.username,
-            provider: 'facebook',
-            facebook: profile._json, // eslint-disable-line
-            imageUrl: profile._json.picture || '' // eslint-disable-line
-          });
-          user.save((err) => {
-            if (err) console.log(err);
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne(
+        {
+          'facebook.id': profile.id
+        },
+        (err, user) => {
+          if (err) {
+            return done(err);
+          }
+          if (!user) {
+            user = new User({
+              email: (profile.emails && profile.emails[0].value) || '',
+              username: profile.username,
+              provider: 'facebook',
+              imageUrl:
+                  profile.photos[0].value ||
+                  profile._json.picture ||
+                  profile._json.avatar ||
+                  profile.json.picture.data.url ||
+                  profile.json.avatar.data.url
+            });
+            user.save((err) => {
+              if (err) console.log(err);
+              return done(err, user);
+            });
+          } else {
             return done(err, user);
-          });
-        } else {
-          return done(err, user);
+          }
         }
-      });
-    })
+      );
+    }
   ));
 
   // Use google strategy
@@ -146,7 +161,6 @@ module.exports = function (passport) {
             email: profile._json.email,
             username: profile._json.given_name,
             provider: 'google',
-            google: profile._json, // eslint-disable-line
             imageUrl: profile._json.picture // eslint-disable-line
           });
           user.save((err) => {
